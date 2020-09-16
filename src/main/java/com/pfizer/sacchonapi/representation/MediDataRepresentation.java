@@ -22,7 +22,7 @@ public class MediDataRepresentation {
             glucose = mediData.getGlucose();
             carb = mediData.getCarb();
             measuredDate = mediData.getMeasuredDate();
-            //url = "http://localhost:9000/user/viewMediData" + "?id='userId'";
+            url = "http://localhost:9000/medidata" + mediData.getId();
         }
 
     }
