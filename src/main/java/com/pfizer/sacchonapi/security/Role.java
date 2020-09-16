@@ -2,9 +2,9 @@ package com.pfizer.sacchonapi.security;
 
 public enum Role {
     ROLE_NA("n/a"),
-    ROLE_ADMIN("chiefDoctor"),
-    ROLE_USER("patient"),
-    ROLE_OWNER("doctor");
+    ROLE_CHIEF_DOCTOR("chiefDoctor"),
+    ROLE_PATIENT("patient"),
+    ROLE_DOCTOR("doctor");
 
     private final String roleName;
 
