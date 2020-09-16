@@ -24,28 +24,6 @@ public class MediDataRepository {
         return entityManager.createQuery("from MediaData").getResultList();
     }
 
-
-    public Optional<MediData> findByName(double glucose, double carb) {
-        MediData mediData = entityManager.createQuery("SELECT b FROM MediaData b WHERE b.glucose = :glucose AND b.carb = :carb", MediData.class)
-                .setParameter("glucose", glucose)
-                .setParameter("carb", carb)
-                .getSingleResult();
-        return mediData != null ? Optional.of(mediData) : Optional.empty();
-    }
-
-
-
-    public Optional<MediData> findByNameNamedQuery(double glucose, double carb) {
-        MediData mediData = entityManager.createNamedQuery("MediaData.findByName", MediData.class)
-                .setParameter("glucose", glucose)
-                .setParameter("carb", carb)
-                .getSingleResult();
-        return mediData != null ? Optional.of(mediData) : Optional.empty();
-    }
-
-
-
-
     public Optional<MediData> save(MediData mediData){
 
         try {
@@ -58,7 +36,6 @@ public class MediDataRepository {
         }
         return Optional.empty();
     }
-
 
 
     public Optional<MediData> update(MediData mediData) {

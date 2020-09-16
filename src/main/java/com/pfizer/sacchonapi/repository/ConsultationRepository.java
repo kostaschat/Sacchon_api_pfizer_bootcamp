@@ -22,16 +22,16 @@ public class ConsultationRepository {
         return entityManager.createQuery("from Consultation").getResultList();
     }
 
-    public Optional<Consultation> findByName(String name) {
+    public Optional<Consultation> findByName(String medicationName) {
         Consultation consultation = entityManager.createQuery("SELECT b FROM Consultation b WHERE b.medicationName = :medicationName", Consultation.class)
-                .setParameter("name", name)
+                .setParameter("medicationName", medicationName)
                 .getSingleResult();
         return consultation != null ? Optional.of(consultation) : Optional.empty();
     }
 
-    public Optional<Consultation> findByNameNamedQuery(String name) {
-        Consultation consultation = entityManager.createNamedQuery("Product.findByName", Consultation.class)
-                .setParameter("name", name)
+    public Optional<Consultation> findByNameNamedQuery(String medicationName) {
+        Consultation consultation = entityManager.createNamedQuery("Consultation.findByName", Consultation.class)
+                .setParameter("medicationName", medicationName)
                 .getSingleResult();
         return consultation != null ? Optional.of(consultation) : Optional.empty();
     }
@@ -68,9 +68,9 @@ public class ConsultationRepository {
     }
 
     public boolean remove(Long id){
-        Optional<Consultation> oproduct = findById(id);
-        if (oproduct.isPresent()){
-            Consultation c = oproduct.get();
+        Optional<Consultation> oconsultation = findById(id);
+        if (oconsultation.isPresent()){
+            Consultation c = oconsultation.get();
 
             try{
                 entityManager.getTransaction().begin();
