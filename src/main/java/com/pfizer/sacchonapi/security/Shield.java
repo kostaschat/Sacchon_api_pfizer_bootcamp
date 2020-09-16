@@ -7,10 +7,11 @@ import org.restlet.security.MemoryRealm;
 import org.restlet.security.User;
 import org.restlet.security.Verifier;
 
+
 public class Shield {
-    public static final String ROLE_ADMIN = "admin";
-    public static final String ROLE_DOCTOR = "owner";
-    public static final String ROLE_PATIENT = "user";
+    public static final String ROLE_CHIEF_DOCTOR = "chiefDoctor";
+    public static final String ROLE_DOCTOR = "doctor";
+    public static final String ROLE_PATIENT = "patient";
 
 
     private Application application;
@@ -51,20 +52,20 @@ public class Shield {
         // Create in-memory users and roles.
         MemoryRealm realm = new MemoryRealm();
 
-        User owner = new User("owner", "owner");
-        realm.getUsers().add(owner);
-        realm.map(owner, application.getRole(ROLE_DOCTOR));
-        realm.map(owner, application.getRole(ROLE_PATIENT));
+        User doctor = new User("doctor", "doctor");
+        realm.getUsers().add(doctor);
+        realm.map(doctor, application.getRole(ROLE_DOCTOR));
+        realm.map(doctor, application.getRole(ROLE_PATIENT));
 
-        User admin = new User("admin", "admin");
-        realm.getUsers().add(admin);
-        realm.map(admin, application.getRole(ROLE_ADMIN));
-        realm.map(admin, application.getRole(ROLE_DOCTOR));
-        realm.map(admin, application.getRole(ROLE_PATIENT));
+        User chiefDoctor = new User("chiefDoctor", "chiefDoctor");
+        realm.getUsers().add(chiefDoctor);
+        realm.map(chiefDoctor, application.getRole(ROLE_CHIEF_DOCTOR));
+        realm.map(chiefDoctor, application.getRole(ROLE_CHIEF_DOCTOR));
+        realm.map(chiefDoctor, application.getRole(ROLE_CHIEF_DOCTOR));
 
-        User user = new User("user", "user");
-        realm.getUsers().add(user);
-        realm.map(user, application.getRole(ROLE_PATIENT));
+        User patient = new User("patient", "patient");
+        realm.getUsers().add(patient);
+        realm.map(patient, application.getRole(ROLE_PATIENT));
 
         // - Verifier : checks authentication
         // - Enroler : to check authorization (roles)
@@ -78,4 +79,7 @@ public class Shield {
 
         return apiGuard;
     }
+
+
+
 }

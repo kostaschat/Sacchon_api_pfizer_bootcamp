@@ -1,12 +1,15 @@
 package com.pfizer.sacchonapi.security.dao;
 
+
+
 import com.pfizer.sacchonapi.security.Role;
 import org.restlet.Context;
 
 import java.sql.*;
 import java.util.Objects;
 
-public class ApplicationUserPersistence {
+public class ApplicationUserPersistence   {
+
     // Singleton pattern.
     private static ApplicationUserPersistence applicationUserPersistence = new ApplicationUserPersistence();
     private ApplicationUserPersistence() {
@@ -64,4 +67,5 @@ public class ApplicationUserPersistence {
         }
 
     }
+
 }

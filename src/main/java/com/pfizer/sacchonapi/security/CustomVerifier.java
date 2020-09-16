@@ -1,5 +1,6 @@
 package com.pfizer.sacchonapi.security;
 
+
 import com.pfizer.sacchonapi.security.dao.ApplicationUser;
 import com.pfizer.sacchonapi.security.dao.ApplicationUserPersistence;
 import org.restlet.Request;
@@ -10,7 +11,8 @@ import java.sql.SQLException;
 
 
 
-public class CustomVerifier extends SecretVerifier{
+public class CustomVerifier extends SecretVerifier {
+
     public int verify(String identifier, char[] secret)
             throws IllegalArgumentException {
         ApplicationUserPersistence applicationUserPersistence = ApplicationUserPersistence.getApplicationUserPersistence();
