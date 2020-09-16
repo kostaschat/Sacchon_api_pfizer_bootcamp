@@ -815,3 +815,11 @@ Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot drop the tabl
 2020-09-16 22:08:45,858 INFO [qtp1987169128-19] o.h.o.c.access [DdlTransactionIsolatorNonJtaImpl.java:47] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@2328db57] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
 2020-09-16 22:08:45,959 INFO [qtp1987169128-19] o.h.o.c.access [DdlTransactionIsolatorNonJtaImpl.java:47] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@65b6b24] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
 2020-09-16 22:08:46,106 INFO [qtp1987169128-19] o.h.e.t.j.p.i.JtaPlatformInitiator [JtaPlatformInitiator.java:52] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-09-16 22:26:42,681 INFO [main] o.e.j.u.log [Log.java:193] Logging initialized @990ms to org.eclipse.jetty.util.log.Slf4jLog
+2020-09-16 22:26:42,772 INFO [main] o.e.j.s.Server [Server.java:374] jetty-9.4.11.v20180605; built: 2018-06-05T18:24:03.829Z; git: d5fc0523cfa96bfebfbda19606cad384d772f04c; jvm 11.0.8+10-LTS
+2020-09-16 22:26:43,130 INFO [main] o.e.j.s.AbstractConnector [AbstractConnector.java:289] Started ServerConnector@7e990ed7{HTTP/1.1,[http/1.1]}{0.0.0.0:9000}
+2020-09-16 22:26:43,131 INFO [main] o.e.j.s.Server [Server.java:411] Started @1448ms
+2020-09-16 22:28:18,164 INFO [main] o.e.j.u.log [Log.java:193] Logging initialized @1040ms to org.eclipse.jetty.util.log.Slf4jLog
+2020-09-16 22:28:18,245 INFO [main] o.e.j.s.Server [Server.java:374] jetty-9.4.11.v20180605; built: 2018-06-05T18:24:03.829Z; git: d5fc0523cfa96bfebfbda19606cad384d772f04c; jvm 11.0.8+10-LTS
+2020-09-16 22:28:18,570 INFO [main] o.e.j.s.AbstractConnector [AbstractConnector.java:289] Started ServerConnector@d554c5f{HTTP/1.1,[http/1.1]}{0.0.0.0:9000}
+2020-09-16 22:28:18,571 INFO [main] o.e.j.s.Server [Server.java:411] Started @1454ms
