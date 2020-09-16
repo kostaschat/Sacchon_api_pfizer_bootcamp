@@ -22,11 +22,11 @@ public class ApiMain extends Application {
 
         Component c = new Component();
         c.getServers().add(Protocol.HTTP, 9000);
-        c.getDefaultHost().attach( new ApiMain());
+        c.getDefaultHost().attach("/v1", new ApiMain());
         c.start();
 
         LOGGER.info("Sample Web API started");
-        LOGGER.info("URL: http://localhost:9000/medidata");
+        LOGGER.info("URL: http://localhost:9000/v1/medidata");
     }
     public ApiMain() {
 
