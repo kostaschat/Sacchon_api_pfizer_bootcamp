@@ -7,32 +7,39 @@ import com.pfizer.sacchonapi.repository.util.JpaUtil;
 import com.pfizer.sacchonapi.representation.MediDataRepresentation;
 import com.pfizer.sacchonapi.security.ResourceUtils;
 import com.pfizer.sacchonapi.security.Shield;
+import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import java.util.Optional;
+import java.util.logging.Logger;
+
+import static com.pfizer.sacchonapi.ApiMain.LOGGER;
 
 public class MediDataResourceImpl extends ServerResource implements MediDataResource {
+
+    public static final Logger LOGGER = Engine.getLogger(MediDataResourceImpl.class);
 
     private long id;
     private MediDataRepository mediDataRepository;
 
-
+    @Override
     protected void doInit() {
-
+        LOGGER.info("Initialising product resource starts");
         try {
             mediDataRepository = new MediDataRepository(JpaUtil.getEntityManager());
             id = Long.parseLong(getAttribute("id"));
 
         } catch (Exception e) {
-            id = -1;
+            id =-1;
         }
+        LOGGER.info("Initialising product resource ends");
     }
 
 
     @Override
     public MediDataRepresentation getMediData() throws NotFoundException {
-
+        LOGGER.info("Retrieve a product");
         //check authorization
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
 
@@ -42,15 +49,17 @@ public class MediDataResourceImpl extends ServerResource implements MediDataReso
 
         try {
 
-            Optional<MediData> medidata = mediDataRepository.findById(id);
-            setExisting(medidata.isPresent());
+            Optional<MediData> omedidata = mediDataRepository.findById(id);
+            setExisting(omedidata.isPresent());
             if (!isExisting()) {
-
+                LOGGER.config("product id does not exist:" + id);
                 throw new NotFoundException("No medidata with  : " + id);
             } else {
-                mediData = medidata.get();
+                mediData = omedidata.get();
+                LOGGER.finer("User allowed to retrieve a product.");
                 MediDataRepresentation result =
                         new MediDataRepresentation(mediData);
+                LOGGER.finer("Product successfully retrieved");
                 return result;
             }
         } catch (Exception e) {
@@ -59,6 +68,8 @@ public class MediDataResourceImpl extends ServerResource implements MediDataReso
 
 
     }
+
+
 
 }
 
