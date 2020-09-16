@@ -70,8 +70,6 @@ public class MediDataRepository {
             }
 
         }
-
-
         return true;
     }
 }
