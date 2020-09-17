@@ -7,7 +7,6 @@ import com.pfizer.sacchonapi.repository.util.JpaUtil;
 import com.pfizer.sacchonapi.representation.PatientRepresentation;
 import com.pfizer.sacchonapi.security.ResourceUtils;
 import com.pfizer.sacchonapi.security.Shield;
-import org.omg.CORBA.ServerRequest;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ServerResource;
 
