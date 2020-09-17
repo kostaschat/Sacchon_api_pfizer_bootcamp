@@ -1,5 +1,7 @@
 package com.pfizer.sacchonapi;
 
+import com.pfizer.sacchonapi.model.MediData;
+import com.pfizer.sacchonapi.repository.util.JpaUtil;
 import com.pfizer.sacchonapi.router.CustomRouter;
 import com.pfizer.sacchonapi.security.Shield;
 import com.pfizer.sacchonapi.security.cors.CorsFilter;
@@ -12,6 +14,7 @@ import org.restlet.routing.Router;
 import org.restlet.security.ChallengeAuthenticator;
 import org.restlet.security.Role;
 
+import javax.persistence.EntityManager;
 import java.util.logging.Logger;
 
 public class ApiMain extends Application {
@@ -24,6 +27,7 @@ public class ApiMain extends Application {
         c.getServers().add(Protocol.HTTP, 9000);
         c.getDefaultHost().attach("/v1", new ApiMain());
         c.start();
+
 
         LOGGER.info("Sample Web API started");
         LOGGER.info("URL: http://localhost:9000/v1/medidata");

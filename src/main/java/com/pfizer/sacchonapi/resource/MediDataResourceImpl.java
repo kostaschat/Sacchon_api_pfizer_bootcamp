@@ -25,7 +25,7 @@ public class MediDataResourceImpl extends ServerResource implements MediDataReso
 
     @Override
     protected void doInit() {
-        LOGGER.info("Initialising product resource starts");
+        LOGGER.info("Initialising medical data resource starts");
         try {
             mediDataRepository = new MediDataRepository(JpaUtil.getEntityManager());
             id = Long.parseLong(getAttribute("id"));
@@ -33,13 +33,13 @@ public class MediDataResourceImpl extends ServerResource implements MediDataReso
         } catch (Exception e) {
             id =-1;
         }
-        LOGGER.info("Initialising product resource ends");
+        LOGGER.info("Initialising medical data resource ends");
     }
 
 
     @Override
     public MediDataRepresentation getMediData() throws NotFoundException {
-        LOGGER.info("Retrieve a product");
+        LOGGER.info("Retrieve medical data");
         //check authorization
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
 
@@ -52,14 +52,14 @@ public class MediDataResourceImpl extends ServerResource implements MediDataReso
             Optional<MediData> omedidata = mediDataRepository.findById(id);
             setExisting(omedidata.isPresent());
             if (!isExisting()) {
-                LOGGER.config("product id does not exist:" + id);
-                throw new NotFoundException("No medidata with  : " + id);
+                LOGGER.config("medical data id does not exist:" + id);
+                throw new NotFoundException("No medical data with  : " + id);
             } else {
                 mediData = omedidata.get();
                 LOGGER.finer("User allowed to retrieve a product.");
                 MediDataRepresentation result =
                         new MediDataRepresentation(mediData);
-                LOGGER.finer("Product successfully retrieved");
+                LOGGER.finer("Medical data successfully retrieved");
                 return result;
             }
         } catch (Exception e) {

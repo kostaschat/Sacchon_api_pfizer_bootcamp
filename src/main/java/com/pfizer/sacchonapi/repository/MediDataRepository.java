@@ -21,7 +21,7 @@ public class MediDataRepository {
     }
 
     public List<MediData> findAll() {
-        return entityManager.createQuery("from MediaData").getResultList();
+        return entityManager.createQuery("from MediData").getResultList();
     }
 
     public Optional<MediData> save(MediData mediData){
