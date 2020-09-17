@@ -1,9 +1,14 @@
 package com.pfizer.sacchonapi.representation;
 
 import com.pfizer.sacchonapi.model.Patient;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
+
+@Data
+@NoArgsConstructor
 public class PatientRepresentation {
 
     private String firstName;

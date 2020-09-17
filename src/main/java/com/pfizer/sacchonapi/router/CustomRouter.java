@@ -20,7 +20,7 @@ public class CustomRouter {
         //patient endpoints
         router.attach("/viewPatients", PatientListResourceImpl.class);
         router.attach("/viewNotActivePatients", PatientListResourceImpl.class);
-        router.attach("/patient/{id}", PatientResourceImpl.class);
+        router.attach("/viewPatient/{id}", PatientResourceImpl.class);
 
         //medidata endpoints
         router.attach("/medidata/{id}", MediDataResourceImpl.class);
