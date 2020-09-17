@@ -6,6 +6,7 @@ import lombok.Data;
 import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
+
 @Data
 public class MediDataRepository {
 

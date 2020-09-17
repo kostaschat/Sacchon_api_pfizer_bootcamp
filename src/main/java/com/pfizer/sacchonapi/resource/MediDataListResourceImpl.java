@@ -25,20 +25,24 @@ public class MediDataListResourceImpl  extends ServerResource implements MediDat
     public static final Logger LOGGER = Engine.getLogger(MediDataResourceImpl.class);
     private MediDataRepository mediDataRepository ;
 
+    private long id;
+
     @Override
     protected void doInit() {
-        LOGGER.info("Initialising product resource starts");
+        LOGGER.info("Initialising medidata resource starts");
         try {
             mediDataRepository =
                     new MediDataRepository (JpaUtil.getEntityManager()) ;
+            id = Long.parseLong(getAttribute("id"));
 
         }
         catch(Exception e)
         {
-
+            id =-1;
+            LOGGER.info(e.getMessage());
         }
 
-        LOGGER.info("Initialising product resource ends");
+        LOGGER.info("Initialising medidata resource ends");
     }
 
     public List<MediDataRepresentation> getMediDatas() throws NotFoundException {
@@ -111,10 +115,10 @@ public class MediDataListResourceImpl  extends ServerResource implements MediDat
                 result.setCarb(mediData.getCarb());
                 result.setGlucose(mediData.getGlucose());
                 result.setMeasuredDate(mediData.getMeasuredDate());
-                result.setUri("http://localhost:9000/v1/product/"+mediData.getId());
+                result.setUri("http://localhost:9000/v1/medidata/"+mediData.getId());
 
                 getResponse().setLocationRef(
-                        "http://localhost:9000/v1/product/"+mediData.getId());
+                        "http://localhost:9000/v1/medidata/"+ mediData.getId());
                 getResponse().setStatus(Status.SUCCESS_CREATED);
 
                 LOGGER.finer("Product successfully added.");
