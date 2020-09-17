@@ -1,10 +1,7 @@
 package com.pfizer.sacchonapi.router;
 
 import com.pfizer.sacchonapi.model.MediData;
-import com.pfizer.sacchonapi.resource.MediDataListResource;
-import com.pfizer.sacchonapi.resource.MediDataListResourceImpl;
-import com.pfizer.sacchonapi.resource.MediDataResourceImpl;
-import com.pfizer.sacchonapi.resource.PingServerResource;
+import com.pfizer.sacchonapi.resource.*;
 import org.restlet.Application;
 import org.restlet.routing.Router;
 
@@ -24,7 +21,9 @@ public class CustomRouter {
         router.attach("/medidata", MediDataListResourceImpl.class);
         router.attach("/medidata/", MediDataListResourceImpl.class);
 
-
+        router.attach("/consultation/{id}", ConsultationResourceImpl.class);
+        router.attach("/consultation/", ConsultationListResourceImpl.class);
+        router.attach("/consultation", ConsultationListResourceImpl.class);
         return router;
     }
 

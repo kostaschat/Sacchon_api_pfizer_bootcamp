@@ -1,18 +1,21 @@
 package com.pfizer.sacchonapi.representation;
 
 import com.pfizer.sacchonapi.model.Consultation;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
-
-public class ConsulationRepresentation {
+@Data
+@NoArgsConstructor
+public class ConsultationRepresentation {
     private String medicationName;
     private double dosage;
     private Date consultationDate;
 
     private String uri;
 
-    public ConsulationRepresentation(
+    public ConsultationRepresentation(
             Consultation consultation) {
         if (consultation != null) {
             medicationName = consultation.getMedicationName();

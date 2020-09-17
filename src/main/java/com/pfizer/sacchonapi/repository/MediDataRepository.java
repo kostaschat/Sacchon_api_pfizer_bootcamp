@@ -25,7 +25,6 @@ public class MediDataRepository {
     }
 
     public Optional<MediData> save(MediData mediData){
-
         try {
             entityManager.getTransaction().begin();
             entityManager.persist (mediData);

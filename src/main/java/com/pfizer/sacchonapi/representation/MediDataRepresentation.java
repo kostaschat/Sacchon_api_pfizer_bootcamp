@@ -30,7 +30,6 @@ public class MediDataRepresentation {
 
     }
 
-
     public MediData createMediData(){
         MediData mediData = new MediData();
         mediData.setGlucose(glucose);

@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
-public class ChiefDoctor {
+public class ChiefDoctor{
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;

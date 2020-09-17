@@ -65,11 +65,6 @@ public class MediDataResourceImpl extends ServerResource implements MediDataReso
         } catch (Exception e) {
             throw new ResourceException(e);
         }
-
-
     }
-
-
-
 }
 
