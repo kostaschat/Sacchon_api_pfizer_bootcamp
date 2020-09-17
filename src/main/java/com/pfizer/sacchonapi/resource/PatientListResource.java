@@ -4,10 +4,10 @@ import com.pfizer.sacchonapi.exception.NotFoundException;
 import com.pfizer.sacchonapi.representation.PatientRepresentation;
 import org.restlet.resource.Get;
 
-public interface PatientResource {
+import java.util.List;
 
-  @Get("json")
-  public PatientRepresentation getPatient() throws NotFoundException;
+public interface PatientListResource {
 
-
+    @Get("json")
+    public List<PatientRepresentation> getPatients() throws NotFoundException;
 }
