@@ -12,15 +12,10 @@ import java.util.List;
 
 public interface PatientListResource {
 
-
     @Post("json")
-    public PatientRepresentation add(PatientRepresentation companyReprIn)
-            throws BadEntityException;
-
+    public PatientRepresentation add(PatientRepresentation companyReprIn) throws BadEntityException;
 
     @Get("json")
     public List<PatientRepresentation> getPatients() throws NotFoundException;
-
-
 
 }

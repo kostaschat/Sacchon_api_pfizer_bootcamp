@@ -37,30 +37,11 @@ public class PatientRepository {
 
     public Optional<Patient> save(Patient patient){
 
-        Patient in = entityManager.find(Patient.class, patient.getId());
-        in.setFirstName(patient.getFirstName());
-        in.setLastName(patient.getLastName());
-        in.setUsername(patient.getUsername());
-
-        in.setEmail(patient.getEmail());
-        in.setPassword(patient.getPassword());
-        in.setAddress(patient.getAddress());
-        in.setCity(patient.getCity());
-        in.setZipCode(patient.getZipCode());
-        in.setPhoneNumber(patient.getPhoneNumber());
-        in.setDob(patient.getDob());
-        in.setCreationDate(patient.getCreationDate());
-
-        in.setActive(patient.isActive());
-        in.setHasConsultation(patient.isHasConsultation());
-        in.setConsultationPending(patient.isConsultationPending());
-        in.setHasDoctor(patient.isHasDoctor());
-
         try {
             entityManager.getTransaction().begin();
-            entityManager.persist (in);
+            entityManager.persist (patient);
             entityManager.getTransaction().commit();
-            return Optional.of(in);
+            return Optional.of(patient);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -28,13 +28,11 @@ public class DoctorListResourceImpl extends ServerResource implements DoctorList
     protected void doInit() {
         LOGGER.info("Initialising doctor resource starts");
         try {
-            doctorRepository =
-                    new DoctorRepository(JpaUtil.getEntityManager()) ;
-
+            doctorRepository = new DoctorRepository(JpaUtil.getEntityManager()) ;
         }
         catch(Exception e)
         {
-            // needs to put a print msg
+            throw new ResourceException(e);
         }
 
         LOGGER.info("Initialising doctor resource ends");
@@ -44,7 +42,7 @@ public class DoctorListResourceImpl extends ServerResource implements DoctorList
 
         LOGGER.finer("Select all doctors datas.");
 
-        ResourceUtils.checkRoles(this, Shield.ROLE_DOCTOR, Shield.ROLE_CHIEF_DOCTOR);
+        ResourceUtils.checkRole(this, Shield.ROLE_CHIEF_DOCTOR);
 
         try {
             List<Doctor> doctors = doctorRepository.findAll();

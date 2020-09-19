@@ -41,7 +41,7 @@ public class DoctorResourceImpl  extends ServerResource implements DoctorResourc
     public DoctorRepresentation getDoctor() throws NotFoundException {
         LOGGER.info("Retrieve doctor data");
         //check authorization
-        ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
+        ResourceUtils.checkRoles(this,Shield.ROLE_DOCTOR, Shield.ROLE_CHIEF_DOCTOR);
 
         // Initialize the persistence layer.
         DoctorRepository doctorRepository = new DoctorRepository(JpaUtil.getEntityManager());
@@ -71,7 +71,7 @@ public class DoctorResourceImpl  extends ServerResource implements DoctorResourc
     public DoctorRepresentation store(DoctorRepresentation doctorReprIn) throws NotFoundException, BadEntityException {
         LOGGER.finer("Update a doctor.");
 
-        ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
+        ResourceUtils.checkRoles(this, Shield.ROLE_DOCTOR, Shield.ROLE_CHIEF_DOCTOR);
         LOGGER.finer("doctor allowed to update a data.");
 
         ResourceValidator.notNull(doctorReprIn);

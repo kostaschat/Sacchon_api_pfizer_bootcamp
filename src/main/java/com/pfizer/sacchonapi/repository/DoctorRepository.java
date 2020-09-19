@@ -61,7 +61,7 @@ public class DoctorRepository {
         in.setPassword(doctor.getPassword());
         in.setPhoneNumber(doctor.getPhoneNumber());
         in.setZipCode(doctor.getZipCode());
-      //  in.setActive(doctor.isActive());
+        in.setActive(doctor.isActive());
 
         try {
             entityManager.getTransaction().begin();

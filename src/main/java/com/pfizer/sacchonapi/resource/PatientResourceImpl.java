@@ -18,6 +18,7 @@ import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
+import javax.persistence.EntityManager;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -27,23 +28,25 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
 
     private long id;
     private PatientRepository patientRepository;
+    private EntityManager em;
 
     @Override
     protected void doInit() {
-        LOGGER.info("Initialising medical data resource starts");
+        LOGGER.info("Initialising patient resource starts");
         try {
-            patientRepository = new PatientRepository(JpaUtil.getEntityManager());
+            em = JpaUtil.getEntityManager();
+            patientRepository = new PatientRepository(em);
             id = Long.parseLong(getAttribute("id"));
 
         } catch (Exception e) {
-            id =-1;
+            throw new ResourceException(e);
         }
-        LOGGER.info("Initialising medical data resource ends");
+        LOGGER.info("Initialising patient resource ends");
     }
 
 
     @Override
-    public PatientRepresentation store(PatientRepresentation patientRepr) throws NotFoundException, BadEntityException {
+    public PatientRepresentation store(PatientRepresentation patientReprIn) throws NotFoundException, BadEntityException {
 
         LOGGER.finer("Update a patient.");
 
@@ -51,14 +54,14 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
         LOGGER.finer("Patient was allowed to update his role.");
 
         // Check given entity
-        ResourceValidator.notNull(patientRepr);
-        ResourceValidator.validatePatient(patientRepr);
+        ResourceValidator.notNull(patientReprIn);
+        ResourceValidator.validatePatient(patientReprIn);
         LOGGER.finer("Company checked");
 
         try {
 
             // Convert PatientRepresentation to Patient
-            Patient patientIn = patientRepr.createPatient();
+            Patient patientIn = patientReprIn.createPatient();
             patientIn.setId(id);
 
             Optional<Patient> patientOut;
@@ -72,8 +75,7 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
                 LOGGER.finer("Update patient.");
 
                 // Update product in DB and retrieve the new one.
-                patientOut = patientRepository.save(patientIn);
-
+                patientOut = patientRepository.update(patientIn);
 
                 // Check if retrieved patient is not null : if it is null it
                 // means that the id is wrong.
@@ -102,10 +104,10 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
     public PatientRepresentation getPatient() throws NotFoundException {
         LOGGER.info("Retrieve patient's data");
         //check authorization
-        ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
+        ResourceUtils.checkRoles(this, Shield.ROLE_PATIENT, Shield.ROLE_DOCTOR,Shield.ROLE_CHIEF_DOCTOR);
 
         // Initialize the persistence layer.
-        PatientRepository mediDataRepository = new PatientRepository(JpaUtil.getEntityManager());
+        PatientRepository patientRepository = new PatientRepository(em);
         Patient patient;
 
         try {
@@ -126,8 +128,5 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
         } catch (Exception e) {
             throw new ResourceException(e);
         }
-
-
     }
-
 }

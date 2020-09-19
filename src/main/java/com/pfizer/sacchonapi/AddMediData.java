@@ -64,7 +64,6 @@ public class AddMediData {
         Patient p1 = new Patient();
         p1.setFirstName("Anestis");
         p1.setLastName("Aitwlos");
-
         p1.setUsername("k_aitwlos");
         p1.setEmail("kaitwlos@gmail.com");
         p1.setPassword("a76d7a7");
@@ -91,7 +90,7 @@ public class AddMediData {
         }
         p1.setCreationDate(d1);
 
-        p1.setActive(false);
+        p1.setActive(true);
         p1.setHasConsultation(false);
         p1.setConsultationPending(true);
         p1.setHasDoctor(true);

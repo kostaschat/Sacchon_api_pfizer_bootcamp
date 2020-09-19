@@ -30,8 +30,6 @@ public class PatientRepresentation {
     private boolean consultationPending;
     private boolean hasDoctor;
 
-    //not sure if it needs a url declaration here
-    //The URL of the resource
     private String uri;
 
     public PatientRepresentation(Patient patient)
@@ -56,6 +54,8 @@ public class PatientRepresentation {
             hasConsultation = patient.isHasConsultation();
             consultationPending = patient.isConsultationPending();
             hasDoctor = patient.isHasDoctor();
+
+            uri =  "http://localhost:9000/v1/patient/" + patient.getId();
         }
     }
 

@@ -14,6 +14,7 @@ import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
+import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,15 +26,19 @@ public class PatientListResourceImpl extends ServerResource implements PatientLi
     public static final Logger LOGGER = Engine.getLogger(PatientResourceImpl.class);
 
     private PatientRepository patientRepository;
+    private EntityManager em;
 
+    @Override
+    protected void doRelease(){
+        em.close();
+    }
 
     @Override
     protected void doInit() {
         LOGGER.info("Initialising patients resource starts");
         try {
-            patientRepository =
-                    new PatientRepository (JpaUtil.getEntityManager()) ;
-
+            em = JpaUtil.getEntityManager();
+            patientRepository = new PatientRepository (em) ;
         }
         catch(Exception e)
         {
@@ -44,78 +49,30 @@ public class PatientListResourceImpl extends ServerResource implements PatientLi
 
 
     @Override
-    public PatientRepresentation add(PatientRepresentation patientRepresentation) throws BadEntityException {
+    public PatientRepresentation add(PatientRepresentation patientIn) throws BadEntityException {
 
+            LOGGER.finer("Add patient data.");
 
-            LOGGER.finer("Add a new product.");
-
-            // Check authorization
             ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
-            LOGGER.finer("Doctor was allowed to add a product.");
+            LOGGER.finer("User was allowed to add data.");
 
-            // Check entity
-
-            ResourceValidator.notNull(patientRepresentation);
-            ResourceValidator.validatePatient(patientRepresentation);
+            ResourceValidator.notNull(patientIn);
+            ResourceValidator.validatePatient(patientIn);
             LOGGER.finer("Patient was checked");
 
             try {
+                Patient patient = patientIn.createPatient();
 
-                // Convert CompanyRepresentation to Company
-                Patient patientIn = new Patient();
-                patientIn.setFirstName(patientRepresentation.getFirstName());
-                patientIn.setLastName(patientRepresentation.getLastName());
-                patientIn.setUsername(
-                        patientRepresentation.getUsername());
+                Optional<Patient> patientOptOut = patientRepository.save(patient);
 
-                patientIn.setEmail(patientRepresentation.getEmail());
-                patientIn.setPassword(patientRepresentation.getPassword());
-                patientIn.setAddress(patientRepresentation.getAddress());
-                patientIn.setCity(patientRepresentation.getCity());
-                patientIn.setZipCode(patientRepresentation.getZipCode());
-                patientIn.setPhoneNumber(patientRepresentation.getPhoneNumber());
-                patientIn.setDob(patientRepresentation.getDob());
-                patientIn.setCreationDate(patientRepresentation.getCreationDate());
-
-                patientIn.setActive(patientRepresentation.isActive());
-                patientIn.setHasConsultation(patientRepresentation.isHasConsultation());
-                patientIn.setConsultationPending(patientRepresentation.isConsultationPending());
-                patientIn.setHasDoctor(patientRepresentation.isHasDoctor());
-
-
-                Optional<Patient> patientOut =
-                        patientRepository.save(patientIn);
-                Patient pa = null;
-                if (patientOut.isPresent())
-                    pa = patientOut.get();
+                Patient patientOut;
+                if (patientOptOut.isPresent())
+                    patientOut = patientOptOut.get();
                 else
                     throw new
                             BadEntityException(" Patient has not been created");
 
-                PatientRepresentation result =
-                        new PatientRepresentation();
-                result.setFirstName(pa.getFirstName());
-                result.setLastName(pa.getLastName());
-                result.setUsername(pa.getUsername());
-                result.setEmail(pa.getEmail());
-                result.setPassword(pa.getEmail());
-                result.setAddress(pa.getAddress());
-                result.setCity(pa.getCity());
-                result.setZipCode(pa.getZipCode());
-                result.setPhoneNumber(pa.getPhoneNumber());
-                result.setDob(pa.getDob());
-                result.setCreationDate(pa.getCreationDate());
-                result.setActive(pa.isActive());
-                result.setHasConsultation(pa.isHasConsultation());
-                result.setConsultationPending(pa.isConsultationPending());
-                result.setHasDoctor(pa.isHasDoctor());
-
-                result.setUri("http://localhost:9000/v1/patient/"+ pa.getId());
-
-                getResponse().setLocationRef(
-                        "http://localhost:9000/v1/patient/"+ pa.getId());
-
-                getResponse().setStatus(Status.SUCCESS_CREATED);
+                PatientRepresentation result = new PatientRepresentation(patientOut);
 
                 LOGGER.finer("Patient successfully added.");
 
@@ -125,8 +82,6 @@ public class PatientListResourceImpl extends ServerResource implements PatientLi
 
                 throw new ResourceException(ex);
             }
-
-
         }
 
 
