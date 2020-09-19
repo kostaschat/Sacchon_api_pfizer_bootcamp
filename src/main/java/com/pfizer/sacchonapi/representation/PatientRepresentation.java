@@ -31,6 +31,8 @@ public class PatientRepresentation {
     private boolean hasDoctor;
 
     //not sure if it needs a url declaration here
+    //The URL of the resource
+    private String uri;
 
     public PatientRepresentation(Patient patient)
     {

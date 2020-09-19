@@ -104,7 +104,7 @@ public class MediDataListResourceImpl  extends ServerResource implements MediDat
                 Optional<MediData> mediDataOut =
                         mediDataRepository.save(mediDataIn);
                 MediData mediData = null;
-                if (mediDataOut.isPresent())
+              if (mediDataOut.isPresent())
                     mediData = mediDataOut.get();
                 else
                     throw new
