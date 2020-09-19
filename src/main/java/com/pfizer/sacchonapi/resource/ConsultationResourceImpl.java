@@ -84,54 +84,32 @@ public class ConsultationResourceImpl extends ServerResource implements Consulta
     @Override
     public ConsultationRepresentation store(ConsultationRepresentation consultationReprIn) throws NotFoundException, BadEntityException {
         LOGGER.finer("Update a consultation.");
-
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
         LOGGER.finer("User allowed to update a consultation.");
 
-        // Check given entity
         ResourceValidator.notNull(consultationReprIn);
         ResourceValidator.validate(consultationReprIn);
         LOGGER.finer("Company checked");
-
         try {
-
-            // Convert CompanyRepresentation to Company
             Consultation consultationIn = consultationReprIn.createConsulation();
             consultationIn.setId(id);
-
             Optional<Consultation> consultationOut;
-
             Optional<Consultation> oConsultation = consultationRepository.findById(id);
-
             setExisting(oConsultation.isPresent());
-
-            // If product exists, we update it.
             if (isExisting()) {
-                LOGGER.finer("Update product.");
-
-                // Update product in DB and retrieve the new one.
+                LOGGER.finer("Update consultation.");
                 consultationOut = consultationRepository.update(consultationIn);
-
-
-                // Check if retrieved product is not null : if it is null it
-                // means that the id is wrong.
                 if (!consultationOut.isPresent()) {
                     LOGGER.finer("Consultation does not exist.");
-                    throw new NotFoundException(
-                            "Consultation with the following id does not exist: "
-                                    + id);
+                    throw new NotFoundException("Consultation with the following id does not exist: " + id);
                 }
             } else {
                 LOGGER.finer("Resource does not exist.");
-                throw new NotFoundException(
-                        "Company with the following id does not exist: " + id);
+                throw new NotFoundException("Company with the following id does not exist: " + id);
             }
-
             LOGGER.finer("Company successfully updated.");
             return new ConsultationRepresentation(consultationOut.get());
-
         } catch (Exception ex) {
-
             throw new ResourceException(ex);
         }
     }

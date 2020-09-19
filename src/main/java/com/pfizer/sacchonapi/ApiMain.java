@@ -32,6 +32,9 @@ public class ApiMain extends Application {
         LOGGER.info("Sample Web API started");
         LOGGER.info("URL: http://localhost:9000/v1/medidata");
         LOGGER.info("URL: http://localhost:9000/v1/consultation");
+        LOGGER.info("URL: http://localhost:9000/v1/viewPatients");
+        LOGGER.info("URL: http://localhost:9000/v1/viewNotActivePatients");
+        LOGGER.info("URL: http://localhost:9000/v1/chief-doctor");
     }
     public ApiMain() {
 

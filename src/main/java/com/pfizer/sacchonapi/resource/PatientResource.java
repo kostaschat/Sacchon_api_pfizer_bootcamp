@@ -9,5 +9,4 @@ public interface PatientResource {
   @Get("json")
   public PatientRepresentation getPatient() throws NotFoundException;
 
-
 }

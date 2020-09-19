@@ -1,10 +1,12 @@
 package com.pfizer.sacchonapi.resource;
 
+import com.pfizer.sacchonapi.exception.BadEntityException;
 import com.pfizer.sacchonapi.exception.NotFoundException;
 import com.pfizer.sacchonapi.model.MediData;
 import com.pfizer.sacchonapi.repository.MediDataRepository;
 import com.pfizer.sacchonapi.repository.util.JpaUtil;
 import com.pfizer.sacchonapi.representation.MediDataRepresentation;
+import com.pfizer.sacchonapi.resource.util.ResourceValidator;
 import com.pfizer.sacchonapi.security.ResourceUtils;
 import com.pfizer.sacchonapi.security.Shield;
 import org.restlet.engine.Engine;
@@ -64,6 +66,63 @@ public class MediDataResourceImpl extends ServerResource implements MediDataReso
             }
         } catch (Exception e) {
             throw new ResourceException(e);
+        }
+    }
+
+    @Override
+    public MediDataRepresentation store(MediDataRepresentation mediDataReprIn) throws NotFoundException, BadEntityException {
+        LOGGER.finer("Update a product.");
+
+        ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
+        LOGGER.finer("User allowed to update medical data.");
+
+        // Check given entity
+        ResourceValidator.notNull(mediDataReprIn);
+        ResourceValidator.validate(mediDataReprIn);
+        LOGGER.finer("Company checked");
+
+        try {
+
+            // Convert CompanyRepresentation to Company
+
+
+            MediData mediDataIn = mediDataReprIn.createMediData();
+            mediDataIn.setId(id);
+
+            Optional<MediData> mediDataOut;
+
+            Optional<MediData> oMediData = mediDataRepository.findById(id);
+
+            setExisting(oMediData.isPresent());
+
+            // If product exists, we update it.
+            if (isExisting()) {
+                LOGGER.finer("Update product.");
+
+                // Update product in DB and retrieve the new one.
+                mediDataOut = mediDataRepository.update(mediDataIn);
+
+
+                // Check if retrieved product is not null : if it is null it
+                // means that the id is wrong.
+                if (!mediDataOut.isPresent()) {
+                    LOGGER.finer("Medical data does not exist.");
+                    throw new NotFoundException(
+                            "Medical Data with the following id does not exist: "
+                                    + id);
+                }
+            } else {
+                LOGGER.finer("Resource does not exist.");
+                throw new NotFoundException(
+                        "Company with the following id does not exist: " + id);
+            }
+
+            LOGGER.finer("Company successfully updated.");
+            return new MediDataRepresentation(mediDataOut.get());
+
+        } catch (Exception ex) {
+
+            throw new ResourceException(ex);
         }
     }
 }

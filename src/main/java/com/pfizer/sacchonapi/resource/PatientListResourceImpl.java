@@ -46,7 +46,7 @@ public class PatientListResourceImpl extends ServerResource implements PatientLi
         LOGGER.finer("Select all patients.");
 
         // Check authorization
-        ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
+        ResourceUtils.checkRoles(this, Shield.ROLE_DOCTOR, Shield.ROLE_CHIEF_DOCTOR);
 
         try{
 
@@ -65,7 +65,5 @@ public class PatientListResourceImpl extends ServerResource implements PatientLi
         {
             throw new NotFoundException("patients could not be found");
         }
-
-
     }
 }

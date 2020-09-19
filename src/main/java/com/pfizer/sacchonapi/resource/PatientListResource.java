@@ -10,4 +10,5 @@ public interface PatientListResource {
 
     @Get("json")
     public List<PatientRepresentation> getPatients() throws NotFoundException;
+
 }

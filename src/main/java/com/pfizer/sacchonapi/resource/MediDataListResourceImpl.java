@@ -89,7 +89,7 @@ public class MediDataListResourceImpl  extends ServerResource implements MediDat
 
             ResourceValidator.notNull(mediDataRepresentationIn);
             ResourceValidator.validate(mediDataRepresentationIn);
-            LOGGER.finer("Product checked");
+            LOGGER.finer("Medical Data checked");
 
             try {
 
@@ -108,7 +108,7 @@ public class MediDataListResourceImpl  extends ServerResource implements MediDat
                     mediData = mediDataOut.get();
                 else
                     throw new
-                            BadEntityException(" Product has not been created");
+                            BadEntityException(" Medical Data has not been created");
 
                 MediDataRepresentation result =
                         new MediDataRepresentation();
@@ -125,7 +125,7 @@ public class MediDataListResourceImpl  extends ServerResource implements MediDat
 
                 return result;
             } catch (Exception ex) {
-                LOGGER.log(Level.WARNING, "Error when adding a product", ex);
+                LOGGER.log(Level.WARNING, "Error when adding a medical data", ex);
 
                 throw new ResourceException(ex);
             }

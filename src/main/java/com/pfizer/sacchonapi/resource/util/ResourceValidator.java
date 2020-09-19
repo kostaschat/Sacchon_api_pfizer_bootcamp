@@ -1,6 +1,7 @@
 package com.pfizer.sacchonapi.resource.util;
 
 import com.pfizer.sacchonapi.exception.BadEntityException;
+import com.pfizer.sacchonapi.representation.ChiefDoctorRepresentation;
 import com.pfizer.sacchonapi.representation.ConsultationRepresentation;
 import com.pfizer.sacchonapi.representation.MediDataRepresentation;
 import com.pfizer.sacchonapi.representation.PatientRepresentation;
@@ -17,7 +18,6 @@ public class ResourceValidator {
             throw new BadEntityException("No input entity");
         }
     }
-
     /**
      * Checks that the given company is valid.
      *
@@ -26,8 +26,7 @@ public class ResourceValidator {
      */
     public static void validate(MediDataRepresentation mediDataRepresentation)
             throws BadEntityException {
-        if (mediDataRepresentation.getCarb() == 0 || mediDataRepresentation.getGlucose() == 0
-                || mediDataRepresentation.getMeasuredDate() == null) {
+        if (mediDataRepresentation.getCarb() == 0 || mediDataRepresentation.getGlucose() == 0) {
             throw new BadEntityException(
                     "medical data cannot be null");
         }
@@ -50,6 +49,11 @@ public class ResourceValidator {
         }
     }
 
-
-
+    public static void validateChiefDoctor(ChiefDoctorRepresentation chiefDoctorRepresentation)
+            throws BadEntityException {
+        if ( chiefDoctorRepresentation.getFirstName() == null || chiefDoctorRepresentation.getLastName() == null || chiefDoctorRepresentation.getPassword() == null || chiefDoctorRepresentation.getEmail() == null ) {
+            throw new BadEntityException(
+                    "The required fields cannot not be empty");
+        }
+    }
 }

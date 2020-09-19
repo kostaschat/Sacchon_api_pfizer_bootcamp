@@ -43,7 +43,7 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
         LOGGER.finer("Select all consultations.");
 
         // Check authorization
-        ResourceUtils.checkRoles(this, Shield.ROLE_PATIENT, Shield.ROLE_DOCTOR);
+        ResourceUtils.checkRoles(this, Shield.ROLE_PATIENT, Shield.ROLE_DOCTOR,Shield.ROLE_CHIEF_DOCTOR);
 
 
         try {

@@ -77,19 +77,8 @@ public class PatientRepository {
         Optional<Patient> odata = findById(id);
         if (odata.isPresent()){
             Patient m = odata.get();
-
-            try{
-                entityManager.getTransaction().begin();
-                entityManager.remove(m);
-                entityManager.getTransaction().commit();
-
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
+            m.setActive(false);
         }
         return true;
     }
-
 }

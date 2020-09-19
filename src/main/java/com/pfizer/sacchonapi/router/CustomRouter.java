@@ -31,6 +31,8 @@ public class CustomRouter {
         router.attach("/consultation/{id}", ConsultationResourceImpl.class);
         router.attach("/consultation/", ConsultationListResourceImpl.class);
         router.attach("/consultation", ConsultationListResourceImpl.class);
+
+        router.attach("/chief-doctor/{id}", ChiefDoctorResourceImpl.class);
         return router;
     }
 
