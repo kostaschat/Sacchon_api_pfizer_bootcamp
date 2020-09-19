@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+
 @Data
 @NoArgsConstructor
 
@@ -24,11 +25,9 @@ public class DoctorRepresentation {
     private boolean active;
 
 
-    public DoctorRepresentation(Doctor doctor)
-    {
+    public DoctorRepresentation(Doctor doctor) {
 
-        if(doctor != null)
-        {
+        if (doctor != null) {
             firstName = doctor.getFirstName();
             lastName = doctor.getLastName();
             username = doctor.getUsername();
@@ -44,8 +43,7 @@ public class DoctorRepresentation {
         }
     }
 
-    public Doctor createDoctor()
-    {
+    public Doctor createDoctor() {
         Doctor doctor = new Doctor();
         doctor.setFirstName(firstName);
         doctor.setLastName(lastName);
@@ -57,8 +55,8 @@ public class DoctorRepresentation {
         doctor.setZipCode(zipCode);
         doctor.setPhoneNumber(phoneNumber);
         doctor.setDob(dob);
-        doctor.setCreationDate(creationDate);         //create it automatic??
-       doctor.setActive(active);
+        doctor.setCreationDate(creationDate);
+        doctor.setActive(active);
         return doctor;
     }
 }

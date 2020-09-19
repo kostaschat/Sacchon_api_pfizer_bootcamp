@@ -6,11 +6,9 @@ import com.pfizer.sacchonapi.model.Doctor;
 import com.pfizer.sacchonapi.repository.DoctorRepository;
 import com.pfizer.sacchonapi.repository.util.JpaUtil;
 import com.pfizer.sacchonapi.representation.DoctorRepresentation;
-import com.pfizer.sacchonapi.resource.util.DoctorValidator;
+import com.pfizer.sacchonapi.resource.util.ResourceValidator;
 import com.pfizer.sacchonapi.security.ResourceUtils;
 import com.pfizer.sacchonapi.security.Shield;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
@@ -67,10 +65,7 @@ public class DoctorResourceImpl  extends ServerResource implements DoctorResourc
         } catch (Exception e) {
             throw new ResourceException(e);
         }
-
-
     }
-
 
     @Override
     public DoctorRepresentation store(DoctorRepresentation doctorReprIn) throws NotFoundException, BadEntityException {
@@ -79,13 +74,11 @@ public class DoctorResourceImpl  extends ServerResource implements DoctorResourc
         ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
         LOGGER.finer("doctor allowed to update a data.");
 
-        // Check given entity
-        DoctorValidator.notNull(doctorReprIn);
-        DoctorValidator.validate(doctorReprIn);
+        ResourceValidator.notNull(doctorReprIn);
+        ResourceValidator.validate(doctorReprIn);
         LOGGER.finer("doctor checked");
 
         try {
-
 
             Doctor doctorIn = doctorReprIn.createDoctor();
             doctorIn.setId(id);
@@ -96,14 +89,10 @@ public class DoctorResourceImpl  extends ServerResource implements DoctorResourc
 
             setExisting(oDoctor.isPresent());
 
-            // If doctor exists, we update it.
             if (isExisting() ) {
                 LOGGER.finer("Update doctor.");
 
-                // Update product in DB and retrieve the new one.
                 doctorOut = doctorRepository.update(doctorIn);
-
-
 
                 if (!doctorOut.isPresent()) {
                     LOGGER.finer("Doctor does not exist.");
@@ -124,11 +113,6 @@ public class DoctorResourceImpl  extends ServerResource implements DoctorResourc
 
             throw new ResourceException(ex);
         }
-
-
-
     }
-
-
 }
 

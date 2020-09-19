@@ -2282,3 +2282,11 @@ antlr.NoViableAltException: unexpected token: FROM
 2020-09-19 14:24:15,119 INFO [qtp1987169128-21] o.h.d.Dialect [Dialect.java:158] HHH000400: Using dialect: org.hibernate.dialect.SQLServer2012Dialect
 2020-09-19 14:24:16,414 INFO [qtp1987169128-21] o.h.o.c.access [DdlTransactionIsolatorNonJtaImpl.java:47] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@4521d9d7] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
 2020-09-19 14:24:16,625 INFO [qtp1987169128-21] o.h.e.t.j.p.i.JtaPlatformInitiator [JtaPlatformInitiator.java:52] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-09-19 15:26:52,616 INFO [main] o.e.j.u.log [Log.java:193] Logging initialized @1043ms to org.eclipse.jetty.util.log.Slf4jLog
+2020-09-19 15:26:52,693 INFO [main] o.e.j.s.Server [Server.java:374] jetty-9.4.11.v20180605; built: 2018-06-05T18:24:03.829Z; git: d5fc0523cfa96bfebfbda19606cad384d772f04c; jvm 11.0.8+10-LTS
+2020-09-19 15:26:53,042 INFO [main] o.e.j.s.AbstractConnector [AbstractConnector.java:289] Started ServerConnector@55de24cc{HTTP/1.1,[http/1.1]}{0.0.0.0:9000}
+2020-09-19 15:26:53,042 INFO [main] o.e.j.s.Server [Server.java:411] Started @1478ms
+2020-09-19 15:28:14,765 INFO [main] o.e.j.u.log [Log.java:193] Logging initialized @1021ms to org.eclipse.jetty.util.log.Slf4jLog
+2020-09-19 15:28:14,854 INFO [main] o.e.j.s.Server [Server.java:374] jetty-9.4.11.v20180605; built: 2018-06-05T18:24:03.829Z; git: d5fc0523cfa96bfebfbda19606cad384d772f04c; jvm 11.0.8+10-LTS
+2020-09-19 15:28:15,219 INFO [main] o.e.j.s.AbstractConnector [AbstractConnector.java:289] Started ServerConnector@7e990ed7{HTTP/1.1,[http/1.1]}{0.0.0.0:9000}
+2020-09-19 15:28:15,219 INFO [main] o.e.j.s.Server [Server.java:411] Started @1484ms
