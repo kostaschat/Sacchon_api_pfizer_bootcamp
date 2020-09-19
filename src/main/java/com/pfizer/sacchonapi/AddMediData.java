@@ -62,9 +62,8 @@ public class AddMediData {
 
 
         Patient p1 = new Patient();
-        p1.setFirstName("Kosmas");
+        p1.setFirstName("Anestis");
         p1.setLastName("Aitwlos");
-
         p1.setUsername("k_aitwlos");
         p1.setEmail("kaitwlos@gmail.com");
         p1.setPassword("a76d7a7");

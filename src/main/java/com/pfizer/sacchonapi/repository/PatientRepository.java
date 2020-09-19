@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
-@Data
+
 public class PatientRepository {
 
     private EntityManager entityManager;
@@ -24,7 +24,15 @@ public class PatientRepository {
     }
 
     public List<Patient> findAll() {
-        return entityManager.createQuery("from Patient").getResultList();
+        return entityManager.createQuery("SELECT p FROM Patient p WHERE p.active = true").getResultList();
+    }
+
+    public List<Patient> findPatientsNoConsultation() {
+        return entityManager.createQuery("SELECT p FROM Patient p WHERE p.hasConsultation = false").getResultList();
+    }
+
+    public List<Patient> findPatientsNoDoctor() {
+        return entityManager.createQuery("SELECT p FROM Patient p WHERE p.hasDoctor = false").getResultList();
     }
 
     public Optional<Patient> save(Patient patient){
@@ -39,7 +47,6 @@ public class PatientRepository {
         }
         return Optional.empty();
     }
-
 
     public Optional<Patient> update(Patient patient) {
 

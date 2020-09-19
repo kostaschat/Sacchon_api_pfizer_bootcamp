@@ -13,7 +13,6 @@ public interface MediDataResource {
     public MediDataRepresentation getMediData() throws NotFoundException;
 
     @Put("json")
-    public MediDataRepresentation store(MediDataRepresentation mediDataReprIn)
-            throws NotFoundException, BadEntityException;
+    public MediDataRepresentation store(MediDataRepresentation mediDataReprIn) throws NotFoundException, BadEntityException;
 
 }

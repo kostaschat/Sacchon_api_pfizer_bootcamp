@@ -39,15 +39,13 @@ public class ChiefDoctorResourceImpl extends ServerResource implements ChiefDoct
     @Override
     public ChiefDoctorRepresentation getChiefDoctor() throws NotFoundException {
         LOGGER.info("Retrieve Chief Doctor");
-        //check authorization
+
         ResourceUtils.checkRole(this, Shield.ROLE_CHIEF_DOCTOR);
 
-        // Initialize the persistence layer.
         ChiefDoctorRepository chiefDoctorRepository = new ChiefDoctorRepository(JpaUtil.getEntityManager());
         ChiefDoctor chiefDoctor;
 
         try {
-
             Optional<ChiefDoctor> ochief = chiefDoctorRepository.findById(id);
             setExisting(ochief.isPresent());
             if (!isExisting()) {
@@ -64,7 +62,6 @@ public class ChiefDoctorResourceImpl extends ServerResource implements ChiefDoct
         } catch (Exception e) {
             throw new ResourceException(e);
         }
-
     }
 
     @Override
@@ -74,14 +71,12 @@ public class ChiefDoctorResourceImpl extends ServerResource implements ChiefDoct
         ResourceUtils.checkRole(this, Shield.ROLE_CHIEF_DOCTOR);
         LOGGER.finer("User allowed to update a product.");
 
-        // Check given entity
         ResourceValidator.notNull(chiefReprIn);
         ResourceValidator.validateChiefDoctor(chiefReprIn);
         LOGGER.finer("Company checked");
 
         try {
 
-            // Convert CompanyRepresentation to Company
             ChiefDoctor chiefDoctorIn = chiefReprIn.createChiefDoctor();
             chiefDoctorIn.setId(id);
 
@@ -91,16 +86,11 @@ public class ChiefDoctorResourceImpl extends ServerResource implements ChiefDoct
 
             setExisting(oChief.isPresent());
 
-            // If product exists, we update it.
             if (isExisting()) {
                 LOGGER.finer("Update Chief Doctor.");
 
-                // Update product in DB and retrieve the new one.
                 chiefDoctorOut = chiefDoctorRepository.update(chiefDoctorIn);
 
-
-                // Check if retrieved product is not null : if it is null it
-                // means that the id is wrong.
                 if (!chiefDoctorOut.isPresent()) {
                     LOGGER.finer("Chief Doctor does not exist.");
                     throw new NotFoundException(
@@ -121,5 +111,4 @@ public class ChiefDoctorResourceImpl extends ServerResource implements ChiefDoct
             throw new ResourceException(ex);
         }
     }
-
 }

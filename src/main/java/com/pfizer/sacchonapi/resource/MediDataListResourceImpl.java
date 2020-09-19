@@ -31,10 +31,8 @@ public class MediDataListResourceImpl  extends ServerResource implements MediDat
     protected void doInit() {
         LOGGER.info("Initialising medidata resource starts");
         try {
-            mediDataRepository =
-                    new MediDataRepository (JpaUtil.getEntityManager()) ;
+            mediDataRepository = new MediDataRepository (JpaUtil.getEntityManager()) ;
             id = Long.parseLong(getAttribute("id"));
-
         }
         catch(Exception e)
         {
@@ -49,24 +47,14 @@ public class MediDataListResourceImpl  extends ServerResource implements MediDat
 
         LOGGER.finer("Select all medical datas.");
 
-        // Check authorization
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
 
         try {
-
-            List<MediData> mediData =
-                    mediDataRepository.findAll();
-            List<MediDataRepresentation> result =
-                    new ArrayList<>();
-
-
-//            for (Product product :products)
-//                result.add (new ProductRepresentation(product));
-
+            List<MediData> mediData = mediDataRepository.findAll();
+            List<MediDataRepresentation> result = new ArrayList<>();
 
             mediData.forEach(product ->
                     result.add(new MediDataRepresentation(product)));
-
 
             return result;
         } catch (Exception e) {
@@ -75,51 +63,30 @@ public class MediDataListResourceImpl  extends ServerResource implements MediDat
     }
 
         @Override
-        public MediDataRepresentation add
-        (MediDataRepresentation mediDataRepresentationIn)
-            throws BadEntityException {
+        public MediDataRepresentation add(MediDataRepresentation mediDataIn) throws BadEntityException {
 
             LOGGER.finer("Add a new medical data.");
 
-            // Check authorization
             ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
             LOGGER.finer("User allowed to add medical data.");
 
-            // Check entity
 
-            ResourceValidator.notNull(mediDataRepresentationIn);
-            ResourceValidator.validate(mediDataRepresentationIn);
+            ResourceValidator.notNull(mediDataIn);
+            ResourceValidator.validate(mediDataIn);
             LOGGER.finer("Medical Data checked");
 
             try {
+                MediData mediData = mediDataIn.createMediData();
 
-                // Convert CompanyRepresentation to Company
-                MediData mediDataIn = new MediData();
-                mediDataIn.setGlucose(mediDataRepresentationIn.getGlucose());
-                mediDataIn.setCarb(mediDataRepresentationIn.getCarb());
-                mediDataIn.setMeasuredDate(
-                        mediDataRepresentationIn.getMeasuredDate());
+                Optional<MediData> mediDataOptOut = mediDataRepository.save(mediData);
 
-
-                Optional<MediData> mediDataOut =
-                        mediDataRepository.save(mediDataIn);
-                MediData mediData = null;
-                if (mediDataOut.isPresent())
-                    mediData = mediDataOut.get();
+                MediData mediDataOut;
+                if (mediDataOptOut.isPresent())
+                    mediDataOut = mediDataOptOut.get();
                 else
-                    throw new
-                            BadEntityException(" Medical Data has not been created");
+                    throw new BadEntityException(" Medical Data has not been created");
 
-                MediDataRepresentation result =
-                        new MediDataRepresentation();
-                result.setCarb(mediData.getCarb());
-                result.setGlucose(mediData.getGlucose());
-                result.setMeasuredDate(mediData.getMeasuredDate());
-                result.setUri("http://localhost:9000/v1/medidata/"+mediData.getId());
-
-                getResponse().setLocationRef(
-                        "http://localhost:9000/v1/medidata/"+ mediData.getId());
-                getResponse().setStatus(Status.SUCCESS_CREATED);
+                MediDataRepresentation result = new MediDataRepresentation(mediDataOut);
 
                 LOGGER.finer("Product successfully added.");
 

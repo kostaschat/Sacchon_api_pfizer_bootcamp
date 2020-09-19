@@ -37,7 +37,6 @@ public class MediDataRepository {
         return Optional.empty();
     }
 
-
     public Optional<MediData> update(MediData mediData) {
 
         MediData in = entityManager.find(MediData.class, mediData.getId());
@@ -58,17 +57,13 @@ public class MediDataRepository {
         Optional<MediData> odata = findById(id);
         if (odata.isPresent()){
             MediData m = odata.get();
-
             try{
                 entityManager.getTransaction().begin();
                 entityManager.remove(m);
                 entityManager.getTransaction().commit();
-
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
         return true;
     }

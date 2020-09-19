@@ -12,8 +12,8 @@ import java.util.List;
 public interface MediDataListResource {
 
     @Post("json")
-    public MediDataRepresentation add(MediDataRepresentation companyReprIn)
-            throws BadEntityException;
+    public MediDataRepresentation add(MediDataRepresentation companyReprIn) throws BadEntityException;
+
     @Get("json")
     public List<MediDataRepresentation> getMediDatas() throws NotFoundException;
 

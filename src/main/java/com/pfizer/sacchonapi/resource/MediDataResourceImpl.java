@@ -42,10 +42,9 @@ public class MediDataResourceImpl extends ServerResource implements MediDataReso
     @Override
     public MediDataRepresentation getMediData() throws NotFoundException {
         LOGGER.info("Retrieve medical data");
-        //check authorization
+
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
 
-        // Initialize the persistence layer.
         MediDataRepository mediDataRepository = new MediDataRepository(JpaUtil.getEntityManager());
         MediData mediData;
 
@@ -76,16 +75,11 @@ public class MediDataResourceImpl extends ServerResource implements MediDataReso
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
         LOGGER.finer("User allowed to update medical data.");
 
-        // Check given entity
         ResourceValidator.notNull(mediDataReprIn);
         ResourceValidator.validate(mediDataReprIn);
         LOGGER.finer("Company checked");
 
         try {
-
-            // Convert CompanyRepresentation to Company
-
-
             MediData mediDataIn = mediDataReprIn.createMediData();
             mediDataIn.setId(id);
 
@@ -95,26 +89,18 @@ public class MediDataResourceImpl extends ServerResource implements MediDataReso
 
             setExisting(oMediData.isPresent());
 
-            // If product exists, we update it.
             if (isExisting()) {
                 LOGGER.finer("Update product.");
 
-                // Update product in DB and retrieve the new one.
                 mediDataOut = mediDataRepository.update(mediDataIn);
 
-
-                // Check if retrieved product is not null : if it is null it
-                // means that the id is wrong.
                 if (!mediDataOut.isPresent()) {
                     LOGGER.finer("Medical data does not exist.");
-                    throw new NotFoundException(
-                            "Medical Data with the following id does not exist: "
-                                    + id);
+                    throw new NotFoundException("Medical Data with the following id does not exist: " + id);
                 }
             } else {
                 LOGGER.finer("Resource does not exist.");
-                throw new NotFoundException(
-                        "Company with the following id does not exist: " + id);
+                throw new NotFoundException("Company with the following id does not exist: " + id);
             }
 
             LOGGER.finer("Company successfully updated.");
