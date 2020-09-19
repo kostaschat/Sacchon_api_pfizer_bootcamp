@@ -9,7 +9,6 @@ import com.pfizer.sacchonapi.representation.DoctorRepresentation;
 import com.pfizer.sacchonapi.resource.util.ResourceValidator;
 import com.pfizer.sacchonapi.security.ResourceUtils;
 import com.pfizer.sacchonapi.security.Shield;
-import org.restlet.data.Status;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
@@ -45,7 +44,7 @@ public class DoctorListResourceImpl extends ServerResource implements DoctorList
 
         LOGGER.finer("Select all doctors datas.");
 
-        ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
+        ResourceUtils.checkRoles(this, Shield.ROLE_DOCTOR, Shield.ROLE_CHIEF_DOCTOR);
 
         try {
             List<Doctor> doctors = doctorRepository.findAll();
@@ -61,59 +60,31 @@ public class DoctorListResourceImpl extends ServerResource implements DoctorList
     }
 
     @Override
-    public DoctorRepresentation add(DoctorRepresentation doctorRepresentationIn) throws BadEntityException {
+    public DoctorRepresentation add(DoctorRepresentation doctorIn) throws BadEntityException {
 
         LOGGER.finer("Add a new doctor data.");
 
-        // Check authorization
         ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
         LOGGER.finer("User allowed to add doctor data.");
 
         // Check entity
-        ResourceValidator.notNull(doctorRepresentationIn);
-        ResourceValidator.validate(doctorRepresentationIn);
+        ResourceValidator.notNull(doctorIn);
+        ResourceValidator.validate(doctorIn);
         LOGGER.finer("doctor checked");
 
         try {
-            Doctor doctorIn = new Doctor();
-            doctorIn.setPhoneNumber(doctorRepresentationIn.getPhoneNumber());
-            doctorIn.setUsername(doctorRepresentationIn.getUsername());
-            doctorIn.setLastName(doctorRepresentationIn.getLastName());
-            doctorIn.setFirstName(doctorRepresentationIn.getFirstName());
-            doctorIn.setEmail(doctorRepresentationIn.getEmail());
-            doctorIn.setPassword(doctorRepresentationIn.getPassword());
-            doctorIn.setCity(doctorRepresentationIn.getCity());
-            doctorIn.setAddress(doctorRepresentationIn.getAddress());
-            doctorIn.setActive(doctorRepresentationIn.isActive());
-            doctorIn.setDob(doctorRepresentationIn.getDob());
-            doctorIn.setZipCode(doctorRepresentationIn.getZipCode());
-            doctorIn.setCreationDate(doctorRepresentationIn.getCreationDate());
+            Doctor doctor = doctorIn.createDoctor();
 
-            Optional<Doctor> doctorOut =
-                    doctorRepository.save(doctorIn);
-            Doctor doctor = null;
-            if (doctorOut.isPresent())
-                doctor = doctorOut.get();
+            Optional<Doctor> doctorOptOut = doctorRepository.save(doctor);
+
+            Doctor doctorOut;
+            if (doctorOptOut.isPresent())
+                doctorOut = doctorOptOut.get();
             else
                 throw new
-                        BadEntityException(" Doctor has not been created");
+                        BadEntityException("Doctor has not been created");
 
-            DoctorRepresentation result = new DoctorRepresentation();
-            result.setAddress(doctor.getAddress());
-            result.setCity(doctor.getCity());
-            result.setEmail(doctor.getEmail());
-            result.setFirstName(doctor.getFirstName());
-            result.setLastName(doctor.getLastName());
-            result.setUsername(doctor.getUsername());
-            result.setZipCode(doctor.getZipCode());
-            result.setPassword(doctor.getPassword());
-            result.setCreationDate(doctor.getCreationDate());
-            result.setDob(doctor.getDob());
-            result.setActive(doctor.isActive());
-            result.setPhoneNumber(doctor.getPhoneNumber());
-            getResponse().setLocationRef(
-                    "http://localhost:9000/v1/doctor/"+doctor.getId());
-            getResponse().setStatus(Status.SUCCESS_CREATED);
+            DoctorRepresentation result = new DoctorRepresentation(doctorOut);
 
             LOGGER.finer("Doctor successfully added.");
 

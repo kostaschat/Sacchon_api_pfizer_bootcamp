@@ -8,6 +8,7 @@ import com.pfizer.sacchonapi.representation.PatientRepresentation;
 import com.pfizer.sacchonapi.security.ResourceUtils;
 import com.pfizer.sacchonapi.security.Shield;
 import org.restlet.engine.Engine;
+import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import java.util.ArrayList;
@@ -31,9 +32,8 @@ public class PatientListResourceImpl extends ServerResource implements PatientLi
         }
         catch(Exception e)
         {
-
+            throw new ResourceException(e);
         }
-
         LOGGER.info("Initialising patient resource ends");
     }
 
