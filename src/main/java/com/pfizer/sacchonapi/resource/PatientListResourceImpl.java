@@ -34,7 +34,7 @@ public class PatientListResourceImpl extends ServerResource implements PatientLi
 
         }
 
-        LOGGER.info("Initialising product resource ends");
+        LOGGER.info("Initialising patient resource ends");
     }
 
 
@@ -47,10 +47,8 @@ public class PatientListResourceImpl extends ServerResource implements PatientLi
         ResourceUtils.checkRoles(this, Shield.ROLE_DOCTOR, Shield.ROLE_CHIEF_DOCTOR);
 
         try{
-            List<Patient> patients =
-                    patientRepository.findAll();
-            List<PatientRepresentation> result =
-                    new ArrayList<>();
+            List<Patient> patients = patientRepository.findAll();
+            List<PatientRepresentation> result = new ArrayList<>();
 
             patients.forEach(patient -> result.add (new PatientRepresentation(patient)));
 

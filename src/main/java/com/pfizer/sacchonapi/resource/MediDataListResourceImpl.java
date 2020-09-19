@@ -50,10 +50,8 @@ public class MediDataListResourceImpl  extends ServerResource implements MediDat
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
 
         try {
-            List<MediData> mediData =
-                    mediDataRepository.findAll();
-            List<MediDataRepresentation> result =
-                    new ArrayList<>();
+            List<MediData> mediData = mediDataRepository.findAll();
+            List<MediDataRepresentation> result = new ArrayList<>();
 
             mediData.forEach(product ->
                     result.add(new MediDataRepresentation(product)));

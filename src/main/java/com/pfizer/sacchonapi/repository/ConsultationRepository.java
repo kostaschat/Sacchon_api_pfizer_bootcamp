@@ -3,6 +3,7 @@ package com.pfizer.sacchonapi.repository;
 import com.pfizer.sacchonapi.model.Consultation;
 
 import javax.persistence.EntityManager;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +21,12 @@ public class ConsultationRepository {
 
     public List<Consultation> findAll() {
         return entityManager.createQuery("from Consultation").getResultList();
+    }
+
+    public List<Consultation> findAll(Date startDate, Date endDate) {
+        return entityManager.createQuery("SELECT c FROM Consultation " +
+                "WHERE c.ConsultationDate >= :startDate AND c.ConsultationDate <= :endDATE").getResultList();
+
     }
 
     public Optional<Consultation> findByName(String medicationName) {

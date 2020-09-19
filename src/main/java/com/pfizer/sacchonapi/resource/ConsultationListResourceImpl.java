@@ -26,14 +26,16 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
 
     private ConsultationRepository consultationRepository;
 
+    private String startDate;
+    private String endDate;
+
     @Override
     protected void doInit() {
         LOGGER.info("Initialising consultation resource starts");
         try {
-            consultationRepository =
-                    new ConsultationRepository(JpaUtil.getEntityManager());
+            consultationRepository = new ConsultationRepository(JpaUtil.getEntityManager());
         } catch (Exception e) {
-
+            throw new ResourceException(e);
         }
         LOGGER.info("Initialising consultation resource ends");
     }
@@ -45,10 +47,8 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
         ResourceUtils.checkRoles(this, Shield.ROLE_PATIENT, Shield.ROLE_DOCTOR,Shield.ROLE_CHIEF_DOCTOR);
 
         try {
-            List<Consultation> consultations =
-                    consultationRepository.findAll();
-            List<ConsultationRepresentation> result =
-                    new ArrayList<>();
+            List<Consultation> consultations = consultationRepository.findAll();
+            List<ConsultationRepresentation> result = new ArrayList<>();
 
             consultations.forEach(consultation ->
                     result.add(new ConsultationRepresentation(consultation)));
