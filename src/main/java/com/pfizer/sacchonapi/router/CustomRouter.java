@@ -18,9 +18,12 @@ public class CustomRouter {
         Router router = new Router(application.getContext());
 
         //patient endpoints
-        router.attach("/viewPatients", PatientListResourceImpl.class);
-        router.attach("/viewNotActivePatients", PatientListResourceImpl.class);
-        router.attach("/viewPatient/{id}", PatientResourceImpl.class);
+        router.attach("/patients", PatientListResourceImpl.class);
+        router.attach("/inactive-patients", PatientListResourceImpl.class);
+        router.attach("/patient/{id}", PatientResourceImpl.class);
+        router.attach("/patient", PatientListResourceImpl.class);
+        router.attach("/patient/{id}", PatientListResourceImpl.class);
+
 
         //medidata endpoints
         router.attach("/medidata/{id}", MediDataResourceImpl.class);
