@@ -40,7 +40,6 @@ public class PatientRepository {
         return Optional.empty();
     }
 
-
     public Optional<Patient> update(Patient patient) {
 
         Patient in = entityManager.find(Patient.class, patient.getId());

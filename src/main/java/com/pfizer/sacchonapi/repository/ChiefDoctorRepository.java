@@ -18,7 +18,6 @@ public class ChiefDoctorRepository {
         return chiefDoctor != null ? Optional.of(chiefDoctor) : Optional.empty();
     }
 
-
     public Optional<ChiefDoctor> save(ChiefDoctor chiefDoctor){
         try {
             entityManager.getTransaction().begin();
@@ -30,7 +29,6 @@ public class ChiefDoctorRepository {
         }
         return Optional.empty();
     }
-
 
     public Optional<ChiefDoctor> update(ChiefDoctor chiefDoctor) {
 

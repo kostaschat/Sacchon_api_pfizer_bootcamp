@@ -49,7 +49,6 @@ public class ConsultationRepository {
         return Optional.empty();
     }
 
-
     public Optional<Consultation> update(Consultation consultation) {
 
         Consultation in = entityManager.find(Consultation.class, consultation.getId());
@@ -71,17 +70,13 @@ public class ConsultationRepository {
         Optional<Consultation> oconsultation = findById(id);
         if (oconsultation.isPresent()){
             Consultation c = oconsultation.get();
-
             try{
                 entityManager.getTransaction().begin();
                 entityManager.remove(c);
                 entityManager.getTransaction().commit();
-
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
         return true;
     }

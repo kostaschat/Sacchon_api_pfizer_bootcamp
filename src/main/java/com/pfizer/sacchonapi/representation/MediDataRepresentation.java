@@ -15,7 +15,6 @@ public class MediDataRepresentation {
     private double carb;
     private Date measuredDate;
 
-    //The URL of the resource
     private String uri;
 
     public MediDataRepresentation(MediData mediData)
@@ -27,7 +26,6 @@ public class MediDataRepresentation {
             measuredDate = mediData.getMeasuredDate();
             uri = "http://localhost:9000/v1/medidata/" + mediData.getId();
         }
-
     }
 
     public MediData createMediData(){

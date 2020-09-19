@@ -18,7 +18,6 @@ public class PatientListResourceImpl extends ServerResource implements PatientLi
 
     public static final Logger LOGGER = Engine.getLogger(PatientResourceImpl.class);
 
-
     private PatientRepository patientRepository;
 
 
@@ -45,19 +44,15 @@ public class PatientListResourceImpl extends ServerResource implements PatientLi
 
         LOGGER.finer("Select all patients.");
 
-        // Check authorization
         ResourceUtils.checkRoles(this, Shield.ROLE_DOCTOR, Shield.ROLE_CHIEF_DOCTOR);
 
         try{
-
             List<Patient> patients =
                     patientRepository.findAll();
             List<PatientRepresentation> result =
                     new ArrayList<>();
 
-            patients.forEach(patient ->
-                    result.add (new PatientRepresentation(patient)));
-
+            patients.forEach(patient -> result.add (new PatientRepresentation(patient)));
 
             return result;
         }

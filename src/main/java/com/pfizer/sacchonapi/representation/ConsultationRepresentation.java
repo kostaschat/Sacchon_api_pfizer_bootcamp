@@ -24,6 +24,7 @@ public class ConsultationRepresentation {
             uri = "http://localhost:9000/consulation/" + consultation.getId();
         }
     }
+
     public Consultation createConsulation() {
         Consultation consultation = new Consultation();
         consultation.setMedicationName(medicationName);

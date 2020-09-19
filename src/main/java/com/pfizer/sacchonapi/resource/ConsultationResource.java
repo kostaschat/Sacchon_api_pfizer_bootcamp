@@ -13,6 +13,5 @@ public interface ConsultationResource {
     public ConsultationRepresentation getConsultation() throws NotFoundException;
 
     @Put("json")
-    public ConsultationRepresentation store(ConsultationRepresentation consultationReprIn)
-            throws NotFoundException, BadEntityException;
+    public ConsultationRepresentation store(ConsultationRepresentation consultationReprIn) throws NotFoundException, BadEntityException;
 }

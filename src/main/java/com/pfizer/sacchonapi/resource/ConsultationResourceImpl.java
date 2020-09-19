@@ -19,7 +19,6 @@ import java.util.logging.Logger;
 
 public class ConsultationResourceImpl extends ServerResource implements ConsultationResource {
     public static final Logger LOGGER = Engine.getLogger(ConsultationResourceImpl.class);
-
     private long id;
     private ConsultationRepository consultationRepository;
 
@@ -39,22 +38,16 @@ public class ConsultationResourceImpl extends ServerResource implements Consulta
     }
 
     @Override
-    public ConsultationRepresentation getConsultation()
-            throws NotFoundException {
+    public ConsultationRepresentation getConsultation() throws NotFoundException {
         LOGGER.info("Retrieve a consultation");
 
-        // Check authorization
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
 
-
-        // Initialize the persistence layer.
         ConsultationRepository consultationRepository = new ConsultationRepository(JpaUtil.getEntityManager());
         Consultation consultation;
         try {
 
-
             Optional<Consultation> oconsultation = consultationRepository.findById(id);
-
 
             setExisting(oconsultation.isPresent());
             if (!isExisting()) {
@@ -63,7 +56,7 @@ public class ConsultationResourceImpl extends ServerResource implements Consulta
             } else {
                 consultation = oconsultation.get();
                 LOGGER.finer("User allowed to retrieve a product.");
-                //System.out.println(  userId);
+
                 ConsultationRepresentation result =
                         new ConsultationRepresentation(consultation);
 
@@ -71,14 +64,10 @@ public class ConsultationResourceImpl extends ServerResource implements Consulta
                 LOGGER.finer("Consultation successfully retrieved");
 
                 return result;
-
             }
-
-
         } catch (Exception ex) {
             throw new ResourceException(ex);
         }
-
     }
 
     @Override

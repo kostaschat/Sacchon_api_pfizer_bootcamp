@@ -11,6 +11,5 @@ public interface ChiefDoctorResource {
     public ChiefDoctorRepresentation getChiefDoctor() throws NotFoundException;
 
     @Put("json")
-    public ChiefDoctorRepresentation store(ChiefDoctorRepresentation chiefReprIn)
-            throws NotFoundException, BadEntityException;
+    public ChiefDoctorRepresentation store(ChiefDoctorRepresentation chiefReprIn) throws NotFoundException, BadEntityException;
 }

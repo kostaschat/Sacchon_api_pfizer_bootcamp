@@ -23,7 +23,6 @@ public class CustomVerifier extends SecretVerifier {
             throwables.printStackTrace();
         }
 
-        //user contains both user hints and roles
         if (user!=null
                 && compare(user.getPassword().toCharArray(), secret)) {
             Request request = Request.getCurrent();

@@ -14,8 +14,6 @@ public class PatientRepresentation {
     private String firstName;
     private String lastName;
     private String username;
-
-
     private String email;
     private String password;
     private String address;
@@ -30,11 +28,8 @@ public class PatientRepresentation {
     private boolean consultationPending;
     private boolean hasDoctor;
 
-    //not sure if it needs a url declaration here
-
     public PatientRepresentation(Patient patient)
     {
-
         if(patient != null)
         {
             firstName = patient.getFirstName();

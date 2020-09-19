@@ -17,11 +17,9 @@ public class JpaUtil {
     }
 
     public static EntityManager getEntityManager() {
-
         EntityManager em = getEntityManagerFactory().createEntityManager();
         return em;
     }
-
 
     public static void shutdown() {
         if (factory != null) {

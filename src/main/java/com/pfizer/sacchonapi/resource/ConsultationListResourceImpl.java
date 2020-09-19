@@ -42,9 +42,7 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
 
         LOGGER.finer("Select all consultations.");
 
-        // Check authorization
         ResourceUtils.checkRoles(this, Shield.ROLE_PATIENT, Shield.ROLE_DOCTOR,Shield.ROLE_CHIEF_DOCTOR);
-
 
         try {
             List<Consultation> consultations =
@@ -62,54 +60,33 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
     }
 
     @Override
-    public ConsultationRepresentation add
-            (ConsultationRepresentation consultationRepresentationIn)
-            throws BadEntityException {
-
+    public ConsultationRepresentation add (ConsultationRepresentation consultationIn) throws BadEntityException {
         LOGGER.finer("Add a new consultation.");
 
-        // Check authorization
         ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
         LOGGER.finer("User allowed to add a consultation.");
 
-        // Check entity
-
-        ResourceValidator.notNull(consultationRepresentationIn);
-        ResourceValidator.validate(consultationRepresentationIn);
+        ResourceValidator.notNull(consultationIn);
+        ResourceValidator.validate(consultationIn);
         LOGGER.finer("Consultation checked");
 
         try {
-            // Convert CompanyRepresentation to Company
-            Consultation consultationIn = new Consultation();
-            consultationIn.setMedicationName(consultationRepresentationIn.getMedicationName());
-            consultationIn.setDosage(consultationRepresentationIn.getDosage());
-            consultationIn.setConsultationDate(
-                    consultationRepresentationIn.getConsultationDate());
+            Consultation consultation = consultationIn.createConsulation();
 
+            Optional<Consultation> consultationOptOut = consultationRepository.save(consultation);
 
-            Optional<Consultation> consultationOut =
-                    consultationRepository.save(consultationIn);
-            Consultation consultation = null;
-            if (consultationOut.isPresent())
-                consultation = consultationOut.get();
+            Consultation consultationOut;
+            if (consultationOptOut.isPresent())
+                consultationOut = consultationOptOut.get();
             else
-                throw new
-                        BadEntityException(" Consultation has not been created");
+                throw new BadEntityException(" Consultation has not been created");
 
-            ConsultationRepresentation result =
-                    new ConsultationRepresentation();
-            result.setConsultationDate(consultation.getConsultationDate());
-            result.setDosage(consultation.getDosage());
-            result.setMedicationName(consultation.getMedicationName());
-            result.setUri("http://localhost:9000/v1/consultation/"+consultation.getId());
-
-            getResponse().setLocationRef(
-                    "http://localhost:9000/v1/consultation/"+consultation.getId());
-            getResponse().setStatus(Status.SUCCESS_CREATED);
+            ConsultationRepresentation result = new ConsultationRepresentation(consultationOut);
 
             LOGGER.finer("Consultation successfully added.");
 
             return result;
+
         } catch (Exception ex) {
             LOGGER.log(Level.WARNING, "Error when adding a consultation", ex);
 

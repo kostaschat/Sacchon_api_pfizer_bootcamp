@@ -13,7 +13,6 @@ public class DoctorRepository {
     }
 
     public Optional<Doctor> save(Doctor doctor){
-
         try {
             entityManager.getTransaction().begin();
             entityManager.persist (doctor);
@@ -24,5 +23,4 @@ public class DoctorRepository {
         }
         return Optional.empty();
     }
-
 }

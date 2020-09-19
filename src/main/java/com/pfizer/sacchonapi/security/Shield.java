@@ -26,18 +26,11 @@ public class Shield {
         ChallengeAuthenticator apiGuard = new ChallengeAuthenticator(
                 application.getContext(), ChallengeScheme.HTTP_BASIC, "realm");
 
-
-        // - Verifier : checks authentication
-        // - Enroler : to check authorization (roles)
         Verifier verifier = new CustomVerifier();
         apiGuard.setVerifier(verifier);
 
         return apiGuard;
     }
-
-
-
-
 
     /**
      * not used
@@ -49,7 +42,6 @@ public class Shield {
         ChallengeAuthenticator apiGuard = new ChallengeAuthenticator(
                 application.getContext(), ChallengeScheme.HTTP_BASIC, "realm");
 
-        // Create in-memory users and roles.
         MemoryRealm realm = new MemoryRealm();
 
         User doctor = new User("doctor", "doctor");
@@ -67,19 +59,9 @@ public class Shield {
         realm.getUsers().add(patient);
         realm.map(patient, application.getRole(ROLE_PATIENT));
 
-        // - Verifier : checks authentication
-        // - Enroler : to check authorization (roles)
         apiGuard.setVerifier(realm.getVerifier());
         apiGuard.setEnroler(realm.getEnroler());
 
-        // Provide your own authentication checks by extending SecretVerifier or
-        // LocalVerifier classes
-        // Extend the Enroler class in order to assign roles for an
-        // authenticated user
-
         return apiGuard;
     }
-
-
-
 }

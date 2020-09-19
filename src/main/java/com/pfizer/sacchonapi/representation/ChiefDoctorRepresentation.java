@@ -53,8 +53,6 @@ public class ChiefDoctorRepresentation {
         chiefDoctor.setZipCode(zipCode);
         chiefDoctor.setPhoneNumber(phoneNumber);
 
-
         return chiefDoctor;
     }
-
 }

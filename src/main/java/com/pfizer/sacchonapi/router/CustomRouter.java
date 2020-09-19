@@ -36,11 +36,9 @@ public class CustomRouter {
         return router;
     }
 
-
     public Router publicResources() {
         Router router = new Router();
         router.attach("/ping", PingServerResource.class);
         return router;
     }
-
 }
