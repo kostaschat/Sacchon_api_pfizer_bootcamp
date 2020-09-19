@@ -6,7 +6,7 @@ import com.pfizer.sacchonapi.model.Doctor;
 import com.pfizer.sacchonapi.repository.DoctorRepository;
 import com.pfizer.sacchonapi.repository.util.JpaUtil;
 import com.pfizer.sacchonapi.representation.DoctorRepresentation;
-import com.pfizer.sacchonapi.resource.util.DoctorValidator;
+import com.pfizer.sacchonapi.resource.util.ResourceValidator;
 import com.pfizer.sacchonapi.security.ResourceUtils;
 import com.pfizer.sacchonapi.security.Shield;
 import org.restlet.data.Status;
@@ -41,28 +41,18 @@ public class DoctorListResourceImpl extends ServerResource implements DoctorList
         LOGGER.info("Initialising doctor resource ends");
     }
 
-
-
-
     public List<DoctorRepresentation> getDoctors() throws NotFoundException {
 
         LOGGER.finer("Select all doctors datas.");
 
-        // Check authorization
-        ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);                //d i need to change the role to chief??
+        ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
 
         try {
-
-            List<Doctor> doctors =
-                    doctorRepository.findAll();
-            List<DoctorRepresentation> result =
-                    new ArrayList<>();
-
-
+            List<Doctor> doctors = doctorRepository.findAll();
+            List<DoctorRepresentation> result = new ArrayList<>();
 
             doctors.forEach(doctor ->
                     result.add(new DoctorRepresentation(doctor)));
-
 
             return result;
         } catch (Exception e) {
@@ -80,8 +70,8 @@ public class DoctorListResourceImpl extends ServerResource implements DoctorList
         LOGGER.finer("User allowed to add doctor data.");
 
         // Check entity
-        DoctorValidator.notNull(doctorRepresentationIn);
-        DoctorValidator.validate(doctorRepresentationIn);
+        ResourceValidator.notNull(doctorRepresentationIn);
+        ResourceValidator.validate(doctorRepresentationIn);
         LOGGER.finer("doctor checked");
 
         try {
@@ -94,7 +84,7 @@ public class DoctorListResourceImpl extends ServerResource implements DoctorList
             doctorIn.setPassword(doctorRepresentationIn.getPassword());
             doctorIn.setCity(doctorRepresentationIn.getCity());
             doctorIn.setAddress(doctorRepresentationIn.getAddress());
-            doctorIn.setActive(doctorRepresentationIn.isActive());               // do i need to set active??
+            doctorIn.setActive(doctorRepresentationIn.isActive());
             doctorIn.setDob(doctorRepresentationIn.getDob());
             doctorIn.setZipCode(doctorRepresentationIn.getZipCode());
             doctorIn.setCreationDate(doctorRepresentationIn.getCreationDate());
@@ -108,8 +98,7 @@ public class DoctorListResourceImpl extends ServerResource implements DoctorList
                 throw new
                         BadEntityException(" Doctor has not been created");
 
-            DoctorRepresentation result =
-                    new DoctorRepresentation();
+            DoctorRepresentation result = new DoctorRepresentation();
             result.setAddress(doctor.getAddress());
             result.setCity(doctor.getCity());
             result.setEmail(doctor.getEmail());
@@ -120,7 +109,7 @@ public class DoctorListResourceImpl extends ServerResource implements DoctorList
             result.setPassword(doctor.getPassword());
             result.setCreationDate(doctor.getCreationDate());
             result.setDob(doctor.getDob());
-            result.setActive(doctor.isActive());                                       // do i need to set active??
+            result.setActive(doctor.isActive());
             result.setPhoneNumber(doctor.getPhoneNumber());
             getResponse().setLocationRef(
                     "http://localhost:9000/v1/doctor/"+doctor.getId());
@@ -135,4 +124,3 @@ public class DoctorListResourceImpl extends ServerResource implements DoctorList
         }
     }
 }
-

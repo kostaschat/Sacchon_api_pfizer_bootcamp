@@ -50,7 +50,7 @@ public class ResourceValidator {
     }
 
     public static void validate(DoctorRepresentation doctorRepresentation) throws BadEntityException {
-        if ( doctorRepresentation.isActive()==false) {
+        if ( doctorRepresentation.getFirstName() == null) {
             throw new BadEntityException(
                     "doctor  cannot be null");
         }
