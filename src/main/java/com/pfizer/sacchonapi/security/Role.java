@@ -1,10 +1,16 @@
 package com.pfizer.sacchonapi.security;
 
+
 public enum Role {
-    ROLE_NA("n/a"),
-    ROLE_CHIEF_DOCTOR("chiefDoctor"),
-    ROLE_PATIENT("patient"),
-    ROLE_DOCTOR("doctor");
+    na("n/a"),
+    chiefDoctor("chiefDoctor"),
+    patient("patient"),
+    doctor("doctor");
+
+    @Override
+    public String toString() {
+        return  roleName.toLowerCase();
+    }
 
     private final String roleName;
 
@@ -21,6 +27,6 @@ public enum Role {
             if (roleParameter.equals(role.getRoleName()))
                 return role;
         }
-        return ROLE_NA;
+        return na;
     }
 }

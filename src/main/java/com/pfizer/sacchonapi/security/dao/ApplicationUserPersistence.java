@@ -2,6 +2,7 @@ package com.pfizer.sacchonapi.security.dao;
 
 
 
+import com.pfizer.sacchonapi.model.ApplicationUser;
 import com.pfizer.sacchonapi.security.Role;
 import org.restlet.Context;
 
@@ -23,7 +24,7 @@ public class ApplicationUserPersistence{
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection
-                    .prepareStatement("select * from UserTable where username=?");
+                    .prepareStatement("select * from ApplicationUser where username=?");
             preparedStatement.setString(1, username);
             ResultSet rs = preparedStatement.executeQuery();
 

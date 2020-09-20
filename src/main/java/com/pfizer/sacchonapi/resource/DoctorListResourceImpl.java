@@ -42,7 +42,7 @@ public class DoctorListResourceImpl extends ServerResource implements DoctorList
 
         LOGGER.finer("Select all doctors datas.");
 
-        ResourceUtils.checkRole(this, Shield.ROLE_CHIEF_DOCTOR);
+        ResourceUtils.checkRole(this, Shield.chiefDoctor);
 
         try {
             List<Doctor> doctors = doctorRepository.findAll();
@@ -62,7 +62,7 @@ public class DoctorListResourceImpl extends ServerResource implements DoctorList
 
         LOGGER.finer("Add a new doctor data.");
 
-        ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
+        ResourceUtils.checkRole(this, Shield.doctor);
         LOGGER.finer("User allowed to add doctor data.");
 
         // Check entity

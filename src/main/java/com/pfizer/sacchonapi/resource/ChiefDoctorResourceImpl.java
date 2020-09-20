@@ -40,7 +40,7 @@ public class ChiefDoctorResourceImpl extends ServerResource implements ChiefDoct
     public ChiefDoctorRepresentation getChiefDoctor() throws NotFoundException {
         LOGGER.info("Retrieve Chief Doctor");
 
-        ResourceUtils.checkRole(this, Shield.ROLE_CHIEF_DOCTOR);
+        ResourceUtils.checkRole(this, Shield.chiefDoctor);
 
         ChiefDoctorRepository chiefDoctorRepository = new ChiefDoctorRepository(JpaUtil.getEntityManager());
         ChiefDoctor chiefDoctor;
@@ -68,7 +68,7 @@ public class ChiefDoctorResourceImpl extends ServerResource implements ChiefDoct
     public ChiefDoctorRepresentation store(ChiefDoctorRepresentation chiefReprIn) throws NotFoundException, BadEntityException {
         LOGGER.finer("Update a Chief Doctor.");
 
-        ResourceUtils.checkRole(this, Shield.ROLE_CHIEF_DOCTOR);
+        ResourceUtils.checkRole(this, Shield.chiefDoctor);
         LOGGER.finer("User allowed to update a product.");
 
         ResourceValidator.notNull(chiefReprIn);

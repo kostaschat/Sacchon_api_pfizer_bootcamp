@@ -14,7 +14,6 @@ import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import java.util.Optional;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ConsultationResourceImpl extends ServerResource implements ConsultationResource {
@@ -41,7 +40,7 @@ public class ConsultationResourceImpl extends ServerResource implements Consulta
     public ConsultationRepresentation getConsultation() throws NotFoundException {
         LOGGER.info("Retrieve a consultation");
 
-        ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
+        ResourceUtils.checkRole(this, Shield.patient);
 
         ConsultationRepository consultationRepository = new ConsultationRepository(JpaUtil.getEntityManager());
         Consultation consultation;
@@ -73,7 +72,7 @@ public class ConsultationResourceImpl extends ServerResource implements Consulta
     @Override
     public ConsultationRepresentation store(ConsultationRepresentation consultationReprIn) throws NotFoundException, BadEntityException {
         LOGGER.finer("Update a consultation.");
-        ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
+        ResourceUtils.checkRole(this, Shield.patient);
         LOGGER.finer("User allowed to update a consultation.");
 
         ResourceValidator.notNull(consultationReprIn);

@@ -9,7 +9,6 @@ import com.pfizer.sacchonapi.representation.ConsultationRepresentation;
 import com.pfizer.sacchonapi.resource.util.ResourceValidator;
 import com.pfizer.sacchonapi.security.ResourceUtils;
 import com.pfizer.sacchonapi.security.Shield;
-import org.restlet.data.Status;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
@@ -44,7 +43,7 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
 
         LOGGER.finer("Select all consultations.");
 
-        ResourceUtils.checkRoles(this, Shield.ROLE_PATIENT, Shield.ROLE_DOCTOR,Shield.ROLE_CHIEF_DOCTOR);
+        ResourceUtils.checkRoles(this, Shield.patient, Shield.doctor,Shield.chiefDoctor);
 
         try {
             List<Consultation> consultations = consultationRepository.findAll();
@@ -63,7 +62,7 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
     public ConsultationRepresentation add (ConsultationRepresentation consultationIn) throws BadEntityException {
         LOGGER.finer("Add a new consultation.");
 
-        ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
+        ResourceUtils.checkRole(this, Shield.patient);
         LOGGER.finer("User allowed to add a consultation.");
 
         ResourceValidator.notNull(consultationIn);

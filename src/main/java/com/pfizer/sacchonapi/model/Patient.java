@@ -32,6 +32,10 @@ public class Patient {
     private boolean consultationPending;
     private boolean hasDoctor;
 
+    @OneToOne
+    @JoinColumn(name= "user_username")
+    private ApplicationUser applicationUser;
+
     @ManyToOne
     @JoinColumn(name= "doctor_id")
     private Doctor doctor;
