@@ -55,4 +55,11 @@ public class ResourceValidator {
                     "doctor  cannot be null");
         }
     }
+
+    public static void validate(ApplicationUserRepresentation applicationUserRepresentation) throws BadEntityException {
+        if ( applicationUserRepresentation.getUsername() == null) {
+            throw new BadEntityException(
+                    "User  cannot be null");
+        }
+    }
 }

@@ -9,9 +9,9 @@ import org.restlet.security.Verifier;
 
 
 public class Shield {
-    public static final String ROLE_CHIEF_DOCTOR = "chiefDoctor";
-    public static final String ROLE_DOCTOR = "doctor";
-    public static final String ROLE_PATIENT = "patient";
+    public static final String chiefDoctor = "chiefDoctor";
+    public static final String doctor = "doctor";
+    public static final String patient = "patient";
 
 
     private Application application;
@@ -46,18 +46,18 @@ public class Shield {
 
         User doctor = new User("doctor", "doctor");
         realm.getUsers().add(doctor);
-        realm.map(doctor, application.getRole(ROLE_DOCTOR));
-        realm.map(doctor, application.getRole(ROLE_PATIENT));
+        realm.map(doctor, application.getRole(Shield.doctor));
+        realm.map(doctor, application.getRole(patient));
 
         User chiefDoctor = new User("chiefDoctor", "chiefDoctor");
         realm.getUsers().add(chiefDoctor);
-        realm.map(chiefDoctor, application.getRole(ROLE_CHIEF_DOCTOR));
-        realm.map(chiefDoctor, application.getRole(ROLE_CHIEF_DOCTOR));
-        realm.map(chiefDoctor, application.getRole(ROLE_CHIEF_DOCTOR));
+        realm.map(chiefDoctor, application.getRole(Shield.chiefDoctor));
+        realm.map(chiefDoctor, application.getRole(Shield.chiefDoctor));
+        realm.map(chiefDoctor, application.getRole(Shield.chiefDoctor));
 
         User patient = new User("patient", "patient");
         realm.getUsers().add(patient);
-        realm.map(patient, application.getRole(ROLE_PATIENT));
+        realm.map(patient, application.getRole(Shield.patient));
 
         apiGuard.setVerifier(realm.getVerifier());
         apiGuard.setEnroler(realm.getEnroler());

@@ -9,7 +9,6 @@ import com.pfizer.sacchonapi.representation.PatientRepresentation;
 import com.pfizer.sacchonapi.resource.util.ResourceValidator;
 import com.pfizer.sacchonapi.security.ResourceUtils;
 import com.pfizer.sacchonapi.security.Shield;
-import org.restlet.data.Status;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
@@ -53,7 +52,7 @@ public class PatientListResourceImpl extends ServerResource implements PatientLi
 
             LOGGER.finer("Add patient data.");
 
-            ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
+            ResourceUtils.checkRole(this, Shield.patient);
             LOGGER.finer("User was allowed to add data.");
 
             ResourceValidator.notNull(patientIn);
@@ -89,7 +88,7 @@ public class PatientListResourceImpl extends ServerResource implements PatientLi
 
         LOGGER.finer("Select all patients.");
 
-        ResourceUtils.checkRoles(this, Shield.ROLE_DOCTOR, Shield.ROLE_CHIEF_DOCTOR);
+        ResourceUtils.checkRoles(this, Shield.doctor, Shield.chiefDoctor);
 
         try{
             List<Patient> patients = patientRepository.findAll();

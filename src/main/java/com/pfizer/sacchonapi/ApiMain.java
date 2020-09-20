@@ -1,6 +1,5 @@
 package com.pfizer.sacchonapi;
 
-import com.pfizer.sacchonapi.model.MediData;
 import com.pfizer.sacchonapi.repository.util.JpaUtil;
 import com.pfizer.sacchonapi.router.CustomRouter;
 import com.pfizer.sacchonapi.security.Shield;
@@ -22,6 +21,7 @@ public class ApiMain extends Application {
 
     public static void main(String[] args) throws Exception {
         LOGGER.info("Contacts application starting...");
+        EntityManager em   = JpaUtil.getEntityManager();
 
         Component c = new Component();
         c.getServers().add(Protocol.HTTP, 9000);
@@ -41,9 +41,9 @@ public class ApiMain extends Application {
         setName("WebAPITutorial");
         setDescription("Full Web API tutorial");
 
-        getRoles().add(new Role(this, Shield.ROLE_CHIEF_DOCTOR));
-        getRoles().add(new Role(this, Shield.ROLE_DOCTOR));
-        getRoles().add(new Role(this, Shield.ROLE_PATIENT));
+        getRoles().add(new Role(this, Shield.chiefDoctor));
+        getRoles().add(new Role(this, Shield.doctor));
+        getRoles().add(new Role(this, Shield.patient));
 
     }
     @Override
@@ -52,19 +52,21 @@ public class ApiMain extends Application {
         CustomRouter customRouter = new CustomRouter(this);
         Shield shield = new Shield(this);
 
-        Router publicRouter = customRouter.publicResources();
+//        Router publicRouter = customRouter.publicResources();
+        Router publicUser = customRouter.publicUser();
+
         ChallengeAuthenticator apiGuard = shield.createApiGuard();
         // Create the api router, protected by a guard
 
         Router apiRouter = customRouter.createApiRouter();
         apiGuard.setNext(apiRouter);
 
-        publicRouter.attachDefault(apiGuard);
-
+//        publicRouter.attachDefault(apiGuard);
+        publicUser.attachDefault(apiGuard);
         // return publicRouter;
 
         CorsFilter corsFilter = new CorsFilter(this);
-        return corsFilter.createCorsFilter(publicRouter);
+        return corsFilter.createCorsFilter(publicUser);
     }
 
 

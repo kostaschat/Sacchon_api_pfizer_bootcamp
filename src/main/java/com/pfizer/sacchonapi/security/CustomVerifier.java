@@ -1,7 +1,7 @@
 package com.pfizer.sacchonapi.security;
 
 
-import com.pfizer.sacchonapi.security.dao.ApplicationUser;
+import com.pfizer.sacchonapi.model.ApplicationUser;
 import com.pfizer.sacchonapi.security.dao.ApplicationUserPersistence;
 import org.restlet.Request;
 import org.restlet.security.Role;

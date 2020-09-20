@@ -39,6 +39,8 @@ public class CustomRouter {
         router.attach("/doctor", DoctorListResourceImpl.class);
         router.attach("/doctor/", DoctorListResourceImpl.class);
 
+//        router.attach("/user", ApplicationUserListResourceImpl.class);
+//        router.attach("/user/", ApplicationUserListResourceImpl.class);
 
         return router;
     }
@@ -46,6 +48,12 @@ public class CustomRouter {
     public Router publicResources() {
         Router router = new Router();
         router.attach("/ping", PingServerResource.class);
+        return router;
+    }
+
+    public Router publicUser() {
+        Router router = new Router();
+        router.attach("/user", ApplicationUserListResourceImpl.class);
         return router;
     }
 }

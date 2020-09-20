@@ -2,18 +2,13 @@ package com.pfizer.sacchonapi.resource;
 
 import com.pfizer.sacchonapi.exception.BadEntityException;
 import com.pfizer.sacchonapi.exception.NotFoundException;
-import com.pfizer.sacchonapi.model.MediData;
 import com.pfizer.sacchonapi.model.Patient;
-import com.pfizer.sacchonapi.repository.MediDataRepository;
 import com.pfizer.sacchonapi.repository.PatientRepository;
 import com.pfizer.sacchonapi.repository.util.JpaUtil;
-import com.pfizer.sacchonapi.representation.ConsultationRepresentation;
-import com.pfizer.sacchonapi.representation.MediDataRepresentation;
 import com.pfizer.sacchonapi.representation.PatientRepresentation;
 import com.pfizer.sacchonapi.resource.util.ResourceValidator;
 import com.pfizer.sacchonapi.security.ResourceUtils;
 import com.pfizer.sacchonapi.security.Shield;
-import org.restlet.data.Product;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
@@ -50,7 +45,7 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
 
         LOGGER.finer("Update a patient.");
 
-        ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
+        ResourceUtils.checkRole(this, Shield.patient);
         LOGGER.finer("Patient was allowed to update his role.");
 
         // Check given entity
@@ -104,7 +99,7 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
     public PatientRepresentation getPatient() throws NotFoundException {
         LOGGER.info("Retrieve patient's data");
         //check authorization
-        ResourceUtils.checkRoles(this, Shield.ROLE_PATIENT, Shield.ROLE_DOCTOR,Shield.ROLE_CHIEF_DOCTOR);
+        ResourceUtils.checkRoles(this, Shield.patient, Shield.doctor,Shield.chiefDoctor);
 
         // Initialize the persistence layer.
         PatientRepository patientRepository = new PatientRepository(em);

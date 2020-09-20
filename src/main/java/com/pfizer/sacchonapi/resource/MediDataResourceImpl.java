@@ -16,8 +16,6 @@ import org.restlet.resource.ServerResource;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import static com.pfizer.sacchonapi.ApiMain.LOGGER;
-
 public class MediDataResourceImpl extends ServerResource implements MediDataResource {
 
     public static final Logger LOGGER = Engine.getLogger(MediDataResourceImpl.class);
@@ -43,7 +41,7 @@ public class MediDataResourceImpl extends ServerResource implements MediDataReso
     public MediDataRepresentation getMediData() throws NotFoundException {
         LOGGER.info("Retrieve medical data");
 
-        ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
+        ResourceUtils.checkRole(this, Shield.patient);
 
         MediDataRepository mediDataRepository = new MediDataRepository(JpaUtil.getEntityManager());
         MediData mediData;
@@ -72,7 +70,7 @@ public class MediDataResourceImpl extends ServerResource implements MediDataReso
     public MediDataRepresentation store(MediDataRepresentation mediDataReprIn) throws NotFoundException, BadEntityException {
         LOGGER.finer("Update a product.");
 
-        ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
+        ResourceUtils.checkRole(this, Shield.patient);
         LOGGER.finer("User allowed to update medical data.");
 
         ResourceValidator.notNull(mediDataReprIn);

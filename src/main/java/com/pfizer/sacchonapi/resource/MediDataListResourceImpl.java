@@ -9,7 +9,6 @@ import com.pfizer.sacchonapi.representation.MediDataRepresentation;
 import com.pfizer.sacchonapi.resource.util.ResourceValidator;
 import com.pfizer.sacchonapi.security.ResourceUtils;
 import com.pfizer.sacchonapi.security.Shield;
-import org.restlet.data.Status;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
@@ -47,7 +46,7 @@ public class MediDataListResourceImpl  extends ServerResource implements MediDat
 
         LOGGER.finer("Select all medical datas.");
 
-        ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
+        ResourceUtils.checkRole(this, Shield.patient);
 
         try {
             List<MediData> mediData = mediDataRepository.findAll();
@@ -67,7 +66,7 @@ public class MediDataListResourceImpl  extends ServerResource implements MediDat
 
             LOGGER.finer("Add a new medical data.");
 
-            ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
+            ResourceUtils.checkRole(this, Shield.patient);
             LOGGER.finer("User allowed to add medical data.");
 
 
