@@ -21,10 +21,5 @@ public class JpaUtil {
         return em;
     }
 
-    public static void shutdown() {
-        if (factory != null) {
-            factory.close();
-        }
-    }
 }
 

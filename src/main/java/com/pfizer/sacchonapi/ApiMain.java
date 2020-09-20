@@ -28,13 +28,11 @@ public class ApiMain extends Application {
         c.getDefaultHost().attach("/v1", new ApiMain());
         c.start();
 
-
         LOGGER.info("Sample Web API started");
         LOGGER.info("URL: http://localhost:9000/v1/medidata");
         LOGGER.info("URL: http://localhost:9000/v1/consultation");
-        LOGGER.info("URL: http://localhost:9000/v1/viewPatients");
-        LOGGER.info("URL: http://localhost:9000/v1/viewNotActivePatients");
-        LOGGER.info("URL: http://localhost:9000/v1/chief-doctor");
+        LOGGER.info("URL: http://localhost:9000/v1/register");
+
     }
     public ApiMain() {
 
@@ -61,13 +59,11 @@ public class ApiMain extends Application {
         Router apiRouter = customRouter.createApiRouter();
         apiGuard.setNext(apiRouter);
 
-//        publicRouter.attachDefault(apiGuard);
+
         publicUser.attachDefault(apiGuard);
-        // return publicRouter;
+
 
         CorsFilter corsFilter = new CorsFilter(this);
         return corsFilter.createCorsFilter(publicUser);
     }
-
-
 }

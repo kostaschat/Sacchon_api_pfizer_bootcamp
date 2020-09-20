@@ -17,9 +17,6 @@ public class CustomRouter {
 
         Router router = new Router(application.getContext());
 
-
-
-
         //medidata endpoints
         router.attach("/medidata/{id}", MediDataResourceImpl.class);
         router.attach("/medidata", MediDataListResourceImpl.class);
@@ -29,18 +26,19 @@ public class CustomRouter {
         router.attach("/consultation/", ConsultationListResourceImpl.class);
         router.attach("/consultation", ConsultationListResourceImpl.class);
 
+
         return router;
     }
 
-    public Router publicResources() {
-        Router router = new Router();
-        router.attach("/ping", PingServerResource.class);
-        return router;
-    }
+//    public Router publicResources() {
+//        Router router = new Router();
+//        router.attach("/ping", PingServerResource.class);
+//        return router;
+//    }
 
     public Router publicUser() {
         Router router = new Router();
-        router.attach("/user", ApplicationUserListResourceImpl.class);
+        router.attach("/register", ApplicationUserListResourceImpl.class);
         return router;
     }
 }
