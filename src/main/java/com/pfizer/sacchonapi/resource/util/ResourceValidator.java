@@ -35,26 +35,6 @@ public class ResourceValidator {
         }
     }
 
-    public static void validatePatient(PatientRepresentation patientRepresentation) throws BadEntityException {
-        if ( patientRepresentation.getFirstName() == null || patientRepresentation.getLastName() == null || patientRepresentation.getPassword() == null || patientRepresentation.getEmail() == null ) {
-            throw new BadEntityException(
-                    "The required fields cannot not be empty");
-        }
-    }
-
-    public static void validateChiefDoctor(ChiefDoctorRepresentation chiefDoctorRepresentation) throws BadEntityException {
-        if ( chiefDoctorRepresentation.getFirstName() == null || chiefDoctorRepresentation.getLastName() == null || chiefDoctorRepresentation.getPassword() == null || chiefDoctorRepresentation.getEmail() == null ) {
-            throw new BadEntityException(
-                    "The required fields cannot not be empty");
-        }
-    }
-
-    public static void validate(DoctorRepresentation doctorRepresentation) throws BadEntityException {
-        if ( doctorRepresentation.getFirstName() == null) {
-            throw new BadEntityException(
-                    "doctor  cannot be null");
-        }
-    }
 
     public static void validate(ApplicationUserRepresentation applicationUserRepresentation) throws BadEntityException {
         if ( applicationUserRepresentation.getUsername() == null) {

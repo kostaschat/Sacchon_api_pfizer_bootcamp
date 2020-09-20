@@ -30,29 +30,4 @@ public class ChiefDoctorRepository {
         return Optional.empty();
     }
 
-    public Optional<ChiefDoctor> update(ChiefDoctor chiefDoctor) {
-
-        ChiefDoctor in = entityManager.find(ChiefDoctor.class, chiefDoctor.getId());
-        in.setAddress(chiefDoctor.getAddress());
-        in.setFirstName(chiefDoctor.getFirstName());
-        in.setLastName(chiefDoctor.getLastName());
-        in.setUsername(chiefDoctor.getUsername());
-
-        in.setEmail(chiefDoctor.getEmail());
-        in.setPassword(chiefDoctor.getPassword());
-        in.setAddress(chiefDoctor.getAddress());
-        in.setCity(chiefDoctor.getCity());
-        in.setZipCode(chiefDoctor.getZipCode());
-        in.setPhoneNumber(chiefDoctor.getPhoneNumber());
-
-        try {
-            entityManager.getTransaction().begin();
-            entityManager.persist (in);
-            entityManager.getTransaction().commit();
-            return Optional.of(in);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return Optional.empty();
-    }
 }

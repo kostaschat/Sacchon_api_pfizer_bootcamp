@@ -17,30 +17,17 @@ public class CustomRouter {
 
         Router router = new Router(application.getContext());
 
-        //patient endpoints
-        router.attach("/patient/{id}", PatientResourceImpl.class);
-        router.attach("/patient", PatientListResourceImpl.class);
-        router.attach("/patient/", PatientListResourceImpl.class);
+
 
 
         //medidata endpoints
         router.attach("/medidata/{id}", MediDataResourceImpl.class);
         router.attach("/medidata", MediDataListResourceImpl.class);
-
-       // router.attach("/medidata/", MediDataListResourceImpl.class);
+        router.attach("/medidata/", MediDataListResourceImpl.class);
 
         router.attach("/consultation/{id}", ConsultationResourceImpl.class);
         router.attach("/consultation/", ConsultationListResourceImpl.class);
         router.attach("/consultation", ConsultationListResourceImpl.class);
-
-        router.attach("/chief-doctor/{id}", ChiefDoctorResourceImpl.class);
-
-        router.attach("/doctor/{id}", DoctorResourceImpl.class);
-        router.attach("/doctor", DoctorListResourceImpl.class);
-        router.attach("/doctor/", DoctorListResourceImpl.class);
-
-//        router.attach("/user", ApplicationUserListResourceImpl.class);
-//        router.attach("/user/", ApplicationUserListResourceImpl.class);
 
         return router;
     }

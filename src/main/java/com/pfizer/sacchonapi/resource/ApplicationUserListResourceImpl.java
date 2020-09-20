@@ -3,12 +3,16 @@ package com.pfizer.sacchonapi.resource;
 import com.pfizer.sacchonapi.exception.BadEntityException;
 import com.pfizer.sacchonapi.exception.NotFoundException;
 import com.pfizer.sacchonapi.model.ApplicationUser;
+import com.pfizer.sacchonapi.model.Doctor;
 import com.pfizer.sacchonapi.model.Patient;
 import com.pfizer.sacchonapi.repository.ApplicationUserRepository;
+import com.pfizer.sacchonapi.repository.DoctorRepository;
+import com.pfizer.sacchonapi.repository.PatientRepository;
 import com.pfizer.sacchonapi.repository.util.JpaUtil;
 import com.pfizer.sacchonapi.representation.ApplicationUserRepresentation;
 import com.pfizer.sacchonapi.resource.util.ResourceValidator;
 import com.pfizer.sacchonapi.security.ResourceUtils;
+import com.pfizer.sacchonapi.security.Role;
 import com.pfizer.sacchonapi.security.Shield;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
@@ -21,9 +25,11 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ApplicationUserListResourceImpl extends ServerResource implements ApplicationUserListResource{
+public class ApplicationUserListResourceImpl extends ServerResource implements ApplicationUserListResource {
 
     private ApplicationUserRepository applicationUserRepository;
+    private PatientRepository patientRepository;
+    private DoctorRepository doctorRepository;
     private EntityManager em;
 
     @Override
@@ -37,6 +43,8 @@ public class ApplicationUserListResourceImpl extends ServerResource implements A
         try {
             em = JpaUtil.getEntityManager();
             applicationUserRepository = new ApplicationUserRepository(em);
+            patientRepository = new PatientRepository(em);
+            doctorRepository = new DoctorRepository(em);
         } catch (Exception ex) {
             throw new ResourceException(ex);
         }
@@ -54,20 +62,32 @@ public class ApplicationUserListResourceImpl extends ServerResource implements A
         ResourceValidator.validate(userIn);
 
         try {
-
             // Convert CompanyRepresentation to Company
             ApplicationUser applicationUser = userIn.createUser();
 
             Optional<ApplicationUser> customerOptOut = applicationUserRepository.save(applicationUser);
-
             ApplicationUser userOut;
-            if (customerOptOut.isPresent())
+
+            if (customerOptOut.isPresent()) {
+
                 userOut = customerOptOut.get();
-            else
+
+                if (userOut.getRole() == Role.patient) {
+                    Patient patient = new Patient();
+                    patient.setHasConsultation(false);
+                    patient.setHasDoctor(false);
+                    patient.setConsultationPending(false);
+                    patient.setApplicationUser(userOut);
+                    patientRepository.save(patient);
+                } else if (userOut.getRole() == Role.doctor){
+                    Doctor doctor = new Doctor();
+                    doctor.setApplicationUser(userOut);
+                    doctorRepository.save(doctor);
+                }
+            } else
                 throw new BadEntityException("User has not been created");
 
             ApplicationUserRepresentation result = new ApplicationUserRepresentation(userOut);
-
 
             return result;
         } catch (Exception ex) {
