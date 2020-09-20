@@ -21,7 +21,7 @@ public class ConsultationRepresentation {
             medicationName = consultation.getMedicationName();
             dosage = consultation.getDosage();
             consultationDate = consultation.getConsultationDate();
-            uri = "http://localhost:9000/consulation/" + consultation.getId();
+            uri = "http://localhost:9000/consultation/" + consultation.getId();
         }
     }
 

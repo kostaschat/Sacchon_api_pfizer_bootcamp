@@ -1,6 +1,7 @@
 package com.pfizer.sacchonapi.resource.util;
 
 import com.pfizer.sacchonapi.exception.BadEntityException;
+import com.pfizer.sacchonapi.model.Patient;
 import com.pfizer.sacchonapi.representation.*;
 
 public class ResourceValidator {
@@ -35,24 +36,29 @@ public class ResourceValidator {
         }
     }
 
-    public static void validatePatient(PatientRepresentation patientRepresentation) throws BadEntityException {
-        if ( patientRepresentation.getFirstName() == null || patientRepresentation.getLastName() == null || patientRepresentation.getPassword() == null || patientRepresentation.getEmail() == null ) {
+    public static void checkUserValues(String firstName, String lastName, String password, String email) throws BadEntityException
+    {
+        if (firstName == null || lastName == null || password == null || email == null ) {
             throw new BadEntityException(
                     "The required fields cannot not be empty");
         }
+    }
+
+    public static void validatePatient(PatientRepresentation patientRepresentation) throws BadEntityException {
+        checkUserValues(patientRepresentation.getFirstName(), patientRepresentation.getLastName(),
+                patientRepresentation.getPassword(),
+                patientRepresentation.getEmail());
     }
 
     public static void validateChiefDoctor(ChiefDoctorRepresentation chiefDoctorRepresentation) throws BadEntityException {
-        if ( chiefDoctorRepresentation.getFirstName() == null || chiefDoctorRepresentation.getLastName() == null || chiefDoctorRepresentation.getPassword() == null || chiefDoctorRepresentation.getEmail() == null ) {
-            throw new BadEntityException(
-                    "The required fields cannot not be empty");
-        }
+        checkUserValues(chiefDoctorRepresentation.getFirstName(), chiefDoctorRepresentation.getLastName(),
+                chiefDoctorRepresentation.getPassword(),
+                chiefDoctorRepresentation.getEmail());
     }
 
-    public static void validate(DoctorRepresentation doctorRepresentation) throws BadEntityException {
-        if ( doctorRepresentation.getFirstName() == null) {
-            throw new BadEntityException(
-                    "doctor  cannot be null");
-        }
+    public static void validateDoctor(DoctorRepresentation doctorRepresentation) throws BadEntityException {
+        checkUserValues(doctorRepresentation.getFirstName(), doctorRepresentation.getLastName(),
+                doctorRepresentation.getPassword(),
+                doctorRepresentation.getEmail());
     }
 }

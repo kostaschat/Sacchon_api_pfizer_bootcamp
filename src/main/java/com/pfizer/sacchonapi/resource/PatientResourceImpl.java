@@ -31,6 +31,12 @@ public class PatientResourceImpl extends ServerResource implements PatientResour
     private EntityManager em;
 
     @Override
+    protected void doRelease()
+    {
+        em.close();
+    }
+
+    @Override
     protected void doInit() {
         LOGGER.info("Initialising patient resource starts");
         try {

@@ -13,6 +13,7 @@ import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
+import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,13 +23,22 @@ import java.util.logging.Logger;
 public class DoctorListResourceImpl extends ServerResource implements DoctorListResource{
 
     public static final Logger LOGGER = Engine.getLogger(DoctorResourceImpl.class);
-    private DoctorRepository doctorRepository ;
+    private DoctorRepository doctorRepository;
+    private EntityManager em;
+
+
+    @Override
+    protected void doRelease()
+    {
+        em.close();
+    }
 
     @Override
     protected void doInit() {
         LOGGER.info("Initialising doctor resource starts");
         try {
-            doctorRepository = new DoctorRepository(JpaUtil.getEntityManager()) ;
+            em = JpaUtil.getEntityManager();
+            doctorRepository = new DoctorRepository(em) ;
         }
         catch(Exception e)
         {
@@ -67,7 +77,7 @@ public class DoctorListResourceImpl extends ServerResource implements DoctorList
 
         // Check entity
         ResourceValidator.notNull(doctorIn);
-        ResourceValidator.validate(doctorIn);
+        ResourceValidator.validateDoctor(doctorIn);
         LOGGER.finer("doctor checked");
 
         try {

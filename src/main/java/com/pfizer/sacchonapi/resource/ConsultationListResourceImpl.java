@@ -14,6 +14,7 @@ import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
+import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -29,11 +30,21 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
     private String startDate;
     private String endDate;
 
+    private EntityManager em;
+
+
+    @Override
+    protected void doRelease()
+    {
+        em.close();
+    }
+
     @Override
     protected void doInit() {
         LOGGER.info("Initialising consultation resource starts");
         try {
-            consultationRepository = new ConsultationRepository(JpaUtil.getEntityManager());
+            em = JpaUtil.getEntityManager();
+            consultationRepository = new ConsultationRepository(em);
         } catch (Exception e) {
             throw new ResourceException(e);
         }

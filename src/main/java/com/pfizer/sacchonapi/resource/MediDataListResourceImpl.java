@@ -14,6 +14,7 @@ import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
+import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -26,12 +27,20 @@ public class MediDataListResourceImpl  extends ServerResource implements MediDat
     private MediDataRepository mediDataRepository ;
 
     private long id;
+    private EntityManager em;
+
+    @Override
+    protected void doRelease()
+    {
+        em.close();
+    }
 
     @Override
     protected void doInit() {
         LOGGER.info("Initialising medidata resource starts");
         try {
-            mediDataRepository = new MediDataRepository (JpaUtil.getEntityManager()) ;
+            em = JpaUtil.getEntityManager();
+            mediDataRepository = new MediDataRepository (em) ;
             id = Long.parseLong(getAttribute("id"));
         }
         catch(Exception e)

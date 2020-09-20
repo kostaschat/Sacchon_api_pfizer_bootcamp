@@ -29,7 +29,8 @@ public class PatientListResourceImpl extends ServerResource implements PatientLi
     private EntityManager em;
 
     @Override
-    protected void doRelease(){
+    protected void doRelease()
+    {
         em.close();
     }
 

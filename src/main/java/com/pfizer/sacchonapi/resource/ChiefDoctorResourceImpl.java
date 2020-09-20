@@ -13,6 +13,7 @@ import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
+import javax.persistence.EntityManager;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -21,12 +22,20 @@ public class ChiefDoctorResourceImpl extends ServerResource implements ChiefDoct
 
     private long id;
     private ChiefDoctorRepository chiefDoctorRepository;
+    private EntityManager em;
+
+    @Override
+    protected void doRelease()
+    {
+        em.close();
+    }
 
     @Override
     protected void doInit() {
         LOGGER.info("Initialising Chief Doctor resource starts");
         try {
-            chiefDoctorRepository = new ChiefDoctorRepository(JpaUtil.getEntityManager());
+            em = JpaUtil.getEntityManager();
+            chiefDoctorRepository = new ChiefDoctorRepository(em);
             id = Long.parseLong(getAttribute("id"));
 
         } catch (Exception e) {

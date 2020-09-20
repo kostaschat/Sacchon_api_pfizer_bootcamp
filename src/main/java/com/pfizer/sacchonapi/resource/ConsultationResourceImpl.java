@@ -13,6 +13,7 @@ import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
+import javax.persistence.EntityManager;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,13 +22,21 @@ public class ConsultationResourceImpl extends ServerResource implements Consulta
     public static final Logger LOGGER = Engine.getLogger(ConsultationResourceImpl.class);
     private long id;
     private ConsultationRepository consultationRepository;
+    private EntityManager em;
+
+    @Override
+    protected void doRelease()
+    {
+        em.close();
+    }
 
     @Override
     protected void doInit() {
         LOGGER.info("Initialising consultation resource starts");
         try {
+            em = JpaUtil.getEntityManager();
             consultationRepository =
-                    new ConsultationRepository(JpaUtil.getEntityManager());
+                    new ConsultationRepository(em);
             id = Long.parseLong(getAttribute("id"));
 
         } catch (Exception e) {

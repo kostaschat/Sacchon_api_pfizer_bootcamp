@@ -13,6 +13,7 @@ import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
+import javax.persistence.EntityManager;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -22,12 +23,21 @@ public class DoctorResourceImpl  extends ServerResource implements DoctorResourc
 
     private long id;
     private DoctorRepository doctorRepository;
+    private EntityManager em;
+
+    @Override
+    protected void doRelease()
+    {
+        em.close();
+    }
+
 
     @Override
     protected void doInit() {
         LOGGER.info("Initialising doctor data resource starts");
         try {
-            doctorRepository = new DoctorRepository(JpaUtil.getEntityManager());
+            em = JpaUtil.getEntityManager();
+            doctorRepository = new DoctorRepository(em);
             id = Long.parseLong(getAttribute("id"));
 
         } catch (Exception e) {
@@ -75,7 +85,7 @@ public class DoctorResourceImpl  extends ServerResource implements DoctorResourc
         LOGGER.finer("doctor allowed to update a data.");
 
         ResourceValidator.notNull(doctorReprIn);
-        ResourceValidator.validate(doctorReprIn);
+        ResourceValidator.validateDoctor(doctorReprIn);
         LOGGER.finer("doctor checked");
 
         try {
