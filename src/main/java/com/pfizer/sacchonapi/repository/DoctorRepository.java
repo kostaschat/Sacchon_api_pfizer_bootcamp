@@ -24,10 +24,8 @@ public class DoctorRepository {
     }
 
 
-    public Optional<Doctor> findByName(String name) {
-        Doctor doctor = entityManager.createQuery("SELECT b FROM Doctor b WHERE b.name = :name", Doctor.class)
-                .setParameter("name", name)
-                .getSingleResult();
+    public Optional<Doctor> findByName(String user_username) {
+        Doctor doctor = entityManager.find(Doctor.class, user_username);
         return doctor != null ? Optional.of(doctor) : Optional.empty();
     }
 

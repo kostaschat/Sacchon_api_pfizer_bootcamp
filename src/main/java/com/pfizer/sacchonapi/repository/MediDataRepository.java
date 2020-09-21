@@ -1,9 +1,11 @@
 package com.pfizer.sacchonapi.repository;
 
+import com.pfizer.sacchonapi.model.Consultation;
 import com.pfizer.sacchonapi.model.MediData;
 import lombok.Data;
 
 import javax.persistence.EntityManager;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +25,11 @@ public class MediDataRepository {
 
     public List<MediData> findAll() {
         return entityManager.createQuery("from MediData").getResultList();
+    }
+
+    public List<Consultation> findAll(Date startDate, Date endDate) {
+        return entityManager.createQuery("SELECT c FROM Medidata " +
+                "WHERE c.measuredDate >= :startDate AND c.measuredDate <= :endDATE").getResultList();
     }
 
     public Optional<MediData> save(MediData mediData){
