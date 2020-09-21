@@ -61,41 +61,41 @@ public class AddMediData {
 //        pr.save(p);
 
 
-        Patient p1 = new Patient();
-        p1.setFirstName("Anestis");
-        p1.setLastName("Aitwlos");
-        p1.setUsername("k_aitwlos");
-        p1.setEmail("kaitwlos@gmail.com");
-        p1.setPassword("a76d7a7");
-        p1.setAddress("Iaswnidou 27");
-        p1.setCity("Thessaloniki");
-        p1.setZipCode("55167");
-        p1.setPhoneNumber("6973878372");
-
-        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-mm-dd");
-
-        Date d3 = null;
-        try {
-            d3 = sdf.parse("1953-11-10");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        p1.setDob(d1);
-
-        Date d4 = null;
-        try {
-            d4 = sdf.parse("2020-04-17");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        p1.setCreationDate(d1);
-
-        p1.setActive(true);
-        p1.setHasConsultation(false);
-        p1.setConsultationPending(true);
-        p1.setHasDoctor(true);
-
-        pr.save(p1);
+//        Patient p1 = new Patient();
+//        p1.setFirstName("Anestis");
+//        p1.setLastName("Aitwlos");
+//        p1.setUsername("k_aitwlos");
+//        p1.setEmail("kaitwlos@gmail.com");
+//        p1.setPassword("a76d7a7");
+//        p1.setAddress("Iaswnidou 27");
+//        p1.setCity("Thessaloniki");
+//        p1.setZipCode("55167");
+//        p1.setPhoneNumber("6973878372");
+//
+//        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-mm-dd");
+//
+//        Date d3 = null;
+//        try {
+//            d3 = sdf.parse("1953-11-10");
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        p1.setDob(d1);
+//
+//        Date d4 = null;
+//        try {
+//            d4 = sdf.parse("2020-04-17");
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        p1.setCreationDate(d1);
+//
+//        p1.setActive(true);
+//        p1.setHasConsultation(false);
+//        p1.setConsultationPending(true);
+//        p1.setHasDoctor(true);
+//
+//        pr.save(p1);
 
     }
 }

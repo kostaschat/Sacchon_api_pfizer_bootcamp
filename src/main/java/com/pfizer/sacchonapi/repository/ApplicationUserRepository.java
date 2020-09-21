@@ -13,14 +13,17 @@ public class ApplicationUserRepository {
         this.entityManager = entityManager;
     }
 
-    public Optional<ApplicationUserRepository> findByUsername(String username) {
-        ApplicationUserRepository userTable = entityManager.find(ApplicationUserRepository.class, username);
+    public Optional<ApplicationUser> findByUsername(String username) {
+        ApplicationUser userTable = entityManager.find(ApplicationUser.class, username);
         return userTable != null ? Optional.of(userTable) : Optional.empty();
     }
 
     public List<ApplicationUser> findAll() {
-        return entityManager.createQuery("from ApplicationUser").getResultList();
+        return entityManager.createQuery("SELECT ApplicationUser.active FROM ApplicationUser" +
+                "INNER JOIN Patient ON Patient.Username = ApplicationUser.Username" +
+                "  ").getResultList();
     }
+
 
     public Optional<ApplicationUser> save(ApplicationUser applicationUser){
         try {

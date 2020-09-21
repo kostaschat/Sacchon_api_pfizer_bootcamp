@@ -1,5 +1,6 @@
 package com.pfizer.sacchonapi.router;
 
+import com.pfizer.sacchonapi.ApiMain;
 import com.pfizer.sacchonapi.model.MediData;
 import com.pfizer.sacchonapi.resource.*;
 import org.restlet.Application;
@@ -17,43 +18,28 @@ public class CustomRouter {
 
         Router router = new Router(application.getContext());
 
-        //patient endpoints
-        router.attach("/patient/{id}", PatientResourceImpl.class);
-        router.attach("/patient", PatientListResourceImpl.class);
-        router.attach("/patient/", PatientListResourceImpl.class);
-
-
         //medidata endpoints
         router.attach("/medidata/{id}", MediDataResourceImpl.class);
         router.attach("/medidata", MediDataListResourceImpl.class);
-
-       // router.attach("/medidata/", MediDataListResourceImpl.class);
+        router.attach("/medidata/", MediDataListResourceImpl.class);
 
         router.attach("/consultation/{id}", ConsultationResourceImpl.class);
         router.attach("/consultation/", ConsultationListResourceImpl.class);
         router.attach("/consultation", ConsultationListResourceImpl.class);
 
-        router.attach("/chief-doctor/{id}", ChiefDoctorResourceImpl.class);
-
-        router.attach("/doctor/{id}", DoctorResourceImpl.class);
-        router.attach("/doctor", DoctorListResourceImpl.class);
-        router.attach("/doctor/", DoctorListResourceImpl.class);
-
-//        router.attach("/user", ApplicationUserListResourceImpl.class);
-//        router.attach("/user/", ApplicationUserListResourceImpl.class);
 
         return router;
     }
 
-    public Router publicResources() {
-        Router router = new Router();
-        router.attach("/ping", PingServerResource.class);
-        return router;
-    }
+//    public Router publicResources() {
+//        Router router = new Router();
+//        router.attach("/ping", PingServerResource.class);
+//        return router;
+//    }
 
     public Router publicUser() {
         Router router = new Router();
-        router.attach("/user", ApplicationUserListResourceImpl.class);
+        router.attach("/register", ApplicationUserListResourceImpl.class);
         return router;
     }
 }

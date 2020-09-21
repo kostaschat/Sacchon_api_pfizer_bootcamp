@@ -26,7 +26,6 @@ public class ConsultationRepository {
     public List<Consultation> findAll(Date startDate, Date endDate) {
         return entityManager.createQuery("SELECT c FROM Consultation " +
                 "WHERE c.ConsultationDate >= :startDate AND c.ConsultationDate <= :endDATE").getResultList();
-
     }
 
     public Optional<Consultation> findByName(String medicationName) {

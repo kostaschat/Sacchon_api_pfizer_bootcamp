@@ -13,6 +13,7 @@ import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
+import javax.persistence.EntityManager;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -22,12 +23,20 @@ public class MediDataResourceImpl extends ServerResource implements MediDataReso
 
     private long id;
     private MediDataRepository mediDataRepository;
+    private EntityManager em;
+
+    @Override
+    protected void doRelease()
+    {
+        em.close();
+    }
 
     @Override
     protected void doInit() {
         LOGGER.info("Initialising medical data resource starts");
         try {
-            mediDataRepository = new MediDataRepository(JpaUtil.getEntityManager());
+            em = JpaUtil.getEntityManager();
+            mediDataRepository = new MediDataRepository(em);
             id = Long.parseLong(getAttribute("id"));
 
         } catch (Exception e) {

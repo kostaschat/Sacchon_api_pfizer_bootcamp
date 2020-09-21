@@ -31,6 +31,11 @@ public class DoctorRepository {
         return doctor != null ? Optional.of(doctor) : Optional.empty();
     }
 
+    public Doctor findByUsername(String user_username) {
+        Doctor doctor = entityManager.find(Doctor.class, user_username);
+        return doctor;
+    }
+
     public Optional<Doctor> findByNameNamedQuery(String name) {
         Doctor doctor = entityManager.createNamedQuery("Product.findByName", Doctor.class)
                 .setParameter("name", name)
@@ -51,28 +56,7 @@ public class DoctorRepository {
         return Optional.empty();
     }
 
-    public Optional<Doctor> update(Doctor doctor) {
 
-        Doctor in = entityManager.find(Doctor.class, doctor.getId());
-        in.setFirstName(doctor.getFirstName());
-        in.setLastName(doctor.getLastName());
-        in.setAddress(doctor.getAddress());
-        in.setCity(doctor.getCity());
-        in.setPassword(doctor.getPassword());
-        in.setPhoneNumber(doctor.getPhoneNumber());
-        in.setZipCode(doctor.getZipCode());
-        in.setActive(doctor.isActive());
-
-        try {
-            entityManager.getTransaction().begin();
-            entityManager.persist(in);
-            entityManager.getTransaction().commit();
-            return Optional.of(in);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return Optional.empty();
-    }
 
     public boolean remove(Long id) {
         Optional<Doctor> oDoctor = findById(id);
