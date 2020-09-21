@@ -92,7 +92,7 @@ public class MediDataResourceImpl extends ServerResource implements MediDataReso
         MediDataRepresentation result;
         MediData mediData;
 
-        double average_value;
+        MediData average_value;
 
         try {
 
@@ -117,7 +117,7 @@ public class MediDataResourceImpl extends ServerResource implements MediDataReso
                 System.out.println(dataType);
                 System.out.println(patient.getId());
                 average_value = mediDataRepository.average(fromDate, toDate, dataType, patient.getId());
-                System.out.println("This is the value" + average_value);
+                System.out.println("This is the value" + average_value.getCarb());
                 result = new MediDataRepresentation();
 
                // double value = average_value.get().doubleValue();

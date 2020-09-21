@@ -25,13 +25,13 @@ public class MediDataRepository {
         return entityManager.createQuery("from MediData").getResultList();
     }
 
-    public double average(String startDate, String endDate, String dataType, long id) {
+    public MediData average(String startDate, String endDate, String dataType, long id) {
 
 //        Number data;
 //        if(dataType.equals("glucose"))
 //        {
             System.out.println("THIS IS IT " + id);
-          return (double) entityManager.createQuery("SELECT AVG(M.glucose) FROM MediData M where M.patient_id IN :id")
+               MediData medi =  entityManager.createQuery("SELECT M.glucose FROM MediData M where M.patient_id = :id", MediData.class)
                   .setParameter("id", id)
                   .getSingleResult();
 
