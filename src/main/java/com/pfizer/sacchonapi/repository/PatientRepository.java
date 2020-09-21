@@ -15,9 +15,9 @@ public class PatientRepository {
         this.entityManager = entityManager;
     }
 
-    public Optional<Patient> findById(Long id) {
+    public Patient findById(Long id) {
         Patient patient = entityManager.find(Patient.class, id);
-        return patient != null ? Optional.of(patient) : Optional.empty();
+        return patient;
     }
 
     public List<Patient> findAll() {

@@ -2,13 +2,19 @@ package com.pfizer.sacchonapi.resource;
 
 import com.pfizer.sacchonapi.exception.BadEntityException;
 import com.pfizer.sacchonapi.exception.NotFoundException;
+import com.pfizer.sacchonapi.model.ApplicationUser;
 import com.pfizer.sacchonapi.model.Consultation;
+import com.pfizer.sacchonapi.model.Doctor;
+import com.pfizer.sacchonapi.repository.ApplicationUserRepository;
 import com.pfizer.sacchonapi.repository.ConsultationRepository;
+import com.pfizer.sacchonapi.repository.DoctorRepository;
+import com.pfizer.sacchonapi.repository.PatientRepository;
 import com.pfizer.sacchonapi.repository.util.JpaUtil;
 import com.pfizer.sacchonapi.representation.ConsultationRepresentation;
 import com.pfizer.sacchonapi.resource.util.ResourceValidator;
 import com.pfizer.sacchonapi.security.ResourceUtils;
 import com.pfizer.sacchonapi.security.Shield;
+import org.restlet.Request;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
@@ -25,7 +31,9 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
     public static final Logger LOGGER = Engine.getLogger(ConsultationResource.class);
 
     private ConsultationRepository consultationRepository;
-
+    private PatientRepository patientRepository;
+    private DoctorRepository doctorRepository;
+    private ApplicationUserRepository applicationUserRepository;
     private String startDate;
     private String endDate;
 
@@ -44,6 +52,8 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
         try {
             em = JpaUtil.getEntityManager();
             consultationRepository = new ConsultationRepository(em);
+            patientRepository = new PatientRepository(em);
+            applicationUserRepository = new ApplicationUserRepository(em);
         } catch (Exception e) {
             throw new ResourceException(e);
         }
@@ -73,10 +83,10 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
     public ConsultationRepresentation add (ConsultationRepresentation consultationIn) throws BadEntityException {
         LOGGER.finer("Add a new consultation.");
 
-        ResourceUtils.checkRole(this, Shield.patient);
+        ResourceUtils.checkRole(this, Shield.doctor);
         LOGGER.finer("User allowed to add a consultation.");
 
-        ResourceValidator.notNull(consultationIn);
+//        ResourceValidator.notNull(consultationIn);
         ResourceValidator.validate(consultationIn);
         LOGGER.finer("Consultation checked");
 
@@ -84,10 +94,30 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
             Consultation consultation = consultationIn.createConsulation();
 
             Optional<Consultation> consultationOptOut = consultationRepository.save(consultation);
-
             Consultation consultationOut;
-            if (consultationOptOut.isPresent())
+
+            if (consultationOptOut.isPresent()) {
                 consultationOut = consultationOptOut.get();
+
+                consultation.setPatient(patientRepository.findById(consultationIn.getPatient_id()));
+
+
+                Request request = Request.getCurrent();
+                String username = request.getClientInfo().getUser().getName();
+                Optional<ApplicationUser> user = applicationUserRepository.findByUsername(username);
+
+                Doctor doctorOut = null;
+                if (user.isPresent()) {
+                    doctorOut = user.get().getDoctor();
+                } else {
+                    LOGGER.config("This doctor cannon be found in the database:" + username);
+                    throw new NotFoundException("No doctor with name : " + username);
+                }
+
+                consultation.setDoctor(doctorOut);
+
+                consultationRepository.save(consultation);
+            }
             else
                 throw new BadEntityException(" Consultation has not been created");
 

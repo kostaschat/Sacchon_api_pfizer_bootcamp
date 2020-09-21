@@ -31,6 +31,11 @@ public class DoctorRepository {
         return doctor != null ? Optional.of(doctor) : Optional.empty();
     }
 
+    public Doctor findByUsername(String user_username) {
+        Doctor doctor = entityManager.find(Doctor.class, user_username);
+        return doctor;
+    }
+
     public Optional<Doctor> findByNameNamedQuery(String name) {
         Doctor doctor = entityManager.createNamedQuery("Product.findByName", Doctor.class)
                 .setParameter("name", name)

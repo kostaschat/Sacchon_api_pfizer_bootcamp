@@ -2,13 +2,18 @@ package com.pfizer.sacchonapi.resource;
 
 import com.pfizer.sacchonapi.exception.BadEntityException;
 import com.pfizer.sacchonapi.exception.NotFoundException;
+import com.pfizer.sacchonapi.model.ApplicationUser;
+import com.pfizer.sacchonapi.model.Doctor;
 import com.pfizer.sacchonapi.model.MediData;
+import com.pfizer.sacchonapi.model.Patient;
+import com.pfizer.sacchonapi.repository.ApplicationUserRepository;
 import com.pfizer.sacchonapi.repository.MediDataRepository;
 import com.pfizer.sacchonapi.repository.util.JpaUtil;
 import com.pfizer.sacchonapi.representation.MediDataRepresentation;
 import com.pfizer.sacchonapi.resource.util.ResourceValidator;
 import com.pfizer.sacchonapi.security.ResourceUtils;
 import com.pfizer.sacchonapi.security.Shield;
+import org.restlet.Request;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
@@ -24,6 +29,7 @@ public class MediDataListResourceImpl  extends ServerResource implements MediDat
 
     public static final Logger LOGGER = Engine.getLogger(MediDataResourceImpl.class);
     private MediDataRepository mediDataRepository ;
+    private ApplicationUserRepository applicationUserRepository;
 
     private long id;
     private EntityManager em;
@@ -39,6 +45,7 @@ public class MediDataListResourceImpl  extends ServerResource implements MediDat
         LOGGER.info("Initialising medidata resource starts");
         try {
             em = JpaUtil.getEntityManager();
+            applicationUserRepository = new ApplicationUserRepository(em);
             mediDataRepository = new MediDataRepository (em) ;
             id = Long.parseLong(getAttribute("id"));
         }
@@ -89,9 +96,25 @@ public class MediDataListResourceImpl  extends ServerResource implements MediDat
                 Optional<MediData> mediDataOptOut = mediDataRepository.save(mediData);
 
                 MediData mediDataOut;
-                if (mediDataOptOut.isPresent())
+                if (mediDataOptOut.isPresent()) {
                     mediDataOut = mediDataOptOut.get();
-                else
+
+                    Request request = Request.getCurrent();
+                    String username = request.getClientInfo().getUser().getName();
+                    Optional<ApplicationUser> user = applicationUserRepository.findByUsername(username);
+
+                    Patient patientOut = null;
+                    if (user.isPresent()) {
+                        patientOut = user.get().getPatient();
+                    } else {
+                        LOGGER.config("This patient cannon be found in the database:" + username);
+                        throw new NotFoundException("No Patient with name : " + username);
+                    }
+
+                    mediData.setPatient(patientOut);
+
+                    mediDataRepository.save(mediData);
+                } else
                     throw new BadEntityException(" Medical Data has not been created");
 
                 MediDataRepresentation result = new MediDataRepresentation(mediDataOut);
