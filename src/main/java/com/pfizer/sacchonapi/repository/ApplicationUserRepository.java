@@ -13,8 +13,8 @@ public class ApplicationUserRepository {
         this.entityManager = entityManager;
     }
 
-    public Optional<ApplicationUserRepository> findByUsername(String username) {
-        ApplicationUserRepository userTable = entityManager.find(ApplicationUserRepository.class, username);
+    public Optional<ApplicationUser> findByUsername(String username) {
+        ApplicationUser userTable = entityManager.find(ApplicationUser.class, username);
         return userTable != null ? Optional.of(userTable) : Optional.empty();
     }
 

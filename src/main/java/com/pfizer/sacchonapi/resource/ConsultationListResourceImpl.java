@@ -73,8 +73,8 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
     public ConsultationRepresentation add (ConsultationRepresentation consultationIn) throws BadEntityException {
         LOGGER.finer("Add a new consultation.");
 
-        ResourceUtils.checkRole(this, Shield.patient);
-        LOGGER.finer("User allowed to add a consultation.");
+        ResourceUtils.checkRole(this, Shield.doctor);
+        LOGGER.finer("This user is allowed to add a consultation.");
 
         ResourceValidator.notNull(consultationIn);
         ResourceValidator.validate(consultationIn);

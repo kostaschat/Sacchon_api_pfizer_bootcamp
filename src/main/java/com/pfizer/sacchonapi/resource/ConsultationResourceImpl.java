@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 
 public class ConsultationResourceImpl extends ServerResource implements ConsultationResource {
     public static final Logger LOGGER = Engine.getLogger(ConsultationResourceImpl.class);
-    private long id;
+    private long cid;
     private ConsultationRepository consultationRepository;
     private EntityManager em;
 
@@ -36,10 +36,10 @@ public class ConsultationResourceImpl extends ServerResource implements Consulta
             em = JpaUtil.getEntityManager();
             consultationRepository =
                     new ConsultationRepository(em);
-            id = Long.parseLong(getAttribute("id"));
+            cid = Long.parseLong(getAttribute("cid"));
 
         } catch (Exception e) {
-            id = -1;
+            cid = -1;
         }
 
         LOGGER.info("Initialising consultation resource ends");
@@ -55,12 +55,12 @@ public class ConsultationResourceImpl extends ServerResource implements Consulta
         Consultation consultation;
         try {
 
-            Optional<Consultation> oconsultation = consultationRepository.findById(id);
+            Optional<Consultation> oconsultation = consultationRepository.findById(cid);
 
             setExisting(oconsultation.isPresent());
             if (!isExisting()) {
-                LOGGER.config("consultation id does not exist:" + id);
-                throw new NotFoundException("No consultation with  : " + id);
+                LOGGER.config("consultation id does not exist:" + cid);
+                throw new NotFoundException("No consultation with  : " + cid);
             } else {
                 consultation = oconsultation.get();
                 LOGGER.finer("User allowed to retrieve a product.");
@@ -89,20 +89,20 @@ public class ConsultationResourceImpl extends ServerResource implements Consulta
         LOGGER.finer("Company checked");
         try {
             Consultation consultationIn = consultationReprIn.createConsulation();
-            consultationIn.setId(id);
+            consultationIn.setId(cid);
             Optional<Consultation> consultationOut;
-            Optional<Consultation> oConsultation = consultationRepository.findById(id);
+            Optional<Consultation> oConsultation = consultationRepository.findById(cid);
             setExisting(oConsultation.isPresent());
             if (isExisting()) {
                 LOGGER.finer("Update consultation.");
                 consultationOut = consultationRepository.update(consultationIn);
                 if (!consultationOut.isPresent()) {
                     LOGGER.finer("Consultation does not exist.");
-                    throw new NotFoundException("Consultation with the following id does not exist: " + id);
+                    throw new NotFoundException("Consultation with the following id does not exist: " + cid);
                 }
             } else {
                 LOGGER.finer("Resource does not exist.");
-                throw new NotFoundException("Company with the following id does not exist: " + id);
+                throw new NotFoundException("Company with the following id does not exist: " + cid);
             }
             LOGGER.finer("Company successfully updated.");
             return new ConsultationRepresentation(consultationOut.get());
