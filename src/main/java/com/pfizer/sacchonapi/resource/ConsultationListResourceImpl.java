@@ -39,7 +39,6 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
 
     private EntityManager em;
 
-
     @Override
     protected void doRelease()
     {
