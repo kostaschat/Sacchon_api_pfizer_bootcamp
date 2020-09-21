@@ -63,6 +63,7 @@ public class ApplicationUserResourceImpl extends ServerResource implements Appli
         }
 
         try{
+
             userId = getAttribute("pid");
         }catch(Exception e){
             userId = null;

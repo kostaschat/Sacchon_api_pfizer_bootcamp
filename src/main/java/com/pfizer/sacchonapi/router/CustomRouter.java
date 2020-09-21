@@ -26,12 +26,12 @@ public class CustomRouter {
 
 
         //a patient views their average daily blood glucose level over a user-specified period
-        router.attach("/medidata/{datatype}/{fromdate}/{todate}", MediDataListResourceImpl.class);
+        router.attach("/medidata/{datatype}/{fromdate}/{todate}", MediDataResourceImpl.class);
 
         //medidata endpoints
-        router.attach("/medidata/{id}", MediDataResourceImpl.class);
-        router.attach("/medidata", MediDataListResourceImpl.class);
-        router.attach("/medidata/", MediDataListResourceImpl.class);
+//        router.attach("/medidata/{id}", MediDataResourceImpl.class);
+//        router.attach("/medidata", MediDataListResourceImpl.class);
+//        router.attach("/medidata/", MediDataListResourceImpl.class);
 
         router.attach("/consultation/{id}", ConsultationResourceImpl.class);
         router.attach("/consultation/", ConsultationListResourceImpl.class);

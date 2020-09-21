@@ -8,6 +8,7 @@ import java.util.Date;
 
 @Data
 @Entity
+
 public class MediData {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)

@@ -1,11 +1,9 @@
 package com.pfizer.sacchonapi.repository;
 
-import com.pfizer.sacchonapi.model.Consultation;
 import com.pfizer.sacchonapi.model.MediData;
 import lombok.Data;
 
 import javax.persistence.EntityManager;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,9 +25,25 @@ public class MediDataRepository {
         return entityManager.createQuery("from MediData").getResultList();
     }
 
-    public List<Consultation> findAll(Date startDate, Date endDate) {
-        return entityManager.createQuery("SELECT c FROM Medidata " +
-                "WHERE c.measuredDate >= :startDate AND c.measuredDate <= :endDATE").getResultList();
+    public double average(String startDate, String endDate, String dataType, long id) {
+
+//        Number data;
+//        if(dataType.equals("glucose"))
+//        {
+            System.out.println("THIS IS IT " + id);
+          return (double) entityManager.createQuery("SELECT AVG(M.glucose) FROM MediData M where M.patient_id IN :id")
+                  .setParameter("id", id)
+                  .getSingleResult();
+
+
+//        }else {
+//
+//            data = ((Number) entityManager.createQuery("SELECT AVG(M.carb) as avg_carb FROM MediData M " +
+//                    "WHERE M.patient_id = :id AND M.measuredDate >= :startDate AND M.measuredDate <= :endDate")
+//                    .getSingleResult());
+//
+//        }
+
     }
 
     public Optional<MediData> save(MediData mediData){
