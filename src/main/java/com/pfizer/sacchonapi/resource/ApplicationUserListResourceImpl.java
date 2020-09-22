@@ -130,7 +130,9 @@ public class ApplicationUserListResourceImpl extends ServerResource implements A
             //return the patients a doctor consults
             List<ApplicationUser> users = applicationUserRepository.findDoctorsPatients(did);
             List<ApplicationUserRepresentation> result = new ArrayList<>();
-           // users.forEach(user -> result.add(new ApplicationUserRepresentation(user)));
+
+            users.forEach(p -> result.add(new ApplicationUserRepresentation(p)));
+
             return result;
         } catch (Exception e) {
             throw new NotFoundException("Users not found");

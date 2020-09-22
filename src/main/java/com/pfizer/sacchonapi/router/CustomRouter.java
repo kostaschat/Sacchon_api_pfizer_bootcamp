@@ -19,7 +19,8 @@ public class CustomRouter {
 
         Router router = new Router(application.getContext());
 
-
+        router.attach("/patients", ApplicationUserListResourceImpl.class);
+        router.attach("/patients/", ApplicationUserListResourceImpl.class);
         //a doctor clicks on a patient
         router.attach("/user/{uid}/patient/{pid}", ApplicationUserResourceImpl.class);
         //a doctor consults a new patient
@@ -35,8 +36,8 @@ public class CustomRouter {
         router.attach("/add-consultation/{pid}", ConsultationListResourceImpl.class);
         router.attach("/consultation/{cid}", ConsultationResourceImpl.class);
 
-        router.attach("/consultations/", ConsultationListResourceImpl.class);
-        router.attach("/consultations", ConsultationListResourceImpl.class);
+        router.attach("/consultations/{pid}", ConsultationListResourceImpl.class);
+//        router.attach("/consultations", ConsultationListResourceImpl.class);
 
         return router;
     }

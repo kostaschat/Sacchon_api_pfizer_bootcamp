@@ -28,13 +28,15 @@ public class ApplicationUserRepository {
     public List<ApplicationUser> findDoctorsPatients(long did) {
 
         Session s = (Session) entityManager.getDelegate();
-        String sql = "SELECT *" +
+        String sql = "SELECT A.*" +
                 "from ApplicationUser A " +
                 "INNER JOIN Patient P " +
-                "on A.active = false and A.username = P.user_username where doctor_id  = :did or doctor_id = null";
+                "on A.username = P.user_username where (P.doctor_id  = :did or doctor_id = null) and A.active = 1" +
+                "ORDER BY A.creationDate DESC";
         NativeQuery query = s.createSQLQuery(sql);
         query.setParameter("did", did);
-        return query.list();
+        query.addEntity(ApplicationUser.class);
+        return query.getResultList();
     }
 
 

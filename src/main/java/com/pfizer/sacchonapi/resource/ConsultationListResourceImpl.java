@@ -70,7 +70,7 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
         ResourceUtils.checkRoles(this, Shield.patient, Shield.doctor, Shield.chiefDoctor);
 
         try {
-            List<Consultation> consultations = consultationRepository.findAll();
+            List<Consultation> consultations = consultationRepository.findPatientCons(p_id);
             List<ConsultationRepresentation> result = new ArrayList<>();
 
             consultations.forEach(consultation -> result.add(new ConsultationRepresentation(consultation)));
