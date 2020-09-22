@@ -44,6 +44,7 @@ public class ApiMain extends Application {
         getRoles().add(new Role(this, Shield.patient));
 
     }
+
     @Override
     public Restlet createInboundRoot() {
 
@@ -61,7 +62,6 @@ public class ApiMain extends Application {
 
 
         publicUser.attachDefault(apiGuard);
-
 
         CorsFilter corsFilter = new CorsFilter(this);
         return corsFilter.createCorsFilter(publicUser);

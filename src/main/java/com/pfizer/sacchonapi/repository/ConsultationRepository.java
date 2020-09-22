@@ -23,10 +23,10 @@ public class ConsultationRepository {
         return entityManager.createQuery("from Consultation").getResultList();
     }
 
-    public List<Consultation> findAll(Date startDate, Date endDate) {
-        return entityManager.createQuery("SELECT c FROM Consultation " +
-                "WHERE c.ConsultationDate >= :startDate AND c.ConsultationDate <= :endDATE").getResultList();
-    }
+//    public List<Consultation> findAll(Date startDate, Date endDate) {
+//        return entityManager.createQuery("SELECT c FROM Consultation " +
+//                "WHERE c.ConsultationDate >= :startDate AND c.ConsultationDate <= :endDATE").getResultList();
+//    }
 
     public Optional<Consultation> findByName(String medicationName) {
         Consultation consultation = entityManager.createQuery("SELECT b FROM Consultation b WHERE b.medicationName = :medicationName", Consultation.class)

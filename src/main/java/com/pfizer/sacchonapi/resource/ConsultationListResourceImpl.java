@@ -5,6 +5,7 @@ import com.pfizer.sacchonapi.exception.NotFoundException;
 import com.pfizer.sacchonapi.model.ApplicationUser;
 import com.pfizer.sacchonapi.model.Consultation;
 import com.pfizer.sacchonapi.model.Doctor;
+import com.pfizer.sacchonapi.model.Patient;
 import com.pfizer.sacchonapi.repository.ApplicationUserRepository;
 import com.pfizer.sacchonapi.repository.ConsultationRepository;
 import com.pfizer.sacchonapi.repository.DoctorRepository;
@@ -18,6 +19,7 @@ import org.restlet.Request;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
+
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
@@ -36,12 +38,13 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
     private ApplicationUserRepository applicationUserRepository;
     private String startDate;
     private String endDate;
+    private long p_id;
 
     private EntityManager em;
 
+
     @Override
-    protected void doRelease()
-    {
+    protected void doRelease() {
         em.close();
     }
 
@@ -53,8 +56,9 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
             consultationRepository = new ConsultationRepository(em);
             patientRepository = new PatientRepository(em);
             applicationUserRepository = new ApplicationUserRepository(em);
+            p_id = Long.parseLong(getAttribute("pid"));
         } catch (Exception e) {
-            throw new ResourceException(e);
+            p_id =-1;
         }
         LOGGER.info("Initialising consultation resource ends");
     }
@@ -63,14 +67,13 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
 
         LOGGER.finer("Select all consultations.");
 
-        ResourceUtils.checkRoles(this, Shield.patient, Shield.doctor,Shield.chiefDoctor);
+        ResourceUtils.checkRoles(this, Shield.patient, Shield.doctor, Shield.chiefDoctor);
 
         try {
             List<Consultation> consultations = consultationRepository.findAll();
             List<ConsultationRepresentation> result = new ArrayList<>();
 
-            consultations.forEach(consultation ->
-                    result.add(new ConsultationRepresentation(consultation)));
+            consultations.forEach(consultation -> result.add(new ConsultationRepresentation(consultation)));
 
             return result;
         } catch (Exception e) {
@@ -79,7 +82,7 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
     }
 
     @Override
-    public ConsultationRepresentation add (ConsultationRepresentation consultationIn) throws BadEntityException {
+    public ConsultationRepresentation add(ConsultationRepresentation consultationIn) throws BadEntityException {
         LOGGER.finer("Add a new consultation.");
 
         ResourceUtils.checkRole(this, Shield.doctor);
@@ -90,6 +93,7 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
         LOGGER.finer("Consultation checked");
 
         try {
+
             Consultation consultation = consultationIn.createConsulation();
 
             Optional<Consultation> consultationOptOut = consultationRepository.save(consultation);
@@ -98,14 +102,19 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
             if (consultationOptOut.isPresent()) {
                 consultationOut = consultationOptOut.get();
 
-                consultation.setPatient(patientRepository.findById(consultationIn.getPatient_id()));
+                Patient patientOut;
+                Optional<Patient> patientOptional = patientRepository.findById(p_id);
 
+                if (patientOptional.isPresent()) {
+                    patientOut = patientOptional.get();
+                    consultation.setPatient(patientOut);
+                }
 
                 Request request = Request.getCurrent();
                 String username = request.getClientInfo().getUser().getName();
                 Optional<ApplicationUser> user = applicationUserRepository.findByUsername(username);
 
-                Doctor doctorOut = null;
+                Doctor doctorOut;
                 if (user.isPresent()) {
                     doctorOut = user.get().getDoctor();
                 } else {

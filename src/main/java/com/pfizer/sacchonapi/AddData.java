@@ -1,11 +1,16 @@
 package com.pfizer.sacchonapi;
 
 import com.pfizer.sacchonapi.exception.BadEntityException;
+import com.pfizer.sacchonapi.model.ApplicationUser;
 import com.pfizer.sacchonapi.model.Consultation;
+import com.pfizer.sacchonapi.model.Doctor;
 import com.pfizer.sacchonapi.model.MediData;
+import com.pfizer.sacchonapi.repository.ApplicationUserRepository;
 import com.pfizer.sacchonapi.repository.ConsultationRepository;
+import com.pfizer.sacchonapi.repository.DoctorRepository;
 import com.pfizer.sacchonapi.repository.MediDataRepository;
 import com.pfizer.sacchonapi.repository.util.JpaUtil;
+import com.pfizer.sacchonapi.security.Role;
 import org.restlet.security.User;
 
 import javax.persistence.EntityManager;
@@ -31,11 +36,18 @@ public class AddData {
 //
 //        consultationRepository.save(consultation);
 
-//        Doctor doctor = new Doctor();
-//        doctor.setUsername("anestis");
-//        doctor.setPassword("123");
-//        doctor.setRole(Role.ROLE_DOCTOR);
-//        doctorRepository.save(doctor);
+        ApplicationUser user = new ApplicationUser();
+        ApplicationUserRepository user_repo = new ApplicationUserRepository(em);
+        DoctorRepository doctorRepo = new DoctorRepository(em);
+        user.setUsername("paro8");
+        user.setPassword("padof");
+        user.setRole(Role.doctor);
+        user.setFirstName("loukas");
+        user.setLastName("Loukidis");
+        user_repo.save(user);
+        Doctor doctor = new Doctor();
+        doctor.setApplicationUser(user);
+        doctorRepo.save(doctor);
 
 
 

@@ -1,7 +1,9 @@
 package com.pfizer.sacchonapi;
 
+import com.pfizer.sacchonapi.model.ApplicationUser;
 import com.pfizer.sacchonapi.model.MediData;
 import com.pfizer.sacchonapi.model.Patient;
+import com.pfizer.sacchonapi.repository.ApplicationUserRepository;
 import com.pfizer.sacchonapi.repository.MediDataRepository;
 import com.pfizer.sacchonapi.repository.PatientRepository;
 import com.pfizer.sacchonapi.repository.util.JpaUtil;
@@ -15,25 +17,31 @@ public class AddMediData {
 
     public static void main(String[] args) {
         EntityManager em   = JpaUtil.getEntityManager();
-        MediDataRepository mediDataRepository = new MediDataRepository(em);
+//        MediDataRepository mediDataRepository = new MediDataRepository(em);
+//
+//        MediData m = new MediData();
+//        m.setCarb(1);
+//        m.setGlucose(1.5);
+//        mediDataRepository.save(m);
 
-        MediData m = new MediData();
-        m.setCarb(1);
-        m.setGlucose(1.5);
-        mediDataRepository.save(m);
-
+        ApplicationUserRepository userRepository = new ApplicationUserRepository(em);
         PatientRepository pr = new PatientRepository(em);
+        ApplicationUser user = new ApplicationUser();
         Patient p = new Patient();
-//        p.setFirstName("Kosmas");
-//        p.setLastName("Aitwlos");
+        user.setFirstName("Kosmas");
+        user.setLastName("Aitwlos");
 
-//        p.setUsername("k_aitwlos");
-//        p.setEmail("kaitwlos@gmail.com");
-//        p.setPassword("a76d7a7");
-//        p.setAddress("Iaswnidou 27");
-//        p.setCity("Thessaloniki");
-//        p.setZipCode("55167");
-//        p.setPhoneNumber("6973878372");
+        user.setUsername("k_aitwlos");
+        user.setEmail("kaitwlos@gmail.com");
+        user.setPassword("a76d7a7");
+        user.setAddress("Iaswnidou 27");
+        user.setCity("Thessaloniki");
+        user.setZipCode("55167");
+        user.setPhoneNumber("6973878372");
+
+        userRepository.save(user);
+        p.setApplicationUser(user);
+        pr.save(p);
 //
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
 //
