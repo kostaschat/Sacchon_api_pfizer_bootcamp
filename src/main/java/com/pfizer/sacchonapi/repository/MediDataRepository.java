@@ -1,11 +1,9 @@
 package com.pfizer.sacchonapi.repository;
 
-import com.pfizer.sacchonapi.model.Consultation;
 import com.pfizer.sacchonapi.model.MediData;
 import lombok.Data;
 
 import javax.persistence.EntityManager;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,12 +25,25 @@ public class MediDataRepository {
         return entityManager.createQuery("from MediData").getResultList();
     }
 
-    public List<Consultation> findAll(Date startDate, Date endDate) {
-        return entityManager.createQuery("SELECT c FROM Medidata " +
-                "WHERE c.measuredDate >= :startDate AND c.measuredDate <= :endDATE").getResultList();
+    public double average(String startDate, String endDate, String dataType, long id) {
+
+        Session s = (Session) entityManager.getDelegate();
+        String sql = "SELECT AVG(" + dataType + ") FROM MEDIDATA WHERE patient_id = :id AND " +
+                "measuredDate >= :startDate AND measuredDate <= :endDate";
+        NativeQuery query = s.createSQLQuery(sql);
+        // query.addEntity(MediData.class);
+        query.setParameter("id", id);
+        query.setParameter("endDate", endDate);
+        query.setParameter("startDate", startDate);
+        List value = query.list();
+        System.out.println(value.get(0));
+        double x = Double.parseDouble(value.get(0).toString());
+
+        return x;
+
     }
 
-    public Optional<MediData> save(MediData mediData){
+    public Optional<MediData> save(MediData mediData) {
         try {
             entityManager.getTransaction().begin();
             entityManager.persist (mediData);

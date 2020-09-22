@@ -1,5 +1,6 @@
 package com.pfizer.sacchonapi.repository;
 
+import com.pfizer.sacchonapi.model.ApplicationUser;
 import com.pfizer.sacchonapi.model.Doctor;
 
 

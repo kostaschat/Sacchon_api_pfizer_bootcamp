@@ -44,6 +44,7 @@ public class ApiMain extends Application {
         getRoles().add(new Role(this, Shield.patient));
 
     }
+
     @Override
     public Restlet createInboundRoot() {
 
