@@ -3,6 +3,9 @@ package com.pfizer.sacchonapi.repository;
 import com.pfizer.sacchonapi.model.MediData;
 import lombok.Data;
 
+import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
+
 import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
