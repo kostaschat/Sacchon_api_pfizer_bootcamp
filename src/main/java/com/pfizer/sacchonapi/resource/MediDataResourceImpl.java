@@ -39,8 +39,7 @@ public class MediDataResourceImpl extends ServerResource implements MediDataReso
     private String dataType;
 
     @Override
-    protected void doRelease()
-    {
+    protected void doRelease() {
         em.close();
     }
 
@@ -50,31 +49,27 @@ public class MediDataResourceImpl extends ServerResource implements MediDataReso
         try {
             em = JpaUtil.getEntityManager();
             mediDataRepository = new MediDataRepository(em);
-          //  id = Long.parseLong(getAttribute("id"));
 
             userRepository = new ApplicationUserRepository(em);
-            mediDataRepository = new MediDataRepository (em);
+            mediDataRepository = new MediDataRepository(em);
             patientRepository = new PatientRepository(em);
 
-            try{
+            try {
                 fromDate = getAttribute("fromdate");
                 toDate = getAttribute("todate");
                 dataType = getAttribute("datatype");
 
-            }catch (Exception e){
+            } catch (Exception e) {
                 fromDate = null;
                 toDate = null;
                 dataType = null;
-                id = Long.parseLong(getAttribute("id"));
                 System.out.println("Something is null");
                 LOGGER.info(e.getMessage());
             }
 
-
-        }
-        catch(Exception e)
-        {
-            id =-1;
+            id = Long.parseLong(getAttribute("id"));
+        } catch (Exception e) {
+            id = -1;
             LOGGER.info(e.getMessage());
         }
 
@@ -97,7 +92,7 @@ public class MediDataResourceImpl extends ServerResource implements MediDataReso
         try {
 
             //if toDate or datatype is null, fromDate will also get the value null
-            if(fromDate != null) {
+            if (fromDate != null) {
                 //we need the logged in patient's id
                 Request request = Request.getCurrent();
                 String currentUser = request.getClientInfo().getUser().getName();
@@ -113,33 +108,29 @@ public class MediDataResourceImpl extends ServerResource implements MediDataReso
 
                 System.out.println("Before getting the value");
                 System.out.println(fromDate);
-                System.out.println (toDate );
+                System.out.println(toDate);
                 System.out.println(dataType);
                 System.out.println(patient.getId());
                 average_value = mediDataRepository.average(fromDate, toDate, dataType, patient.getId());
                 System.out.println("This is the value" + average_value);
                 result = new MediDataRepresentation();
-                if(dataType.equals("glucose"))
+                if (dataType.equals("glucose"))
                     result.setGlucose(average_value);
                 else result.setCarb(average_value);
 
-            }else {
-
-            Optional<MediData> omedidata = mediDataRepository.findById(id);
-            setExisting(omedidata.isPresent());
-            if (!isExisting()) {
-                LOGGER.config("medical data id does not exist:" + id);
-                throw new NotFoundException("No medical data with  : " + id);
             } else {
-                mediData = omedidata.get();
-                LOGGER.finer("User allowed to retrieve a product.");
-                result =
-                        new MediDataRepresentation(mediData);
-                LOGGER.finer("Medical data successfully retrieved");
 
-
-            }
-
+                Optional<MediData> omedidata = mediDataRepository.findById(id);
+                setExisting(omedidata.isPresent());
+                if (!isExisting()) {
+                    LOGGER.config("medical data id does not exist:" + id);
+                    throw new NotFoundException("No medical data with  : " + id);
+                } else {
+                    mediData = omedidata.get();
+                    LOGGER.finer("User allowed to retrieve a product.");
+                    result = new MediDataRepresentation(mediData);
+                    LOGGER.finer("Medical data successfully retrieved");
+                }
             }
         } catch (Exception e) {
             throw new ResourceException(e);

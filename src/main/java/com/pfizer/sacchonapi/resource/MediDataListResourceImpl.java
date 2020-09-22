@@ -2,13 +2,11 @@ package com.pfizer.sacchonapi.resource;
 
 import com.pfizer.sacchonapi.exception.BadEntityException;
 import com.pfizer.sacchonapi.exception.NotFoundException;
-import com.pfizer.sacchonapi.model.ApplicationUser;
-import com.pfizer.sacchonapi.model.Doctor;
-import com.pfizer.sacchonapi.model.MediData;
-import com.pfizer.sacchonapi.model.Patient;
+import com.pfizer.sacchonapi.model.*;
 import com.pfizer.sacchonapi.repository.ApplicationUserRepository;
 import com.pfizer.sacchonapi.repository.MediDataRepository;
 import com.pfizer.sacchonapi.repository.util.JpaUtil;
+import com.pfizer.sacchonapi.representation.ConsultationRepresentation;
 import com.pfizer.sacchonapi.representation.MediDataRepresentation;
 import com.pfizer.sacchonapi.resource.util.ResourceValidator;
 import com.pfizer.sacchonapi.security.ResourceUtils;
@@ -31,7 +29,7 @@ public class MediDataListResourceImpl  extends ServerResource implements MediDat
     private MediDataRepository mediDataRepository ;
     private ApplicationUserRepository applicationUserRepository;
 
-    private long id;
+    private long pid;
     private EntityManager em;
 
     @Override
@@ -47,11 +45,11 @@ public class MediDataListResourceImpl  extends ServerResource implements MediDat
             em = JpaUtil.getEntityManager();
             applicationUserRepository = new ApplicationUserRepository(em);
             mediDataRepository = new MediDataRepository (em) ;
-            id = Long.parseLong(getAttribute("id"));
+            pid = Long.parseLong(getAttribute("pid"));
         }
         catch(Exception e)
         {
-            id =-1;
+            pid =-1;
             LOGGER.info(e.getMessage());
         }
 
@@ -60,20 +58,50 @@ public class MediDataListResourceImpl  extends ServerResource implements MediDat
 
     public List<MediDataRepresentation> getMediDatas() throws NotFoundException {
 
-        LOGGER.finer("Select all medical datas.");
+        LOGGER.finer("Select all medical data.");
 
-        ResourceUtils.checkRole(this, Shield.patient);
+        ResourceUtils.checkRoles(this, Shield.patient,Shield.doctor);
 
         try {
-            List<MediData> mediData = mediDataRepository.findAll();
+            List<MediData> mediData;
             List<MediDataRepresentation> result = new ArrayList<>();
+            if (pid != -1) {
+                Request request = Request.getCurrent();
+                String username = request.getClientInfo().getUser().getName();
+                Optional<ApplicationUser> user = applicationUserRepository.findByUsername(username);
 
-            mediData.forEach(product ->
-                    result.add(new MediDataRepresentation(product)));
+                Doctor doctorOut;
+                if (user.isPresent()) {
+                    doctorOut = user.get().getDoctor();
+                } else {
+                    LOGGER.config("This doctor cannot be found in the database:" + username);
+                    throw new NotFoundException("No doctor with name : " + username);
+                }
+
+                long d_id = doctorOut.getId();
+
+                mediData = mediDataRepository.findMediData(pid,d_id);
+            } else {
+                Request request = Request.getCurrent();
+                String username = request.getClientInfo().getUser().getName();
+                Optional<ApplicationUser> user = applicationUserRepository.findByUsername(username);
+
+                Patient patientOut;
+                if (user.isPresent()) {
+                    patientOut = user.get().getPatient();
+                } else {
+                    LOGGER.config("This Patient cannon be found in the database:" + username);
+                    throw new NotFoundException("No patient with name : " + username);
+                }
+
+                long id = patientOut.getId();
+                mediData = mediDataRepository.findMediData(id);
+            }
+            mediData.forEach(m -> result.add(new MediDataRepresentation(m)));
 
             return result;
         } catch (Exception e) {
-            throw new NotFoundException("products not found");
+            throw new NotFoundException("consultations not found");
         }
     }
 
@@ -92,7 +120,6 @@ public class MediDataListResourceImpl  extends ServerResource implements MediDat
 
             try {
                 MediData mediData = mediDataIn.createMediData();
-
                 Optional<MediData> mediDataOptOut = mediDataRepository.save(mediData);
 
                 MediData mediDataOut;
@@ -107,7 +134,7 @@ public class MediDataListResourceImpl  extends ServerResource implements MediDat
                     if (user.isPresent()) {
                         patientOut = user.get().getPatient();
                     } else {
-                        LOGGER.config("This patient cannon be found in the database:" + username);
+                        LOGGER.config("This patient cannot be found in the database:" + username);
                         throw new NotFoundException("No Patient with name : " + username);
                     }
 

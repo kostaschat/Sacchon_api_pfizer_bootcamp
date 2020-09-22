@@ -28,6 +28,14 @@ public class ConsultationRepository {
                 .getResultList();
     }
 
+    public List<Consultation> findPatientCons(long p_id, long d_id) {
+
+        return entityManager.createQuery("FROM Consultation WHERE patient_id = :p_id AND doctor_id = :d_id")
+                .setParameter("p_id", p_id)
+                .setParameter("d_id", d_id)
+                .getResultList();
+    }
+
 //    public List<Consultation> findAll(Date startDate, Date endDate) {
 //        return entityManager.createQuery("SELECT c FROM Consultation " +
 //                "WHERE c.ConsultationDate >= :startDate AND c.ConsultationDate <= :endDATE").getResultList();
