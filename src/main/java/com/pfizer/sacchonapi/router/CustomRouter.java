@@ -47,6 +47,7 @@ public class CustomRouter {
 //        return router;
 //    }
 
+
     public Router publicUser() {
         Router router = new Router();
         router.attach("/register", ApplicationUserListResourceImpl.class);
