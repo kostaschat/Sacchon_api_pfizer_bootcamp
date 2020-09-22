@@ -5,21 +5,20 @@ import { AppComponent } from './app.component';
 import { PatientModule } from './patient/patient.module';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AppRoutingModule } from './app-routing.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 
-
-const routes: Routes = [ 
-  { path: '', component: HomeComponent },
-   { path: 'some', component: SomeComponent }];
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
-    PatientModule,
-    HttpClientModule,
-    RouterModule.forRoot(routes)
+    DashboardModule,
+    NgbModule
 
   ],
   providers: [],
