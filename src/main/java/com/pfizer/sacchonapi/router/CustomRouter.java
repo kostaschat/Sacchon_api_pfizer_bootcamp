@@ -3,6 +3,7 @@ package com.pfizer.sacchonapi.router;
 import com.pfizer.sacchonapi.ApiMain;
 import com.pfizer.sacchonapi.model.MediData;
 import com.pfizer.sacchonapi.resource.*;
+import com.pfizer.sacchonapi.security.Shield;
 import org.restlet.Application;
 import org.restlet.routing.Router;
 
@@ -50,4 +51,7 @@ public class CustomRouter {
         router.attach("/register", ApplicationUserListResourceImpl.class);
         return router;
     }
+
+
+
 }
