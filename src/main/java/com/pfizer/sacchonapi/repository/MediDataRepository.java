@@ -2,6 +2,9 @@ package com.pfizer.sacchonapi.repository;
 
 import com.pfizer.sacchonapi.model.MediData;
 import lombok.Data;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -25,31 +28,28 @@ public class MediDataRepository {
         return entityManager.createQuery("from MediData").getResultList();
     }
 
-    public MediData average(String startDate, String endDate, String dataType, long id) {
+    public double average(String startDate, String endDate, String dataType, long id) {
 
-//        Number data;
-//        if(dataType.equals("glucose"))
-//        {
-            System.out.println("THIS IS IT " + id);
-               MediData medi =  entityManager.createQuery("SELECT M.glucose FROM MediData M where M.patient_id = :id", MediData.class)
-                  .setParameter("id", id)
-                  .getSingleResult();
+        Session s = (Session) entityManager.getDelegate();
+        String sql = "SELECT AVG(" + dataType + ") FROM MEDIDATA WHERE patient_id = :id AND " +
+                "measuredDate >= :startDate AND measuredDate <= :endDate";
+        NativeQuery query = s.createSQLQuery(sql);
+        // query.addEntity(MediData.class);
+        query.setParameter("id", id);
+        query.setParameter("endDate", endDate);
+        query.setParameter("startDate", startDate);
+        List value = query.list();
+        System.out.println(value.get(0));
+        double x = Double.parseDouble(value.get(0).toString());
 
-
-//        }else {
-//
-//            data = ((Number) entityManager.createQuery("SELECT AVG(M.carb) as avg_carb FROM MediData M " +
-//                    "WHERE M.patient_id = :id AND M.measuredDate >= :startDate AND M.measuredDate <= :endDate")
-//                    .getSingleResult());
-//
-//        }
+        return x;
 
     }
 
-    public Optional<MediData> save(MediData mediData){
+    public Optional<MediData> save(MediData mediData) {
         try {
             entityManager.getTransaction().begin();
-            entityManager.persist (mediData);
+            entityManager.persist(mediData);
             entityManager.getTransaction().commit();
             return Optional.of(mediData);
         } catch (Exception e) {
@@ -65,7 +65,7 @@ public class MediDataRepository {
         in.setCarb(mediData.getCarb());
         try {
             entityManager.getTransaction().begin();
-            entityManager.persist (in);
+            entityManager.persist(in);
             entityManager.getTransaction().commit();
             return Optional.of(in);
         } catch (Exception e) {
@@ -74,11 +74,11 @@ public class MediDataRepository {
         return Optional.empty();
     }
 
-    public boolean remove(Long id){
+    public boolean remove(Long id) {
         Optional<MediData> odata = findById(id);
-        if (odata.isPresent()){
+        if (odata.isPresent()) {
             MediData m = odata.get();
-            try{
+            try {
                 entityManager.getTransaction().begin();
                 entityManager.remove(m);
                 entityManager.getTransaction().commit();

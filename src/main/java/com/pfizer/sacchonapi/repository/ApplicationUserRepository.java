@@ -1,6 +1,9 @@
 package com.pfizer.sacchonapi.repository;
 
 import com.pfizer.sacchonapi.model.ApplicationUser;
+import com.pfizer.sacchonapi.model.Patient;
+import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -21,6 +24,19 @@ public class ApplicationUserRepository {
     public List<ApplicationUser> findAll() {
         return entityManager.createQuery("from ApplicationUser").getResultList();
     }
+
+    public List<ApplicationUser> findDoctorsPatients(long did) {
+
+        Session s = (Session) entityManager.getDelegate();
+        String sql = "SELECT *" +
+                "from ApplicationUser A " +
+                "INNER JOIN Patient P " +
+                "on A.active = false and A.username = P.user_username where doctor_id  = :did or doctor_id = null";
+        NativeQuery query = s.createSQLQuery(sql);
+        query.setParameter("did", did);
+        return query.list();
+    }
+
 
     public Optional<ApplicationUser> save(ApplicationUser applicationUser){
         try {
