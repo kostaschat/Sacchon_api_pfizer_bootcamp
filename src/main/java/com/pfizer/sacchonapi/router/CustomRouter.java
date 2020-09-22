@@ -19,6 +19,7 @@ public class CustomRouter {
 
         Router router = new Router(application.getContext());
 
+
         //a doctor clicks on a patient
         router.attach("/user/{uid}/patient/{pid}", ApplicationUserResourceImpl.class);
         //a doctor consults a new patient
