@@ -39,7 +39,6 @@ public class ApplicationUserRepository {
         return query.getResultList();
     }
 
-
     public Optional<ApplicationUser> save(ApplicationUser applicationUser){
         try {
             entityManager.getTransaction().begin();
