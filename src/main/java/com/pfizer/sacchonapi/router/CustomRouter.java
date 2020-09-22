@@ -23,6 +23,7 @@ public class CustomRouter {
         router.attach("/medidata", MediDataListResourceImpl.class);
         router.attach("/medidata/", MediDataListResourceImpl.class);
 
+        router.attach("/patients/", ApplicationUserListResourceImpl.class);
         router.attach("/consultation/{id}", ConsultationResourceImpl.class);
         router.attach("/consultation/", ConsultationListResourceImpl.class);
         router.attach("/consultation", ConsultationListResourceImpl.class);
