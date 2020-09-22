@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { PatientModule } from './patient/patient.module';
 import { RouterModule, Routes } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { DashboardModule } from './dashboard/dashboard.module';
@@ -17,7 +17,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
   imports: [
     AppRoutingModule,
     BrowserModule,
-    DashboardModule,
+    HttpClientModule,
     NgbModule
 
   ],

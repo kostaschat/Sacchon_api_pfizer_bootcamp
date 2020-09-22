@@ -1,41 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import { Patient } from '../patient';
+import { PatientService } from '../patients.service';
 
 
 @Component({
-  selector: 'app-product-list',
-  template: `
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Products Page</h5>
-        <div class="row">
-          <div class="col-2">
-            Title
-          </div>
-          <div class="col-2">
-            SKU
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-2">
-            Jacket
-          </div>
-          <div class="col-2">
-            #jac123
-          </div>
-        </div>
-      </div>
-    </div>
-  `,
-  styles: []
+  selector: 'app-patient-list',
+  templateUrl: './patient-list.component.html',
+  styleUrls: ['./patient-list.component.scss']
 })
 export class PatientListComponent implements OnInit {
-
-  constructor() { 
-      
-  }
-
+  patients: Patient[];
+  constructor(private patientService: PatientService ) { }
   ngOnInit(): void {
-
-  }
+    this.patientService.getProducts().subscribe(patients => this.patients = patients);
+    }
+   
 
 }
