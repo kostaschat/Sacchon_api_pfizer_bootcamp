@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -23,7 +24,7 @@ public class ApplicationUserRepresentation {
     private String zipCode;
     private String phoneNumber;
     private Date dob;
-    private Date creationDate;
+    private LocalDateTime creationDate;
 
     private String uri;
 
@@ -65,7 +66,6 @@ public class ApplicationUserRepresentation {
         applicationUser.setZipCode(zipCode);
         applicationUser.setPhoneNumber(phoneNumber);
         applicationUser.setDob(dob);
-        applicationUser.setCreationDate(creationDate);
 
         return applicationUser;
     }
