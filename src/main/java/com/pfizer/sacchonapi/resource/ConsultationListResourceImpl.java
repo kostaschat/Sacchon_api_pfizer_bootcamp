@@ -20,6 +20,7 @@ import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
+
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
     private ApplicationUserRepository applicationUserRepository;
     private String startDate;
     private String endDate;
-    private String patient_id;
+    private long p_id;
 
     private EntityManager em;
 
@@ -55,9 +56,9 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
             consultationRepository = new ConsultationRepository(em);
             patientRepository = new PatientRepository(em);
             applicationUserRepository = new ApplicationUserRepository(em);
-            patient_id = getAttribute("p_id");
+            p_id = Long.parseLong(getAttribute("pid"));
         } catch (Exception e) {
-            throw new ResourceException(e);
+            p_id =-1;
         }
         LOGGER.info("Initialising consultation resource ends");
     }
@@ -72,8 +73,7 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
             List<Consultation> consultations = consultationRepository.findAll();
             List<ConsultationRepresentation> result = new ArrayList<>();
 
-            consultations.forEach(consultation ->
-                    result.add(new ConsultationRepresentation(consultation)));
+            consultations.forEach(consultation -> result.add(new ConsultationRepresentation(consultation)));
 
             return result;
         } catch (Exception e) {
@@ -83,20 +83,16 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
 
     @Override
     public ConsultationRepresentation add(ConsultationRepresentation consultationIn) throws BadEntityException {
-
         LOGGER.finer("Add a new consultation.");
 
         ResourceUtils.checkRole(this, Shield.doctor);
         LOGGER.finer("User allowed to add a consultation.");
 
-        ResourceValidator.notNull(consultationIn);
+//        ResourceValidator.notNull(consultationIn);
         ResourceValidator.validate(consultationIn);
         LOGGER.finer("Consultation checked");
 
-        Long p_id = 0l;
-
-                p_id = Long.valueOf(patient_id).longValue();
-
+        try {
 
             Consultation consultation = consultationIn.createConsulation();
 
@@ -109,24 +105,28 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
                 Patient patientOut;
                 Optional<Patient> patientOptional = patientRepository.findById(p_id);
 
-
+                if (patientOptional.isPresent()) {
                     patientOut = patientOptional.get();
                     consultation.setPatient(patientOut);
-
+                }
 
                 Request request = Request.getCurrent();
                 String username = request.getClientInfo().getUser().getName();
                 Optional<ApplicationUser> user = applicationUserRepository.findByUsername(username);
 
                 Doctor doctorOut;
-
+                if (user.isPresent()) {
                     doctorOut = user.get().getDoctor();
-
+                } else {
+                    LOGGER.config("This doctor cannon be found in the database:" + username);
+                    throw new NotFoundException("No doctor with name : " + username);
+                }
 
                 consultation.setDoctor(doctorOut);
 
                 consultationRepository.save(consultation);
-            } else
+            }
+            else
                 throw new BadEntityException(" Consultation has not been created");
 
             ConsultationRepresentation result = new ConsultationRepresentation(consultationOut);
@@ -135,6 +135,10 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
 
             return result;
 
+        } catch (Exception ex) {
+            LOGGER.log(Level.WARNING, "Error when adding a consultation", ex);
 
+            throw new ResourceException(ex);
+        }
     }
 }

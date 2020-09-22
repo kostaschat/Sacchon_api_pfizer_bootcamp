@@ -17,6 +17,7 @@ public class CustomRouter {
     public Router createApiRouter() {
 
         Router router = new Router(application.getContext());
+
         //a doctor clicks on a patient
         router.attach("/user/{uid}/patient/{pid}", ApplicationUserResourceImpl.class);
         //a doctor consults a new patient
@@ -29,12 +30,11 @@ public class CustomRouter {
         router.attach("/medidata", MediDataListResourceImpl.class);
         router.attach("/medidata/", MediDataListResourceImpl.class);
 
-
+        router.attach("/add-consultation/{pid}", ConsultationListResourceImpl.class);
         router.attach("/consultation/{cid}", ConsultationResourceImpl.class);
-//        router.attach("/consultation/", ConsultationListResourceImpl.class);
-//        router.attach("/consultation", ConsultationListResourceImpl.class);
 
-        router.attach("/consultation/{p_id}", ConsultationListResourceImpl.class);
+        router.attach("/consultations/", ConsultationListResourceImpl.class);
+        router.attach("/consultations", ConsultationListResourceImpl.class);
 
         return router;
     }

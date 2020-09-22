@@ -62,7 +62,6 @@ public class ApiMain extends Application {
 
         publicUser.attachDefault(apiGuard);
 
-
         CorsFilter corsFilter = new CorsFilter(this);
         return corsFilter.createCorsFilter(publicUser);
     }
