@@ -22,10 +22,8 @@ import org.restlet.resource.ServerResource;
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ApplicationUserListResourceImpl extends ServerResource implements ApplicationUserListResource {
@@ -83,7 +81,7 @@ public class ApplicationUserListResourceImpl extends ServerResource implements A
                     Patient patient = new Patient();
                     patient.setHasConsultation(false);
                     patient.setHasDoctor(false);
-                    patient.setConsultationPending(false);
+                    patient.setConsultationPending(true);
                     patient.setApplicationUser(userOut);
                     patientRepository.save(patient);
                 } else if (userOut.getRole() == Role.doctor){
@@ -118,21 +116,8 @@ public class ApplicationUserListResourceImpl extends ServerResource implements A
 
         try {
 
-            //find the id of this doctor
-            Request request = Request.getCurrent();
-            String currentUser = request.getClientInfo().getUser().getName();
-            Optional<ApplicationUser> user = applicationUserRepository.findByUsername(currentUser);
-            Patient patient = null;
-
-            if (user.isPresent()) {
-               did = user.get().getDoctor().getId();
-            } else {
-                LOGGER.config("This doctor cannon be found in the database:" + currentUser);
-                throw new NotFoundException("No doctor with name: " + currentUser);
-            }
-
             //return the patients a doctor consults
-            List<ApplicationUser> users = applicationUserRepository.findDoctorsPatients(did);
+            List<ApplicationUser> users = applicationUserRepository.findAvailablePatients();
             List<ApplicationUserRepresentation> result = new ArrayList<>();
 
             users.forEach(p -> result.add(new ApplicationUserRepresentation(p)));

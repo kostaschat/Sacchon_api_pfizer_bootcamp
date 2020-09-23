@@ -25,14 +25,27 @@ public class ApplicationUserRepository {
         return entityManager.createQuery("from ApplicationUser").getResultList();
     }
 
-    public List<ApplicationUser> findDoctorsPatients(long did) {
+    public List<ApplicationUser> findAvailablePatients() {
 
         Session s = (Session) entityManager.getDelegate();
         String sql = "SELECT A.*" +
                 "from ApplicationUser A " +
                 "INNER JOIN Patient P " +
-                "on A.username = P.user_username where (P.doctor_id  = :did or doctor_id = null) and A.active = 1" +
+                "on A.username = P.user_username where P.doctor_id is null and A.active = 1" +
                 "ORDER BY A.creationDate DESC";
+        NativeQuery query = s.createSQLQuery(sql);
+        query.addEntity(ApplicationUser.class);
+        return query.getResultList();
+    }
+
+    public List<ApplicationUser> findMyPatients(long did) {
+
+        Session s = (Session) entityManager.getDelegate();
+        String sql = "SELECT A.*" +
+                "from ApplicationUser A " +
+                "INNER JOIN Patient P " +
+                "on A.username = P.user_username where P.doctor_id  = :did and A.active = 1";
+
         NativeQuery query = s.createSQLQuery(sql);
         query.setParameter("did", did);
         query.addEntity(ApplicationUser.class);

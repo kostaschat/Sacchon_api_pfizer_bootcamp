@@ -22,6 +22,7 @@ import org.restlet.resource.ServerResource;
 
 
 import javax.persistence.EntityManager;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -76,6 +77,7 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
                 Request request = Request.getCurrent();
                 String username = request.getClientInfo().getUser().getName();
                 Optional<ApplicationUser> user = applicationUserRepository.findByUsername(username);
+//                long id = user.get().getDoctor().getId();
 
                 Doctor doctorOut;
                 if (user.isPresent()) {
@@ -125,7 +127,7 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
         try {
 
             Consultation consultation = consultationIn.createConsulation();
-
+            consultation.setConsultationDate(LocalDateTime.now());
             Optional<Consultation> consultationOptOut = consultationRepository.save(consultation);
             Consultation consultationOut;
 

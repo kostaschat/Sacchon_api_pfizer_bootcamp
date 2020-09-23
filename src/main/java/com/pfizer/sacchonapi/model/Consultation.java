@@ -3,6 +3,7 @@ package com.pfizer.sacchonapi.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -14,7 +15,7 @@ public class Consultation {
     private long id;
     private String medicationName;
     private double dosage;
-    private Date ConsultationDate;
+    private LocalDateTime ConsultationDate;
 
     @ManyToOne
     @JoinColumn(name= "doctor_id")
