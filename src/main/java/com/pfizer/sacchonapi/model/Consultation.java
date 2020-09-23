@@ -15,7 +15,7 @@ public class Consultation {
     private long id;
     private String medicationName;
     private double dosage;
-    private LocalDateTime ConsultationDate;
+    private Date ConsultationDate;
 
     @ManyToOne
     @JoinColumn(name= "doctor_id")

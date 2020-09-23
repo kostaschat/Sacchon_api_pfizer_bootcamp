@@ -59,7 +59,7 @@ public class ApplicationUserListResourceImpl extends ServerResource implements A
     public ApplicationUserRepresentation add(ApplicationUserRepresentation userIn) throws BadEntityException {
 
         // Check authorization
-//        ResourceUtils.checkRole(this, Shield.ROLE_CHIEF_DOCTOR);
+//        ResourceUtils.checkRole(this, Shield.);
 
         ResourceValidator.notNull(userIn);
         ResourceValidator.validate(userIn);

@@ -11,6 +11,7 @@ import org.eclipse.jetty.client.api.Request;
 import org.restlet.security.User;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 
 @Data
@@ -18,7 +19,7 @@ import java.time.LocalDateTime;
 public class ConsultationRepresentation {
     private String medicationName;
     private double dosage;
-    private LocalDateTime consultationDate;
+    private Date consultationDate;
     private long doctor_id;
     private long patient_id;
     private String uri;

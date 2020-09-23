@@ -1,13 +1,14 @@
 package com.pfizer.sacchonapi.repository;
 
 import com.pfizer.sacchonapi.model.ApplicationUser;
+import com.pfizer.sacchonapi.model.Consultation;
 import com.pfizer.sacchonapi.model.Patient;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 
 import javax.persistence.EntityManager;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ApplicationUserRepository {
     private EntityManager entityManager;

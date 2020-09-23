@@ -24,6 +24,7 @@ import org.restlet.resource.ServerResource;
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -127,7 +128,8 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
         try {
 
             Consultation consultation = consultationIn.createConsulation();
-            consultation.setConsultationDate(LocalDateTime.now());
+            Date date = new Date();
+            consultation.setConsultationDate(date);
             Optional<Consultation> consultationOptOut = consultationRepository.save(consultation);
             Consultation consultationOut;
 

@@ -2292,3 +2292,132 @@ antlr.SemanticException: left-hand operand of a binary operator was null
 2020-09-23 11:12:18,584 INFO [main] o.e.j.s.Server [Server.java:374] jetty-9.4.11.v20180605; built: 2018-06-05T18:24:03.829Z; git: d5fc0523cfa96bfebfbda19606cad384d772f04c; jvm 11.0.8+10-LTS
 2020-09-23 11:12:18,625 INFO [main] o.e.j.s.AbstractConnector [AbstractConnector.java:289] Started ServerConnector@683d2667{HTTP/1.1,[http/1.1]}{0.0.0.0:9000}
 2020-09-23 11:12:18,626 INFO [main] o.e.j.s.Server [Server.java:411] Started @4188ms
+2020-09-23 11:34:14,352 INFO [main] o.h.j.i.u.LogHelper [LogHelper.java:31] HHH000204: Processing PersistenceUnitInfo [name: PERSISTENCE]
+2020-09-23 11:34:14,464 INFO [main] o.h.Version [Version.java:46] HHH000412: Hibernate Core {5.4.1.Final}
+2020-09-23 11:34:14,798 INFO [main] o.h.a.c.Version [JavaReflectionManager.java:49] HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-09-23 11:34:15,482 WARN [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:72] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-09-23 11:34:15,620 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:115] HHH10001005: using driver [com.microsoft.sqlserver.jdbc.SQLServerDriver] at URL [jdbc:sqlserver://localhost;databaseName=sacchon2]
+2020-09-23 11:34:15,621 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:124] HHH10001001: Connection properties: {password=****, user=sa}
+2020-09-23 11:34:15,622 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:129] HHH10001003: Autocommit mode: false
+2020-09-23 11:34:15,626 INFO [main] o.h.e.j.c.i.DriverManagerConnectionProviderImpl [DriverManagerConnectionProviderImpl.java:239] HHH000115: Hibernate connection pool size: 20 (min=1)
+2020-09-23 11:34:15,976 INFO [main] o.h.d.Dialect [Dialect.java:158] HHH000400: Using dialect: org.hibernate.dialect.SQLServer2012Dialect
+2020-09-23 11:34:17,250 INFO [main] o.h.o.c.access [DdlTransactionIsolatorNonJtaImpl.java:47] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@6393bf8b] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2020-09-23 11:34:17,484 INFO [main] o.h.e.t.j.p.i.JtaPlatformInitiator [JtaPlatformInitiator.java:52] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-09-23 11:34:17,601 INFO [main] o.e.j.u.log [Log.java:193] Logging initialized @4357ms to org.eclipse.jetty.util.log.Slf4jLog
+2020-09-23 11:34:17,644 INFO [main] o.e.j.s.Server [Server.java:374] jetty-9.4.11.v20180605; built: 2018-06-05T18:24:03.829Z; git: d5fc0523cfa96bfebfbda19606cad384d772f04c; jvm 11.0.8+10-LTS
+2020-09-23 11:34:17,686 INFO [main] o.e.j.s.AbstractConnector [AbstractConnector.java:289] Started ServerConnector@4e4162bc{HTTP/1.1,[http/1.1]}{0.0.0.0:9000}
+2020-09-23 11:34:17,686 INFO [main] o.e.j.s.Server [Server.java:411] Started @4443ms
+2020-09-23 11:43:42,035 WARN [qtp2048537704-16] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:137] SQL Error: 2627, SQLState: 23000
+2020-09-23 11:43:42,036 ERROR [qtp2048537704-16] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:142] Violation of PRIMARY KEY constraint 'PK__Applicat__F3DBC5735A34C13A'. Cannot insert duplicate key in object 'dbo.ApplicationUser'. The duplicate key value is (dias).
+2020-09-23 11:43:42,052 ERROR [qtp2048537704-16] o.h.i.ExceptionMapperStandardImpl [ExceptionMapperStandardImpl.java:39] HHH000346: Error during managed flush [org.hibernate.exception.ConstraintViolationException: could not execute statement]
+2020-09-23 11:43:53,954 WARN [qtp2048537704-30] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:137] SQL Error: 2627, SQLState: 23000
+2020-09-23 11:43:53,955 ERROR [qtp2048537704-30] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:142] Violation of PRIMARY KEY constraint 'PK__Applicat__F3DBC5735A34C13A'. Cannot insert duplicate key in object 'dbo.ApplicationUser'. The duplicate key value is (dias).
+2020-09-23 11:43:53,955 ERROR [qtp2048537704-30] o.h.i.ExceptionMapperStandardImpl [ExceptionMapperStandardImpl.java:39] HHH000346: Error during managed flush [org.hibernate.exception.ConstraintViolationException: could not execute statement]
+2020-09-23 11:44:22,655 WARN [qtp2048537704-16] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:137] SQL Error: 2627, SQLState: 23000
+2020-09-23 11:44:22,656 ERROR [qtp2048537704-16] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:142] Violation of PRIMARY KEY constraint 'PK__Applicat__F3DBC5735A34C13A'. Cannot insert duplicate key in object 'dbo.ApplicationUser'. The duplicate key value is (dias).
+2020-09-23 11:44:22,657 ERROR [qtp2048537704-16] o.h.i.ExceptionMapperStandardImpl [ExceptionMapperStandardImpl.java:39] HHH000346: Error during managed flush [org.hibernate.exception.ConstraintViolationException: could not execute statement]
+2020-09-23 11:44:40,336 WARN [qtp2048537704-30] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:137] SQL Error: 2627, SQLState: 23000
+2020-09-23 11:44:40,336 ERROR [qtp2048537704-30] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:142] Violation of PRIMARY KEY constraint 'PK__Applicat__F3DBC5735A34C13A'. Cannot insert duplicate key in object 'dbo.ApplicationUser'. The duplicate key value is (dias).
+2020-09-23 11:44:40,337 ERROR [qtp2048537704-30] o.h.i.ExceptionMapperStandardImpl [ExceptionMapperStandardImpl.java:39] HHH000346: Error during managed flush [org.hibernate.exception.ConstraintViolationException: could not execute statement]
+2020-09-23 11:53:31,494 INFO [main] o.h.j.i.u.LogHelper [LogHelper.java:31] HHH000204: Processing PersistenceUnitInfo [name: PERSISTENCE]
+2020-09-23 11:53:31,612 INFO [main] o.h.Version [Version.java:46] HHH000412: Hibernate Core {5.4.1.Final}
+2020-09-23 11:53:31,949 INFO [main] o.h.a.c.Version [JavaReflectionManager.java:49] HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-09-23 11:53:32,563 WARN [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:72] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-09-23 11:53:32,689 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:115] HHH10001005: using driver [com.microsoft.sqlserver.jdbc.SQLServerDriver] at URL [jdbc:sqlserver://localhost;databaseName=sacchon2]
+2020-09-23 11:53:32,690 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:124] HHH10001001: Connection properties: {password=****, user=sa}
+2020-09-23 11:53:32,691 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:129] HHH10001003: Autocommit mode: false
+2020-09-23 11:53:32,695 INFO [main] o.h.e.j.c.i.DriverManagerConnectionProviderImpl [DriverManagerConnectionProviderImpl.java:239] HHH000115: Hibernate connection pool size: 20 (min=1)
+2020-09-23 11:53:33,060 INFO [main] o.h.d.Dialect [Dialect.java:158] HHH000400: Using dialect: org.hibernate.dialect.SQLServer2012Dialect
+2020-09-23 11:53:34,467 INFO [main] o.h.o.c.access [DdlTransactionIsolatorNonJtaImpl.java:47] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@25a94b55] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2020-09-23 11:53:34,691 INFO [main] o.h.e.t.j.p.i.JtaPlatformInitiator [JtaPlatformInitiator.java:52] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-09-23 11:53:34,818 INFO [main] o.e.j.u.log [Log.java:193] Logging initialized @4522ms to org.eclipse.jetty.util.log.Slf4jLog
+2020-09-23 11:53:34,877 INFO [main] o.e.j.s.Server [Server.java:374] jetty-9.4.11.v20180605; built: 2018-06-05T18:24:03.829Z; git: d5fc0523cfa96bfebfbda19606cad384d772f04c; jvm 11.0.8+10-LTS
+2020-09-23 11:53:34,914 INFO [main] o.e.j.s.AbstractConnector [AbstractConnector.java:289] Started ServerConnector@21390938{HTTP/1.1,[http/1.1]}{0.0.0.0:9000}
+2020-09-23 11:53:34,914 INFO [main] o.e.j.s.Server [Server.java:411] Started @4618ms
+2020-09-23 11:53:41,666 WARN [qtp1737135382-27] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:137] SQL Error: 2627, SQLState: 23000
+2020-09-23 11:53:41,668 ERROR [qtp1737135382-27] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:142] Violation of PRIMARY KEY constraint 'PK__Applicat__F3DBC5735A34C13A'. Cannot insert duplicate key in object 'dbo.ApplicationUser'. The duplicate key value is (dias).
+2020-09-23 11:53:41,674 ERROR [qtp1737135382-27] o.h.i.ExceptionMapperStandardImpl [ExceptionMapperStandardImpl.java:39] HHH000346: Error during managed flush [org.hibernate.exception.ConstraintViolationException: could not execute statement]
+2020-09-23 11:54:24,263 INFO [main] o.h.j.i.u.LogHelper [LogHelper.java:31] HHH000204: Processing PersistenceUnitInfo [name: PERSISTENCE]
+2020-09-23 11:54:24,376 INFO [main] o.h.Version [Version.java:46] HHH000412: Hibernate Core {5.4.1.Final}
+2020-09-23 11:54:24,688 INFO [main] o.h.a.c.Version [JavaReflectionManager.java:49] HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-09-23 11:54:25,339 WARN [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:72] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-09-23 11:54:25,462 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:115] HHH10001005: using driver [com.microsoft.sqlserver.jdbc.SQLServerDriver] at URL [jdbc:sqlserver://localhost;databaseName=sacchon2]
+2020-09-23 11:54:25,463 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:124] HHH10001001: Connection properties: {password=****, user=sa}
+2020-09-23 11:54:25,464 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:129] HHH10001003: Autocommit mode: false
+2020-09-23 11:54:25,469 INFO [main] o.h.e.j.c.i.DriverManagerConnectionProviderImpl [DriverManagerConnectionProviderImpl.java:239] HHH000115: Hibernate connection pool size: 20 (min=1)
+2020-09-23 11:54:25,786 INFO [main] o.h.d.Dialect [Dialect.java:158] HHH000400: Using dialect: org.hibernate.dialect.SQLServer2012Dialect
+2020-09-23 11:54:27,252 INFO [main] o.h.o.c.access [DdlTransactionIsolatorNonJtaImpl.java:47] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@7af443a3] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2020-09-23 11:54:27,527 INFO [main] o.h.e.t.j.p.i.JtaPlatformInitiator [JtaPlatformInitiator.java:52] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-09-23 11:54:27,689 INFO [main] o.e.j.u.log [Log.java:193] Logging initialized @4684ms to org.eclipse.jetty.util.log.Slf4jLog
+2020-09-23 11:54:27,742 INFO [main] o.e.j.s.Server [Server.java:374] jetty-9.4.11.v20180605; built: 2018-06-05T18:24:03.829Z; git: d5fc0523cfa96bfebfbda19606cad384d772f04c; jvm 11.0.8+10-LTS
+2020-09-23 11:54:27,790 INFO [main] o.e.j.s.AbstractConnector [AbstractConnector.java:289] Started ServerConnector@780c5493{HTTP/1.1,[http/1.1]}{0.0.0.0:9000}
+2020-09-23 11:54:27,791 INFO [main] o.e.j.s.Server [Server.java:411] Started @4785ms
+2020-09-23 11:54:42,627 WARN [qtp1125499532-22] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:137] SQL Error: 2627, SQLState: 23000
+2020-09-23 11:54:42,628 ERROR [qtp1125499532-22] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:142] Violation of PRIMARY KEY constraint 'PK__Applicat__F3DBC5735A34C13A'. Cannot insert duplicate key in object 'dbo.ApplicationUser'. The duplicate key value is (dias).
+2020-09-23 11:54:42,633 ERROR [qtp1125499532-22] o.h.i.ExceptionMapperStandardImpl [ExceptionMapperStandardImpl.java:39] HHH000346: Error during managed flush [org.hibernate.exception.ConstraintViolationException: could not execute statement]
+2020-09-23 11:55:06,271 INFO [main] o.h.j.i.u.LogHelper [LogHelper.java:31] HHH000204: Processing PersistenceUnitInfo [name: PERSISTENCE]
+2020-09-23 11:55:06,380 INFO [main] o.h.Version [Version.java:46] HHH000412: Hibernate Core {5.4.1.Final}
+2020-09-23 11:55:06,768 INFO [main] o.h.a.c.Version [JavaReflectionManager.java:49] HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-09-23 11:55:07,501 WARN [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:72] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-09-23 11:55:07,627 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:115] HHH10001005: using driver [com.microsoft.sqlserver.jdbc.SQLServerDriver] at URL [jdbc:sqlserver://localhost;databaseName=sacchon2]
+2020-09-23 11:55:07,628 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:124] HHH10001001: Connection properties: {password=****, user=sa}
+2020-09-23 11:55:07,628 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:129] HHH10001003: Autocommit mode: false
+2020-09-23 11:55:07,633 INFO [main] o.h.e.j.c.i.DriverManagerConnectionProviderImpl [DriverManagerConnectionProviderImpl.java:239] HHH000115: Hibernate connection pool size: 20 (min=1)
+2020-09-23 11:55:08,004 INFO [main] o.h.d.Dialect [Dialect.java:158] HHH000400: Using dialect: org.hibernate.dialect.SQLServer2012Dialect
+2020-09-23 11:55:09,393 INFO [main] o.h.o.c.access [DdlTransactionIsolatorNonJtaImpl.java:47] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@707e4fe4] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2020-09-23 11:55:09,656 INFO [main] o.h.e.t.j.p.i.JtaPlatformInitiator [JtaPlatformInitiator.java:52] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-09-23 11:55:09,812 INFO [main] o.e.j.u.log [Log.java:193] Logging initialized @4818ms to org.eclipse.jetty.util.log.Slf4jLog
+2020-09-23 11:55:09,874 INFO [main] o.e.j.s.Server [Server.java:374] jetty-9.4.11.v20180605; built: 2018-06-05T18:24:03.829Z; git: d5fc0523cfa96bfebfbda19606cad384d772f04c; jvm 11.0.8+10-LTS
+2020-09-23 11:55:09,914 INFO [main] o.e.j.s.AbstractConnector [AbstractConnector.java:289] Started ServerConnector@7b7e97f3{HTTP/1.1,[http/1.1]}{0.0.0.0:9000}
+2020-09-23 11:55:09,915 INFO [main] o.e.j.s.Server [Server.java:411] Started @4921ms
+2020-09-23 11:55:14,866 WARN [qtp1496332643-27] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:137] SQL Error: 2627, SQLState: 23000
+2020-09-23 11:55:14,867 ERROR [qtp1496332643-27] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:142] Violation of PRIMARY KEY constraint 'PK__Applicat__F3DBC5735A34C13A'. Cannot insert duplicate key in object 'dbo.ApplicationUser'. The duplicate key value is (dias).
+2020-09-23 11:55:14,872 ERROR [qtp1496332643-27] o.h.i.ExceptionMapperStandardImpl [ExceptionMapperStandardImpl.java:39] HHH000346: Error during managed flush [org.hibernate.exception.ConstraintViolationException: could not execute statement]
+2020-09-23 11:56:05,372 WARN [qtp1496332643-17] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:137] SQL Error: 2627, SQLState: 23000
+2020-09-23 11:56:05,374 ERROR [qtp1496332643-17] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:142] Violation of PRIMARY KEY constraint 'PK__Applicat__F3DBC5735A34C13A'. Cannot insert duplicate key in object 'dbo.ApplicationUser'. The duplicate key value is (dias).
+2020-09-23 11:56:05,375 ERROR [qtp1496332643-17] o.h.i.ExceptionMapperStandardImpl [ExceptionMapperStandardImpl.java:39] HHH000346: Error during managed flush [org.hibernate.exception.ConstraintViolationException: could not execute statement]
+2020-09-23 11:56:12,930 WARN [qtp1496332643-28] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:137] SQL Error: 2627, SQLState: 23000
+2020-09-23 11:56:12,931 ERROR [qtp1496332643-28] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:142] Violation of PRIMARY KEY constraint 'PK__Applicat__F3DBC5735A34C13A'. Cannot insert duplicate key in object 'dbo.ApplicationUser'. The duplicate key value is (dias).
+2020-09-23 11:56:12,932 ERROR [qtp1496332643-28] o.h.i.ExceptionMapperStandardImpl [ExceptionMapperStandardImpl.java:39] HHH000346: Error during managed flush [org.hibernate.exception.ConstraintViolationException: could not execute statement]
+2020-09-23 11:56:23,838 WARN [qtp1496332643-22] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:137] SQL Error: 2627, SQLState: 23000
+2020-09-23 11:56:23,839 ERROR [qtp1496332643-22] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:142] Violation of PRIMARY KEY constraint 'PK__Applicat__F3DBC5735A34C13A'. Cannot insert duplicate key in object 'dbo.ApplicationUser'. The duplicate key value is (dias).
+2020-09-23 11:56:23,840 ERROR [qtp1496332643-22] o.h.i.ExceptionMapperStandardImpl [ExceptionMapperStandardImpl.java:39] HHH000346: Error during managed flush [org.hibernate.exception.ConstraintViolationException: could not execute statement]
+2020-09-23 11:56:39,862 INFO [main] o.h.j.i.u.LogHelper [LogHelper.java:31] HHH000204: Processing PersistenceUnitInfo [name: PERSISTENCE]
+2020-09-23 11:56:40,048 INFO [main] o.h.Version [Version.java:46] HHH000412: Hibernate Core {5.4.1.Final}
+2020-09-23 11:56:40,403 INFO [main] o.h.a.c.Version [JavaReflectionManager.java:49] HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-09-23 11:56:41,094 WARN [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:72] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-09-23 11:56:41,232 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:115] HHH10001005: using driver [com.microsoft.sqlserver.jdbc.SQLServerDriver] at URL [jdbc:sqlserver://localhost;databaseName=sacchon2]
+2020-09-23 11:56:41,233 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:124] HHH10001001: Connection properties: {password=****, user=sa}
+2020-09-23 11:56:41,234 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:129] HHH10001003: Autocommit mode: false
+2020-09-23 11:56:41,240 INFO [main] o.h.e.j.c.i.DriverManagerConnectionProviderImpl [DriverManagerConnectionProviderImpl.java:239] HHH000115: Hibernate connection pool size: 20 (min=1)
+2020-09-23 11:56:41,621 INFO [main] o.h.d.Dialect [Dialect.java:158] HHH000400: Using dialect: org.hibernate.dialect.SQLServer2012Dialect
+2020-09-23 11:56:43,012 INFO [main] o.h.o.c.access [DdlTransactionIsolatorNonJtaImpl.java:47] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@25a94b55] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2020-09-23 11:56:43,261 INFO [main] o.h.e.t.j.p.i.JtaPlatformInitiator [JtaPlatformInitiator.java:52] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-09-23 11:56:43,385 INFO [main] o.e.j.u.log [Log.java:193] Logging initialized @4735ms to org.eclipse.jetty.util.log.Slf4jLog
+2020-09-23 11:56:43,429 INFO [main] o.e.j.s.Server [Server.java:374] jetty-9.4.11.v20180605; built: 2018-06-05T18:24:03.829Z; git: d5fc0523cfa96bfebfbda19606cad384d772f04c; jvm 11.0.8+10-LTS
+2020-09-23 11:56:43,471 INFO [main] o.e.j.s.AbstractConnector [AbstractConnector.java:289] Started ServerConnector@21390938{HTTP/1.1,[http/1.1]}{0.0.0.0:9000}
+2020-09-23 11:56:43,472 INFO [main] o.e.j.s.Server [Server.java:411] Started @4822ms
+2020-09-23 11:56:50,500 WARN [qtp1737135382-27] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:137] SQL Error: 2627, SQLState: 23000
+2020-09-23 11:56:50,500 ERROR [qtp1737135382-27] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:142] Violation of PRIMARY KEY constraint 'PK__Applicat__F3DBC5735A34C13A'. Cannot insert duplicate key in object 'dbo.ApplicationUser'. The duplicate key value is (dias).
+2020-09-23 11:56:50,505 ERROR [qtp1737135382-27] o.h.i.ExceptionMapperStandardImpl [ExceptionMapperStandardImpl.java:39] HHH000346: Error during managed flush [org.hibernate.exception.ConstraintViolationException: could not execute statement]
+2020-09-23 11:56:59,488 WARN [qtp1737135382-18] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:137] SQL Error: 2627, SQLState: 23000
+2020-09-23 11:56:59,489 ERROR [qtp1737135382-18] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:142] Violation of PRIMARY KEY constraint 'PK__Applicat__F3DBC5735A34C13A'. Cannot insert duplicate key in object 'dbo.ApplicationUser'. The duplicate key value is (dias).
+2020-09-23 11:56:59,490 ERROR [qtp1737135382-18] o.h.i.ExceptionMapperStandardImpl [ExceptionMapperStandardImpl.java:39] HHH000346: Error during managed flush [org.hibernate.exception.ConstraintViolationException: could not execute statement]
+2020-09-23 11:58:01,627 INFO [main] o.h.j.i.u.LogHelper [LogHelper.java:31] HHH000204: Processing PersistenceUnitInfo [name: PERSISTENCE]
+2020-09-23 11:58:01,714 INFO [main] o.h.Version [Version.java:46] HHH000412: Hibernate Core {5.4.1.Final}
+2020-09-23 11:58:02,054 INFO [main] o.h.a.c.Version [JavaReflectionManager.java:49] HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-09-23 11:58:02,690 WARN [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:72] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-09-23 11:58:02,834 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:115] HHH10001005: using driver [com.microsoft.sqlserver.jdbc.SQLServerDriver] at URL [jdbc:sqlserver://localhost;databaseName=sacchon2]
+2020-09-23 11:58:02,835 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:124] HHH10001001: Connection properties: {password=****, user=sa}
+2020-09-23 11:58:02,836 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:129] HHH10001003: Autocommit mode: false
+2020-09-23 11:58:02,841 INFO [main] o.h.e.j.c.i.DriverManagerConnectionProviderImpl [DriverManagerConnectionProviderImpl.java:239] HHH000115: Hibernate connection pool size: 20 (min=1)
+2020-09-23 11:58:03,228 INFO [main] o.h.d.Dialect [Dialect.java:158] HHH000400: Using dialect: org.hibernate.dialect.SQLServer2012Dialect
+2020-09-23 11:58:04,633 INFO [main] o.h.o.c.access [DdlTransactionIsolatorNonJtaImpl.java:47] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@6393bf8b] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2020-09-23 11:58:04,883 INFO [main] o.h.e.t.j.p.i.JtaPlatformInitiator [JtaPlatformInitiator.java:52] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-09-23 11:58:05,038 INFO [main] o.e.j.u.log [Log.java:193] Logging initialized @4568ms to org.eclipse.jetty.util.log.Slf4jLog
+2020-09-23 11:58:05,102 INFO [main] o.e.j.s.Server [Server.java:374] jetty-9.4.11.v20180605; built: 2018-06-05T18:24:03.829Z; git: d5fc0523cfa96bfebfbda19606cad384d772f04c; jvm 11.0.8+10-LTS
+2020-09-23 11:58:05,144 INFO [main] o.e.j.s.AbstractConnector [AbstractConnector.java:289] Started ServerConnector@4e4162bc{HTTP/1.1,[http/1.1]}{0.0.0.0:9000}
+2020-09-23 11:58:05,145 INFO [main] o.e.j.s.Server [Server.java:411] Started @4675ms
+2020-09-23 11:58:13,240 WARN [qtp2048537704-21] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:137] SQL Error: 2627, SQLState: 23000
+2020-09-23 11:58:13,241 ERROR [qtp2048537704-21] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:142] Violation of PRIMARY KEY constraint 'PK__Applicat__F3DBC5735A34C13A'. Cannot insert duplicate key in object 'dbo.ApplicationUser'. The duplicate key value is (dias).
+2020-09-23 11:58:13,246 ERROR [qtp2048537704-21] o.h.i.ExceptionMapperStandardImpl [ExceptionMapperStandardImpl.java:39] HHH000346: Error during managed flush [org.hibernate.exception.ConstraintViolationException: could not execute statement]
