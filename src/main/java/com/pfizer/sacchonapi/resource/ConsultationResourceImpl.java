@@ -62,7 +62,7 @@ public class ConsultationResourceImpl extends ServerResource implements Consulta
                 throw new NotFoundException("No consultation with  : " + cid);
             } else {
                 consultation = oconsultation.get();
-                LOGGER.finer("User allowed to retrieve a product.");
+                LOGGER.finer("User allowed to retrieve a consultation.");
 
                 ConsultationRepresentation result =
                         new ConsultationRepresentation(consultation);

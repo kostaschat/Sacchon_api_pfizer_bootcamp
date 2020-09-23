@@ -60,7 +60,6 @@ public class ApiMain extends Application {
         Router apiRouter = customRouter.createApiRouter();
         apiGuard.setNext(apiRouter);
 
-
         publicUser.attachDefault(apiGuard);
 
         CorsFilter corsFilter = new CorsFilter(this);

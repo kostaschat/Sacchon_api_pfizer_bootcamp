@@ -61,9 +61,9 @@ public class ApplicationUserResourceImpl extends ServerResource implements Appli
             throw new ResourceException(ex);
         }
 
-        try{
+        try {
             userId = getAttribute("pid");
-        }catch(Exception e){
+        } catch (Exception e) {
             userId = null;
         }
 
@@ -116,6 +116,39 @@ public class ApplicationUserResourceImpl extends ServerResource implements Appli
 
         } catch (Exception e) {
             LOGGER.log(Level.WARNING, "Error when adding a consultation", e);
+            throw new ResourceException(e);
+        }
+
+    }
+
+    @Override
+    public ApplicationUserRepresentation remove() throws NotFoundException, BadEntityException {
+
+        LOGGER.finer("Remove Account");
+
+        ResourceUtils.checkRoles(this, Shield.patient, Shield.doctor);
+        LOGGER.finer("User allowed to remove his account.");
+
+        try {
+            Request request = Request.getCurrent();
+            String currentUser = request.getClientInfo().getUser().getName();
+            Optional<ApplicationUser> user = applicationUserRepository.findByUsername(currentUser);
+            ApplicationUser userOut;
+
+            if (user.isPresent()) {
+                userOut = user.get();
+                userOut.setActive(false);
+            } else {
+                LOGGER.config("This user cannot be found in the database:" + currentUser);
+                throw new NotFoundException("No user with name : " + currentUser);
+            }
+
+            Optional<ApplicationUser> applicationUser = applicationUserRepository.save(userOut);
+            LOGGER.finer("User successfully removed his account.");
+            return new ApplicationUserRepresentation(applicationUser.get());
+
+        } catch (Exception e) {
+            LOGGER.log(Level.WARNING, "Error when removing account", e);
             throw new ResourceException(e);
         }
 

@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 @Data
@@ -26,7 +28,7 @@ public class ApplicationUser{
     private String zipCode;
     private String phoneNumber;
     private Date dob;
-    private Date creationDate;
+    private LocalDateTime creationDate;
     private boolean active;
 
     @OneToOne(mappedBy = "applicationUser")
@@ -34,4 +36,14 @@ public class ApplicationUser{
 
     @OneToOne(mappedBy = "applicationUser")
     private Doctor doctor;
+
+    public ApplicationUser(ApplicationUser applicationUser) {
+        this.username = applicationUser.getUsername();
+        this.password = applicationUser.getPassword();
+        this.role = applicationUser.getRole();
+        this.firstName = applicationUser.getFirstName();
+        this.lastName = applicationUser.getLastName();
+        this.email = applicationUser.getEmail();
+        this.active = applicationUser.isActive();
+    }
 }
