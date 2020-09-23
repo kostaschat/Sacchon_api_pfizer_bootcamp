@@ -36,4 +36,14 @@ public class ApplicationUser{
 
     @OneToOne(mappedBy = "applicationUser")
     private Doctor doctor;
+
+    public ApplicationUser(ApplicationUser applicationUser) {
+        this.username = applicationUser.getUsername();
+        this.password = applicationUser.getPassword();
+        this.role = applicationUser.getRole();
+        this.firstName = applicationUser.getFirstName();
+        this.lastName = applicationUser.getLastName();
+        this.email = applicationUser.getEmail();
+        this.active = applicationUser.isActive();
+    }
 }

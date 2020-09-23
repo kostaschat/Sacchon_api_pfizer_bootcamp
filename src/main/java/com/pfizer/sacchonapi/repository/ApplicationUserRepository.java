@@ -52,6 +52,45 @@ public class ApplicationUserRepository {
         return query.getResultList();
     }
 
+    public List<ApplicationUser> findUnconsultedPatients(long did, Date today, Date before30) {
+
+        Session s = (Session) entityManager.getDelegate();
+        String sql = "SELECT P.*  from ApplicationUser A " +
+                "INNER JOIN Patient P " +
+                "ON A.username = P.user_username " +
+                "INNER JOIN Consultation C " +
+                "ON C.patient_id = P.id where P.doctor_id = :did and A.active = 1";
+        NativeQuery query = s.createSQLQuery(sql);
+        query.setParameter("did", did);
+        query.addEntity(Patient.class);
+
+        //remove patients that received a consultation in the last month
+        List<Patient> patients = query.getResultList();
+        List<Patient> finalPatients = new ArrayList<>();
+        boolean getOut = false;
+
+
+        for (Patient patient : patients) {
+            // System.out.println(patient.getApplicationUser().getFirstName());
+            List<Consultation> consultations = patient.getApplicationUser().getPatient().getConsultations();
+
+            for (Consultation consultation : consultations) {
+                if ((consultation.getConsultationDate().after(before30)) && (consultation.getConsultationDate().before(today)) || consultation.getConsultationDate() == today) {
+                    getOut = true;
+                    break;
+                } else {
+                    finalPatients.add(patient);
+                }
+            }
+        }
+
+        List<ApplicationUser> applicationUsers = finalPatients.stream().
+                map(applicationUser -> new ApplicationUser(applicationUser.getApplicationUser().getPatient().getApplicationUser()))
+                .collect(Collectors.toList());
+
+        return new ArrayList<>(new HashSet(applicationUsers));
+    }
+
     public Optional<ApplicationUser> save(ApplicationUser applicationUser){
         try {
             entityManager.getTransaction().begin();

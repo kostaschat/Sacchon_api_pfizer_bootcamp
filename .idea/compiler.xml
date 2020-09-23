@@ -10,5 +10,8 @@
         <module name="SacchonApi" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="SacchonApi" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
