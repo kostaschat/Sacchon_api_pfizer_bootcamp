@@ -1,6 +1,8 @@
 package com.pfizer.sacchonapi.repository;
 
 import com.pfizer.sacchonapi.model.Consultation;
+import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
 
 import javax.persistence.EntityManager;
 import java.util.Date;
@@ -19,8 +21,19 @@ public class ConsultationRepository {
         return consultation != null ? Optional.of(consultation) : Optional.empty();
     }
 
-    public List<Consultation> findAll() {
-        return entityManager.createQuery("from Consultation").getResultList();
+    public List<Consultation> findPatientCons(long id) {
+
+        return entityManager.createQuery("FROM Consultation WHERE patient_id = :id")
+                .setParameter("id", id)
+                .getResultList();
+    }
+
+    public List<Consultation> findPatientCons(long p_id, long d_id) {
+
+        return entityManager.createQuery("FROM Consultation WHERE patient_id = :p_id AND doctor_id = :d_id")
+                .setParameter("p_id", p_id)
+                .setParameter("d_id", d_id)
+                .getResultList();
     }
 
 //    public List<Consultation> findAll(Date startDate, Date endDate) {

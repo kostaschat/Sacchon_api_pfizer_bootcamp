@@ -1,5 +1,6 @@
 package com.pfizer.sacchonapi.repository;
 
+import com.pfizer.sacchonapi.model.ApplicationUser;
 import com.pfizer.sacchonapi.model.MediData;
 import lombok.Data;
 
@@ -24,8 +25,24 @@ public class MediDataRepository {
         return mediData != null ? Optional.of(mediData) : Optional.empty();
     }
 
-    public List<MediData> findAll() {
-        return entityManager.createQuery("from MediData").getResultList();
+    public List<MediData> findMediData(long id) {
+        return entityManager.createQuery("FROM MediData WHERE patient_id = :id")
+                .setParameter("id", id)
+                .getResultList();
+    }
+
+    public List<MediData> findMediData(long pid, long d_id) {
+
+        Session s = (Session) entityManager.getDelegate();
+        String sql = "SELECT M.*" +
+                "FROM MediData M " +
+                "INNER JOIN Patient P " +
+                "on M.patient_id = P.id WHERE M.patient_id  = :pid AND P.doctor_id =:d_id";
+        NativeQuery query = s.createSQLQuery(sql);
+        query.setParameter("d_id", d_id);
+        query.setParameter("pid", pid);
+        query.addEntity(MediData.class);
+        return query.getResultList();
     }
 
     public double average(String startDate, String endDate, String dataType, long id) {

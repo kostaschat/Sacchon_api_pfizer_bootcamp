@@ -58,7 +58,7 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
             applicationUserRepository = new ApplicationUserRepository(em);
             p_id = Long.parseLong(getAttribute("pid"));
         } catch (Exception e) {
-            p_id =-1;
+            p_id = -1;
         }
         LOGGER.info("Initialising consultation resource ends");
     }
@@ -70,9 +70,39 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
         ResourceUtils.checkRoles(this, Shield.patient, Shield.doctor, Shield.chiefDoctor);
 
         try {
-            List<Consultation> consultations = consultationRepository.findAll();
+            List<Consultation> consultations;
             List<ConsultationRepresentation> result = new ArrayList<>();
+            if (p_id != -1) {
+                Request request = Request.getCurrent();
+                String username = request.getClientInfo().getUser().getName();
+                Optional<ApplicationUser> user = applicationUserRepository.findByUsername(username);
 
+                Doctor doctorOut;
+                if (user.isPresent()) {
+                    doctorOut = user.get().getDoctor();
+                } else {
+                    LOGGER.config("This doctor cannot be found in the database:" + username);
+                    throw new NotFoundException("No doctor with name : " + username);
+                }
+
+                long d_id = doctorOut.getId();
+                consultations = consultationRepository.findPatientCons(p_id,d_id);
+            } else {
+                Request request = Request.getCurrent();
+                String username = request.getClientInfo().getUser().getName();
+                Optional<ApplicationUser> user = applicationUserRepository.findByUsername(username);
+
+                Patient patientOut;
+                if (user.isPresent()) {
+                    patientOut = user.get().getPatient();
+                } else {
+                    LOGGER.config("This patient cannot be found in the database:" + username);
+                    throw new NotFoundException("No patient with name : " + username);
+                }
+
+                long id = patientOut.getId();
+                consultations = consultationRepository.findPatientCons(id);
+            }
             consultations.forEach(consultation -> result.add(new ConsultationRepresentation(consultation)));
 
             return result;
@@ -88,7 +118,7 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
         ResourceUtils.checkRole(this, Shield.doctor);
         LOGGER.finer("User allowed to add a consultation.");
 
-//        ResourceValidator.notNull(consultationIn);
+        ResourceValidator.notNull(consultationIn);
         ResourceValidator.validate(consultationIn);
         LOGGER.finer("Consultation checked");
 
@@ -125,8 +155,7 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
                 consultation.setDoctor(doctorOut);
 
                 consultationRepository.save(consultation);
-            }
-            else
+            } else
                 throw new BadEntityException(" Consultation has not been created");
 
             ConsultationRepresentation result = new ConsultationRepresentation(consultationOut);

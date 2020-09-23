@@ -20,7 +20,9 @@ import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import javax.persistence.EntityManager;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -67,6 +69,8 @@ public class ApplicationUserListResourceImpl extends ServerResource implements A
         try {
             // Convert CompanyRepresentation to Company
             ApplicationUser applicationUser = userIn.createUser();
+            applicationUser.setActive(true);
+            applicationUser.setCreationDate(LocalDateTime.now());
 
             Optional<ApplicationUser> customerOptOut = applicationUserRepository.save(applicationUser);
             ApplicationUser userOut;
@@ -130,7 +134,9 @@ public class ApplicationUserListResourceImpl extends ServerResource implements A
             //return the patients a doctor consults
             List<ApplicationUser> users = applicationUserRepository.findDoctorsPatients(did);
             List<ApplicationUserRepresentation> result = new ArrayList<>();
-           // users.forEach(user -> result.add(new ApplicationUserRepresentation(user)));
+
+            users.forEach(p -> result.add(new ApplicationUserRepresentation(p)));
+
             return result;
         } catch (Exception e) {
             throw new NotFoundException("Users not found");
