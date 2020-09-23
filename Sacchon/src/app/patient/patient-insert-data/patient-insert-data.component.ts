@@ -1,5 +1,4 @@
 import { HttpClient } from '@angular/common/http';
-import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
@@ -11,9 +10,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class PatientInsertDataComponent implements OnInit {
   form: FormGroup;
 
- private readonly url ='  ';
+ private readonly url ='';
   
-
   constructor(private http: HttpClient) { 
   }
 
@@ -23,16 +21,12 @@ export class PatientInsertDataComponent implements OnInit {
       glucose: new FormControl(null, Validators.required)
       
     });
-
-
+ 
   }
   formSumbit(){
     console.log(this.form.value)
     this.http.post(this.url,this.form.value)
 
   }
-
-
-
 }
 
