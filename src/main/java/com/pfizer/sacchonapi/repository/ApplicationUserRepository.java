@@ -1,13 +1,14 @@
 package com.pfizer.sacchonapi.repository;
 
 import com.pfizer.sacchonapi.model.ApplicationUser;
+import com.pfizer.sacchonapi.model.Consultation;
 import com.pfizer.sacchonapi.model.Patient;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 
 import javax.persistence.EntityManager;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ApplicationUserRepository {
     private EntityManager entityManager;
@@ -25,18 +26,70 @@ public class ApplicationUserRepository {
         return entityManager.createQuery("from ApplicationUser").getResultList();
     }
 
-    public List<ApplicationUser> findDoctorsPatients(long did) {
+    public List<ApplicationUser> findAvailablePatients() {
 
         Session s = (Session) entityManager.getDelegate();
         String sql = "SELECT A.*" +
                 "from ApplicationUser A " +
                 "INNER JOIN Patient P " +
-                "on A.username = P.user_username where (P.doctor_id  = :did or doctor_id = null) and A.active = 1" +
+                "on A.username = P.user_username where P.doctor_id is null and A.active = 1" +
                 "ORDER BY A.creationDate DESC";
+        NativeQuery query = s.createSQLQuery(sql);
+        query.addEntity(ApplicationUser.class);
+        return query.getResultList();
+    }
+
+    public List<ApplicationUser> findMyPatients(long did) {
+
+        Session s = (Session) entityManager.getDelegate();
+        String sql = "SELECT A.*" +
+                "from ApplicationUser A " +
+                "INNER JOIN Patient P " +
+                "on A.username = P.user_username where P.doctor_id  = :did and A.active = 1";
+
         NativeQuery query = s.createSQLQuery(sql);
         query.setParameter("did", did);
         query.addEntity(ApplicationUser.class);
         return query.getResultList();
+    }
+
+    public List<ApplicationUser> findUnconsultedPatients(long did, Date today, Date before30) {
+
+        Session s = (Session) entityManager.getDelegate();
+        String sql = "SELECT P.*  from ApplicationUser A " +
+                "INNER JOIN Patient P " +
+                "ON A.username = P.user_username " +
+                "INNER JOIN Consultation C " +
+                "ON C.patient_id = P.id where P.doctor_id = :did and A.active = 1";
+        NativeQuery query = s.createSQLQuery(sql);
+        query.setParameter("did", did);
+        query.addEntity(Patient.class);
+
+        //remove patients that received a consultation in the last month
+        List<Patient> patients = query.getResultList();
+        List<Patient> finalPatients = new ArrayList<>();
+        boolean getOut = false;
+
+
+        for (Patient patient : patients) {
+            // System.out.println(patient.getApplicationUser().getFirstName());
+            List<Consultation> consultations = patient.getApplicationUser().getPatient().getConsultations();
+
+            for (Consultation consultation : consultations) {
+                if ((consultation.getConsultationDate().after(before30)) && (consultation.getConsultationDate().before(today)) || consultation.getConsultationDate() == today) {
+                    getOut = true;
+                    break;
+                } else {
+                    finalPatients.add(patient);
+                }
+            }
+        }
+
+        List<ApplicationUser> applicationUsers = finalPatients.stream().
+                map(applicationUser -> new ApplicationUser(applicationUser.getApplicationUser().getPatient().getApplicationUser()))
+                .collect(Collectors.toList());
+
+        return new ArrayList<>(new HashSet(applicationUsers));
     }
 
     public Optional<ApplicationUser> save(ApplicationUser applicationUser){

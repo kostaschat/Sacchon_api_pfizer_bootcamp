@@ -3,6 +3,7 @@ package com.pfizer.sacchonapi.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 

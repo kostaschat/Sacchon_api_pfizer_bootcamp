@@ -17,4 +17,6 @@ public interface ApplicationUserResource {
     @Put("json")
     public ApplicationUserRepresentation consultPatient() throws NotFoundException, BadEntityException;
 
+    @Delete("json")
+    public ApplicationUserRepresentation remove() throws NotFoundException, BadEntityException;
 }

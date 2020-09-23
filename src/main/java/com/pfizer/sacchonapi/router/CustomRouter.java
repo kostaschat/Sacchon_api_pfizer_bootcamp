@@ -19,11 +19,23 @@ public class CustomRouter {
 
         Router router = new Router(application.getContext());
 
+        //doctor-patient remove his account
+        router.attach("/remove-account", ApplicationUserResourceImpl.class);
+        router.attach("/remove-account/", ApplicationUserResourceImpl.class);
+
+        //patient browse a specific medidata
         router.attach("/medidata/{id}", MediDataResourceImpl.class);
 
-        //doctor browse his patients and available-new patients ?? correct?
+        //doctor browse available-new patients
         router.attach("/patients", ApplicationUserListResourceImpl.class);
         router.attach("/patients/", ApplicationUserListResourceImpl.class);
+
+        //doctor browse his patients
+        router.attach("/my-patients", PatientListResourceImpl.class);
+        router.attach("/my-patients/", PatientListResourceImpl.class);
+
+        //patients with no consultation in the last month
+        router.attach("/patients/no-consultation", PatientUserListResourceImpl.class);
 
         //doctor add a consultation to a patient
         router.attach("/add-consultation/{pid}", ConsultationListResourceImpl.class);
@@ -48,18 +60,8 @@ public class CustomRouter {
         //patient views their average daily blood glucose level over a user-specified period
         router.attach("/medidata/{datatype}/{fromdate}/{todate}", MediDataResourceImpl.class);
 
-
-
-
-
-//        router.attach("/medidata/{id}", MediDataResourceImpl.class);
-
-
-
+        //change permissions
         router.attach("/consultation/{cid}", ConsultationResourceImpl.class);
-
-
-
 
         return router;
     }

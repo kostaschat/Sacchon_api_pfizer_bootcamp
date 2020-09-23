@@ -10,7 +10,9 @@ import lombok.NoArgsConstructor;
 import org.eclipse.jetty.client.api.Request;
 import org.restlet.security.User;
 
+import java.time.LocalDateTime;
 import java.util.Date;
+
 
 @Data
 @NoArgsConstructor
@@ -39,7 +41,6 @@ public class ConsultationRepresentation {
         Consultation consultation = new Consultation();
         consultation.setMedicationName(medicationName);
         consultation.setDosage(dosage);
-        consultation.setConsultationDate(consultationDate);
 
         return consultation;
     }

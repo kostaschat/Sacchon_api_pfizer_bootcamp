@@ -60,7 +60,6 @@ public class MediDataRepository {
         double x = Double.parseDouble(value.get(0).toString());
 
         return x;
-
     }
 
     public Optional<MediData> save(MediData mediData) {

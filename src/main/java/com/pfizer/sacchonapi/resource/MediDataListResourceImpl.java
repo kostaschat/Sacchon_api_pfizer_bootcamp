@@ -101,7 +101,7 @@ public class MediDataListResourceImpl  extends ServerResource implements MediDat
 
             return result;
         } catch (Exception e) {
-            throw new NotFoundException("consultations not found");
+            throw new NotFoundException("Medical data not found");
         }
     }
 
