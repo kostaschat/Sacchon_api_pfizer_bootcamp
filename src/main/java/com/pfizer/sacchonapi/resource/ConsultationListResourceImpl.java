@@ -41,6 +41,7 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
     private String startDate;
     private String endDate;
     private long p_id;
+    private long did;
 
     private EntityManager em;
 
@@ -58,11 +59,33 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
             consultationRepository = new ConsultationRepository(em);
             patientRepository = new PatientRepository(em);
             applicationUserRepository = new ApplicationUserRepository(em);
+
+            try {
+                startDate = getAttribute("fromdate");
+                endDate = getAttribute("todate");
+
+            } catch (Exception e) {
+                startDate = null;
+                endDate = null;
+                System.out.println("One of the dates was null");
+                LOGGER.info(e.getMessage());
+            }
+
             p_id = Long.parseLong(getAttribute("pid"));
         } catch (Exception e) {
             p_id = -1;
+            LOGGER.info(e.getMessage());
         }
-        LOGGER.info("Initialising consultation resource ends");
+
+        try{
+
+            did = Long.parseLong(getAttribute("did"));
+        }catch (Exception e)
+        {
+            did = -1;
+            LOGGER.info(e.getMessage());
+        }
+        LOGGER.info("Initialising consultation list resource ends");
     }
 
     public List<ConsultationRepresentation> getConsultations() throws NotFoundException {
@@ -71,8 +94,10 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
 
         ResourceUtils.checkRoles(this, Shield.patient, Shield.doctor, Shield.chiefDoctor);
 
+        List<Consultation> consultations = null;
+
         try {
-            List<Consultation> consultations;
+
             List<ConsultationRepresentation> result = new ArrayList<>();
             if (p_id != -1) {
                 Request request = Request.getCurrent();
@@ -95,19 +120,24 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
                 String username = request.getClientInfo().getUser().getName();
                 Optional<ApplicationUser> user = applicationUserRepository.findByUsername(username);
 
-                Patient patientOut;
-                if (user.isPresent()) {
-                    patientOut = user.get().getPatient();
+                if (did != -1) {
+                  consultations = consultationRepository.findMonitoredConsultations(did, startDate, endDate);
+
                 } else {
-                    LOGGER.config("This patient cannot be found in the database:" + username);
-                    throw new NotFoundException("No patient with name : " + username);
+                    Patient patientOut;
+                    if (user.isPresent()) {
+                        patientOut = user.get().getPatient();
+                    } else {
+                        LOGGER.config("This patient cannot be found in the database:" + username);
+                        throw new NotFoundException("No patient with name : " + username);
+                    }
+
+                    long id = patientOut.getId();
+                    consultations = consultationRepository.findPatientCons(id);
                 }
-
-                long id = patientOut.getId();
-                consultations = consultationRepository.findPatientCons(id);
             }
-            consultations.forEach(consultation -> result.add(new ConsultationRepresentation(consultation)));
 
+            consultations.forEach(consultation -> result.add(new ConsultationRepresentation(consultation)));
             return result;
         } catch (Exception e) {
             throw new NotFoundException("consultations not found");

@@ -23,7 +23,7 @@ public class CustomRouter {
         router.attach("/remove-account", ApplicationUserResourceImpl.class);
         router.attach("/remove-account/", ApplicationUserResourceImpl.class);
 
-        //patient browse a specific medidata
+        //patient browse, delete a specific medidata
         router.attach("/medidata/{id}", MediDataResourceImpl.class);
 
         //doctor browse available-new patients
@@ -62,6 +62,18 @@ public class CustomRouter {
 
         //change permissions
         router.attach("/consultation/{cid}", ConsultationResourceImpl.class);
+
+
+        //Reporter endpoints
+        //The information submissions(personal monitor data) of a patient over a time range
+        router.attach("patient/{pid}/medidata/{fromdate}/{todate}", MediDataListResourceImpl.class);
+
+        // /The information submissions (consultations) of a doctor over a time range
+        router.attach("doctor/{did}/consultation/{fromdate}/{todate}",ConsultationListResourceImpl.class);
+
+        //The list of the patients who are waiting for a consultation and the time elapsed since they needed to have one
+
+
 
         return router;
     }

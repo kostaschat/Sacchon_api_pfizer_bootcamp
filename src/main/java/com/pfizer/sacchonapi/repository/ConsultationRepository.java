@@ -1,6 +1,7 @@
 package com.pfizer.sacchonapi.repository;
 
 import com.pfizer.sacchonapi.model.Consultation;
+import com.pfizer.sacchonapi.model.MediData;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 
@@ -98,5 +99,20 @@ public class ConsultationRepository {
             }
         }
         return true;
+    }
+
+    public List<Consultation> findMonitoredConsultations(long did, String startDate, String endDate) {
+
+        Session s = (Session) entityManager.getDelegate();
+        String sql = "SELECT C.* " +
+                "from Consultation C, Doctor D " +
+                "where C.doctor_id = D.id and D.id = :did and " +
+                "ConsultationDate >= :startDate AND ConsultationDate <= :endDate";
+        NativeQuery query = s.createSQLQuery(sql);
+        query.setParameter("did", did);
+        query.setParameter("startDate", startDate);
+        query.setParameter("endDate", endDate);
+        query.addEntity(Consultation.class);
+        return query.getResultList();
     }
 }
