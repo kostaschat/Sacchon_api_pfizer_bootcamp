@@ -1,5 +1,3 @@
-
-
 <html lang="en">
 <head>
   <title>Bootstrap Example</title>
@@ -11,33 +9,14 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
- 
-  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-    <ul class="navbar-nav">
-      <li class="nav-item" [routerLinkActive]="'active'">
-        <a class="nav-link" [routerLink]="['dashboard']" >Home</a>
-      </li>
-      <li class="nav-item" [routerLinkActive]="'active'">
-        <a class="nav-link" [routerLink]="['patient/consultation']">Consultations</a>
-      </li>
-      <li class="nav-item" [routerLinkActive]="'active'">
-        <a class="nav-link" [routerLink]="['patient/insert']">Insert Data</a>
-      </li>
-      <li class="nav-item" [routerLinkActive]="'active'">
-        <a class="nav-link" [routerLink]="['patient/list-data']">Data</a>
-      </li>
-    </ul>
-  </nav>
+<!--navigation bar-->
+ <app-nav></app-nav>
+<!--/navigation bar-->
   <div class="container">
     <div class="mt-5">
       <router-outlet>
       </router-outlet>
     </div>
   </div>
-  
-<br>
-
-
-
 </body>
 </html>

@@ -1,8 +1,6 @@
 
 <form [formGroup]="form" (submit)="formSumbit()" style=" width: 50%; margin: auto;">
-
     <!-- carb  -->
-   
     <div class="form-group">
       <label  for="carbInput">Carbs (grams) </label>
       <input  type="number"
@@ -16,7 +14,6 @@
       </div>
     </div>
     <!-- /carb -->
-
     <!-- glucose  -->
     <div class="form-group">
         <label  for="carbInput">Glucose ( mg/dL) </label>
@@ -31,8 +28,7 @@
         </div>
       </div>
       <!-- /carb -->
-  
- 
+      
       {{form.value | json}}  
         //[disabled]="!form.valid"
     <button type="submit" class="btn btn-primary"   >Submit</button>
