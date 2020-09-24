@@ -34,7 +34,7 @@ public class MediDataRepository {
     public List<MediData> findMediData(long pid, long d_id) {
 
         Session s = (Session) entityManager.getDelegate();
-        String sql = "SELECT M.*" +
+        String sql = "SELECT M.* " +
                 "FROM MediData M " +
                 "INNER JOIN Patient P " +
                 "on M.patient_id = P.id WHERE M.patient_id  = :pid AND P.doctor_id =:d_id";
@@ -43,6 +43,22 @@ public class MediDataRepository {
         query.setParameter("pid", pid);
         query.addEntity(MediData.class);
         return query.getResultList();
+    }
+
+    public List<MediData> findMonitoredMediData(long pid, String startDate, String endDate)
+    {
+        Session s = (Session) entityManager.getDelegate();
+        String sql = "SELECT M.* " +
+                "from MediData M, Patient P " +
+                "where M.patient_id = P.id and P.id = :pid and " +
+                "measuredDate >= :startDate AND measuredDate <= :endDate";
+        NativeQuery query = s.createSQLQuery(sql);
+        query.setParameter("pid", pid);
+        query.setParameter("endDate", endDate);
+        query.setParameter("startDate", startDate);
+        query.addEntity(MediData.class);
+        return query.getResultList();
+
     }
 
     public double average(String startDate, String endDate, String dataType, long id) {
@@ -61,6 +77,7 @@ public class MediDataRepository {
 
         return x;
     }
+
 
     public Optional<MediData> save(MediData mediData) {
         try {
@@ -91,6 +108,7 @@ public class MediDataRepository {
     }
 
     public boolean remove(Long id){
+
         Optional<MediData> odata = findById(id);
         if (odata.isPresent()){
             MediData m = odata.get();

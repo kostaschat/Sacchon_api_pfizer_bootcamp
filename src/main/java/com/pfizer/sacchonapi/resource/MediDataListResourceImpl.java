@@ -10,6 +10,7 @@ import com.pfizer.sacchonapi.representation.ConsultationRepresentation;
 import com.pfizer.sacchonapi.representation.MediDataRepresentation;
 import com.pfizer.sacchonapi.resource.util.ResourceValidator;
 import com.pfizer.sacchonapi.security.ResourceUtils;
+import com.pfizer.sacchonapi.security.Role;
 import com.pfizer.sacchonapi.security.Shield;
 import org.restlet.Request;
 import org.restlet.engine.Engine;
@@ -29,6 +30,9 @@ public class MediDataListResourceImpl  extends ServerResource implements MediDat
     private MediDataRepository mediDataRepository ;
     private ApplicationUserRepository applicationUserRepository;
 
+
+    private String fromDate;
+    private String toDate;
     private long pid;
     private EntityManager em;
 
@@ -44,7 +48,19 @@ public class MediDataListResourceImpl  extends ServerResource implements MediDat
         try {
             em = JpaUtil.getEntityManager();
             applicationUserRepository = new ApplicationUserRepository(em);
-            mediDataRepository = new MediDataRepository (em) ;
+            mediDataRepository = new MediDataRepository (em);
+
+            try {
+                fromDate = getAttribute("fromdate");
+                toDate = getAttribute("todate");
+
+            } catch (Exception e) {
+                fromDate = null;
+                toDate = null;
+                System.out.println("One of the dates was null");
+                LOGGER.info(e.getMessage());
+            }
+
             pid = Long.parseLong(getAttribute("pid"));
         }
         catch(Exception e)
@@ -53,6 +69,8 @@ public class MediDataListResourceImpl  extends ServerResource implements MediDat
             LOGGER.info(e.getMessage());
         }
 
+
+
         LOGGER.info("Initialising medidata resource ends");
     }
 
@@ -60,7 +78,7 @@ public class MediDataListResourceImpl  extends ServerResource implements MediDat
 
         LOGGER.finer("Select all medical data.");
 
-        ResourceUtils.checkRoles(this, Shield.patient,Shield.doctor);
+        ResourceUtils.checkRoles(this, Shield.patient,Shield.doctor, Shield.chiefDoctor);
 
         try {
             List<MediData> mediData;
@@ -82,30 +100,55 @@ public class MediDataListResourceImpl  extends ServerResource implements MediDat
 
                 mediData = mediDataRepository.findMediData(pid,d_id);
             } else {
+
+
                 Request request = Request.getCurrent();
                 String username = request.getClientInfo().getUser().getName();
                 Optional<ApplicationUser> user = applicationUserRepository.findByUsername(username);
 
-                Patient patientOut;
+                Role role;
+
                 if (user.isPresent()) {
-                    patientOut = user.get().getPatient();
+                    role = user.get().getRole();
                 } else {
-                    LOGGER.config("This Patient cannon be found in the database:" + username);
-                    throw new NotFoundException("No patient with name : " + username);
+                    LOGGER.config("This doctor cannon be found in the database:" + username);
+                    throw new NotFoundException("No doctor with name: " + username);
                 }
 
-                long id = patientOut.getId();
-                mediData = mediDataRepository.findMediData(id);
+                if (role.equals("chiefDoctor")) {
+
+                    mediData = getMonitoringMediData();
+
+                } else {
+
+                    Patient patientOut;
+                    if (user.isPresent()) {
+                        patientOut = user.get().getPatient();
+                    } else {
+                        LOGGER.config("This Patient cannon be found in the database:" + username);
+                        throw new NotFoundException("No patient with name : " + username);
+                    }
+
+                    long id = patientOut.getId();
+                    mediData = mediDataRepository.findMediData(id);
+
+
+                }
+
             }
             mediData.forEach(m -> result.add(new MediDataRepresentation(m)));
-
             return result;
         } catch (Exception e) {
-            throw new NotFoundException("Medical data not found");
+            throw new NotFoundException("consultations not found");
         }
     }
 
-        @Override
+    public List<MediData> getMonitoringMediData() throws NotFoundException
+    {
+        return mediDataRepository.findMonitoredMediData(pid, fromDate, toDate);
+    }
+
+    @Override
         public MediDataRepresentation add(MediDataRepresentation mediDataIn) throws BadEntityException {
 
             LOGGER.finer("Add a new medical data.");

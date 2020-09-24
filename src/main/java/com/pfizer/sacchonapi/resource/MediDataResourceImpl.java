@@ -9,6 +9,7 @@ import com.pfizer.sacchonapi.repository.ApplicationUserRepository;
 import com.pfizer.sacchonapi.repository.MediDataRepository;
 import com.pfizer.sacchonapi.repository.PatientRepository;
 import com.pfizer.sacchonapi.repository.util.JpaUtil;
+import com.pfizer.sacchonapi.representation.GeneralRepresentation;
 import com.pfizer.sacchonapi.representation.MediDataRepresentation;
 import com.pfizer.sacchonapi.resource.util.ResourceValidator;
 import com.pfizer.sacchonapi.security.ResourceUtils;
@@ -21,6 +22,7 @@ import org.restlet.resource.ServerResource;
 import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MediDataResourceImpl extends ServerResource implements MediDataResource {
@@ -181,5 +183,33 @@ public class MediDataResourceImpl extends ServerResource implements MediDataReso
             throw new ResourceException(ex);
         }
     }
+
+    @Override
+    public GeneralRepresentation remove(MediDataRepresentation mediDataReprIn) throws Exception {
+
+        LOGGER.finer("Remove Account");
+
+        ResourceUtils.checkRole(this, Shield.patient);
+        LOGGER.finer("User allowed to remove his account.");
+
+        boolean gotRemoved = false;
+
+        try {
+                gotRemoved = mediDataRepository.remove(id);
+
+                if (gotRemoved)
+                    LOGGER.finer("Medidata with id" + id + "got removed");
+                else
+                    throw new Exception("Medical Data with the following id could not get removed: " + id);
+
+            return new GeneralRepresentation("Medidata was removed");
+
+        } catch (Exception ex) {
+
+            LOGGER.log(Level.WARNING, "Medidata could not get removed", ex);
+            throw new Exception(ex);
+        }
+
+        }
 }
 
