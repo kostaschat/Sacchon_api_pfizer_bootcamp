@@ -21,6 +21,6 @@ import { MatSortModule } from '@angular/material/sort';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule
-  ],exports: [PatientListComponent]
+  ],exports: [PatientListComponent,PatientRoutingModule]
 })
 export class PatientModule { }

@@ -18,7 +18,13 @@
         <a class="nav-link" [routerLink]="['dashboard']" >Home</a>
       </li>
       <li class="nav-item" [routerLinkActive]="'active'">
-        <a class="nav-link" [routerLink]="['patient']">Patient</a>
+        <a class="nav-link" [routerLink]="['patient/consultation']">Consultations</a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="'active'">
+        <a class="nav-link" [routerLink]="['patient/insert']">Insert Data</a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="'active'">
+        <a class="nav-link" [routerLink]="['patient/list-data']">Data</a>
       </li>
     </ul>
   </nav>
