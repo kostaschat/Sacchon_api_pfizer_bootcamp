@@ -195,12 +195,12 @@ public class MediDataResourceImpl extends ServerResource implements MediDataReso
         boolean gotRemoved = false;
 
         try {
-                gotRemoved = mediDataRepository.remove(id);
+            gotRemoved = mediDataRepository.remove(id);
 
-                if (gotRemoved)
-                    LOGGER.finer("Medidata with id" + id + "got removed");
-                else
-                    throw new Exception("Medical Data with the following id could not get removed: " + id);
+            if (gotRemoved)
+                LOGGER.finer("Medidata with id" + id + "got removed");
+            else
+                throw new Exception("Medical Data with the following id could not get removed: " + id);
 
             return new GeneralRepresentation("Medidata was removed");
 
@@ -210,6 +210,6 @@ public class MediDataResourceImpl extends ServerResource implements MediDataReso
             throw new Exception(ex);
         }
 
-        }
+    }
 }
 
