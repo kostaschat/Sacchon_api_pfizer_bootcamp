@@ -26,6 +26,9 @@ public class CustomRouter {
 
         Router router = new Router(application.getContext());
 
+
+
+
         //doctor-patient remove his account
         router.attach("/remove-account", ApplicationUserResourceImpl.class);
         router.attach("/remove-account/", ApplicationUserResourceImpl.class);
@@ -72,13 +75,13 @@ public class CustomRouter {
 
         //Reporter endpoints
         //The information submissions(personal monitor data) of a patient over a time range
-        router.attach("patient/{pid}/medidata/{fromdate}/{todate}", MediDataListResourceImpl.class);
+        router.attach("/patient/{pid}/medidata/{fromdate}/{todate}", MediDataListResourceImpl.class);
 
         // /The information submissions (consultations) of a doctor over a time range
-        router.attach("doctor/{did}/consultation/{fromdate}/{todate}",ConsultationListResourceImpl.class);
+        router.attach("/doctor/{did}/consultation/{fromdate}/{todate}",ConsultationListResourceImpl.class);
 
         //The list of the patients who are waiting for a consultation and the time elapsed since they needed to have one
-
+        router.attach("/patients/consultation-pending", PatientUserListResourceImpl.class);
 
         //chiefDoctor browse a list of the doctors with no activity over a time range
         router.attach("/inactive-doctors/{fromdate}/{todate}", ChiefDoctorListResourceImpl.class);

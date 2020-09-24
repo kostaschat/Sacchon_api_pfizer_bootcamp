@@ -2,8 +2,9 @@ package com.pfizer.sacchonapi.repository;
 
 import com.pfizer.sacchonapi.model.ApplicationUser;
 import com.pfizer.sacchonapi.model.Consultation;
-import com.pfizer.sacchonapi.model.Doctor;
 import com.pfizer.sacchonapi.model.Patient;
+import com.pfizer.sacchonapi.representation.ApplicationUserRepresentation;
+import com.pfizer.sacchonapi.representation.PatientsWithoutConsultationRepresentation;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 
@@ -152,5 +153,41 @@ public class ApplicationUserRepository {
             return false;
         }
 
+    }
+
+    public List<PatientsWithoutConsultationRepresentation> WaitingForConsultationAndTimeEllapsed() {
+
+        Session s = (Session) entityManager.getDelegate();
+        String sql = "Select P.user_username, (COUNT(DISTINCT CAST(M.measuredDate AS DATE))) AS Days " +
+                "from Patient P, MediData M " +
+                "where P.id = M.patient_id " +
+                "and (M.measuredDate) > (SELECT MAX(C.ConsultationDate) " +
+                "FROM Consultation C where C.patient_id = M.patient_id) " +
+                "and P.consultationPending = 1" +
+                "GROUP BY P.user_username " +
+                "HAVING (COUNT(DISTINCT CAST(M.measuredDate AS DATE))) > 2";
+        NativeQuery query = s.createSQLQuery(sql);
+
+        List<Object[]> list = query.getResultList();
+        List<PatientsWithoutConsultationRepresentation> patientList = new ArrayList<>();
+        String username;
+        int daysEllapsed;
+        ApplicationUser patient;
+        PatientsWithoutConsultationRepresentation modifiedPatient;
+
+        System.out.println("megethos listas" + list.size());
+
+        for(Object[] obj: list)
+        {
+            username = (String) obj[0];
+            daysEllapsed = (int) obj[1];
+            System.out.println("Poses" + username + daysEllapsed);
+            patient = findByUsername(username).get().getPatient().getApplicationUser();
+            System.out.println("Patient" + patient.getFirstName());
+            modifiedPatient = new PatientsWithoutConsultationRepresentation(new ApplicationUserRepresentation(patient), daysEllapsed);
+            patientList.add(modifiedPatient);
+        }
+
+        return patientList;
     }
 }
