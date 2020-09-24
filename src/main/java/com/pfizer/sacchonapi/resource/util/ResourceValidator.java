@@ -37,9 +37,17 @@ public class ResourceValidator {
 
 
     public static void validate(ApplicationUserRepresentation applicationUserRepresentation) throws BadEntityException {
-        if ( applicationUserRepresentation.getUsername() == null) {
+        if ( applicationUserRepresentation.getUsername() == null || applicationUserRepresentation.getPassword() == null) {
             throw new BadEntityException(
                     "User  cannot be null");
         }
     }
+
+    public static void validateLogin(ApplicationUserRepresentation applicationUserRepresentation) throws BadEntityException {
+        if ( applicationUserRepresentation.getUsername() == null || applicationUserRepresentation.getPassword() == null) {
+            throw new BadEntityException(
+                    "Username and Password  cannot be null");
+        }
+    }
+
 }

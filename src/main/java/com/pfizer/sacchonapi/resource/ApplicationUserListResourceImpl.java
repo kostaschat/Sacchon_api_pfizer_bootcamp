@@ -35,6 +35,9 @@ public class ApplicationUserListResourceImpl extends ServerResource implements A
     private DoctorRepository doctorRepository;
     private EntityManager em;
 
+    private String fromDate;
+    private String toDate;
+
     @Override
     protected void doRelease() {
         em.close();
@@ -48,7 +51,11 @@ public class ApplicationUserListResourceImpl extends ServerResource implements A
             applicationUserRepository = new ApplicationUserRepository(em);
             patientRepository = new PatientRepository(em);
             doctorRepository = new DoctorRepository(em);
+            fromDate = getAttribute("fromdate");
+            toDate = getAttribute("todate");
         } catch (Exception ex) {
+            fromDate = null;
+            toDate = null;
             throw new ResourceException(ex);
         }
 
@@ -58,14 +65,12 @@ public class ApplicationUserListResourceImpl extends ServerResource implements A
     @Override
     public ApplicationUserRepresentation add(ApplicationUserRepresentation userIn) throws BadEntityException {
 
-        // Check authorization
-//        ResourceUtils.checkRole(this, Shield.);
 
         ResourceValidator.notNull(userIn);
         ResourceValidator.validate(userIn);
 
         try {
-            // Convert CompanyRepresentation to Company
+
             ApplicationUser applicationUser = userIn.createUser();
             applicationUser.setActive(true);
             applicationUser.setCreationDate(LocalDateTime.now());
@@ -84,7 +89,7 @@ public class ApplicationUserListResourceImpl extends ServerResource implements A
                     patient.setConsultationPending(true);
                     patient.setApplicationUser(userOut);
                     patientRepository.save(patient);
-                } else if (userOut.getRole() == Role.doctor){
+                } else if (userOut.getRole() == Role.doctor) {
                     Doctor doctor = new Doctor();
                     doctor.setApplicationUser(userOut);
                     doctorRepository.save(doctor);
@@ -102,23 +107,44 @@ public class ApplicationUserListResourceImpl extends ServerResource implements A
     }
 
     /**
-     *
      * @return The patients a doctor consults and the new patients in the system
      * @throws NotFoundException
      */
     @Override
     public List<ApplicationUserRepresentation> getUsers() throws NotFoundException {
 
-        ResourceUtils.checkRole(this, Shield.doctor);
-
-        List<Patient> patients;
-        long did;
+        ResourceUtils.checkRoles(this, Shield.doctor, Shield.chiefDoctor);
 
         try {
-
-            //return the patients a doctor consults
-            List<ApplicationUser> users = applicationUserRepository.findAvailablePatients();
+            List<ApplicationUser> users = new ArrayList<>();
             List<ApplicationUserRepresentation> result = new ArrayList<>();
+
+            if (fromDate != null && toDate != null) {
+                Request request = Request.getCurrent();
+                String username = request.getClientInfo().getUser().getName();
+                Optional<ApplicationUser> user = applicationUserRepository.findByUsername(username);
+
+
+                if (user.isPresent()) {
+                    if (user.get().getRole().getRoleName() == "chiefDoctor")
+                        users = applicationUserRepository.findInactivePatients(fromDate, toDate);
+                } else {
+                    LOGGER.config("This user cannot be found in the database:" + username);
+                    throw new NotFoundException("No user with name : " + username);
+                }
+            } else {
+                Request request = Request.getCurrent();
+                String username = request.getClientInfo().getUser().getName();
+                Optional<ApplicationUser> user = applicationUserRepository.findByUsername(username);
+
+                if (user.isPresent()) {
+                    if (user.get().getRole().getRoleName() == "doctor")
+                        users = applicationUserRepository.findAvailablePatients();
+                } else {
+                    LOGGER.config("This user cannot be found in the database:" + username);
+                    throw new NotFoundException("No user with name : " + username);
+                }
+            }
 
             users.forEach(p -> result.add(new ApplicationUserRepresentation(p)));
 

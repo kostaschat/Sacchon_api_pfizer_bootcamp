@@ -60,8 +60,15 @@ public class CustomRouter {
         //patient views their average daily blood glucose level over a user-specified period
         router.attach("/medidata/{datatype}/{fromdate}/{todate}", MediDataResourceImpl.class);
 
+        //chiefDoctor browse a list of the doctors with no activity over a time range
+        router.attach("/inactive-doctors/{fromdate}/{todate}", ChiefDoctorListResourceImpl.class);
+
+        //chiefDoctor browse a list of the patients with no activity over a time range
+        router.attach("/patients/{fromdate}/{todate}", ApplicationUserListResourceImpl.class);
+
         //change permissions
         router.attach("/consultation/{cid}", ConsultationResourceImpl.class);
+
 
         return router;
     }
@@ -75,6 +82,9 @@ public class CustomRouter {
     public Router publicUser() {
         Router router = new Router();
         router.attach("/register", ApplicationUserListResourceImpl.class);
+        router.attach("/register/", ApplicationUserListResourceImpl.class);
+        router.attach("/login", LoginResourceImpl.class);
+        router.attach("/login/", LoginResourceImpl.class);
         return router;
     }
 

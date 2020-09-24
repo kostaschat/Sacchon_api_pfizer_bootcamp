@@ -53,11 +53,11 @@ public class ApiMain extends Application {
 
 //        Router publicRouter = customRouter.publicResources();
         Router publicUser = customRouter.publicUser();
+        Router apiRouter = customRouter.createApiRouter();
 
         ChallengeAuthenticator apiGuard = shield.createApiGuard();
         // Create the api router, protected by a guard
 
-        Router apiRouter = customRouter.createApiRouter();
         apiGuard.setNext(apiRouter);
 
         publicUser.attachDefault(apiGuard);

@@ -2,13 +2,17 @@ package com.pfizer.sacchonapi.resource;
 
 import com.pfizer.sacchonapi.exception.BadEntityException;
 import com.pfizer.sacchonapi.exception.NotFoundException;
+import com.pfizer.sacchonapi.model.ApplicationUser;
 import com.pfizer.sacchonapi.model.Consultation;
+import com.pfizer.sacchonapi.model.Patient;
+import com.pfizer.sacchonapi.repository.ApplicationUserRepository;
 import com.pfizer.sacchonapi.repository.ConsultationRepository;
 import com.pfizer.sacchonapi.repository.util.JpaUtil;
 import com.pfizer.sacchonapi.representation.ConsultationRepresentation;
 import com.pfizer.sacchonapi.resource.util.ResourceValidator;
 import com.pfizer.sacchonapi.security.ResourceUtils;
 import com.pfizer.sacchonapi.security.Shield;
+import org.restlet.Request;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
@@ -50,11 +54,11 @@ public class ConsultationResourceImpl extends ServerResource implements Consulta
 
         ResourceUtils.checkRoles(this, Shield.patient, Shield.doctor);
 
-        ConsultationRepository consultationRepository = new ConsultationRepository(JpaUtil.getEntityManager());
         Consultation consultation;
         try {
 
             Optional<Consultation> oconsultation = consultationRepository.findById(cid);
+
 
             setExisting(oconsultation.isPresent());
             if (!isExisting()) {
@@ -64,9 +68,7 @@ public class ConsultationResourceImpl extends ServerResource implements Consulta
                 consultation = oconsultation.get();
                 LOGGER.finer("User allowed to retrieve a consultation.");
 
-                ConsultationRepresentation result =
-                        new ConsultationRepresentation(consultation);
-
+                ConsultationRepresentation result = new ConsultationRepresentation(consultation);
 
                 LOGGER.finer("Consultation successfully retrieved");
 

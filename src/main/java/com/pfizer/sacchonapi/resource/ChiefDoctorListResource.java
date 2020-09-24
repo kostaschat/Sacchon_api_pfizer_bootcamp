@@ -1,15 +1,13 @@
 package com.pfizer.sacchonapi.resource;
 
 import com.pfizer.sacchonapi.exception.NotFoundException;
-import com.pfizer.sacchonapi.model.Patient;
 import com.pfizer.sacchonapi.representation.ApplicationUserRepresentation;
+import com.pfizer.sacchonapi.representation.ConsultationRepresentation;
 import org.restlet.resource.Get;
 
 import java.util.List;
 
-public interface PatientUserListResource {
-
+public interface ChiefDoctorListResource {
     @Get("json")
-    public List<ApplicationUserRepresentation> getUsers() throws NotFoundException;
-
+    public List<ApplicationUserRepresentation> getDoctors() throws NotFoundException;
 }

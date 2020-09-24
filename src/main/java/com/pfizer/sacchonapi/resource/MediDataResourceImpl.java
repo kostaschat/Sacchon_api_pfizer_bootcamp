@@ -83,7 +83,6 @@ public class MediDataResourceImpl extends ServerResource implements MediDataReso
 
         ResourceUtils.checkRoles(this, Shield.patient, Shield.doctor);
 
-        MediDataRepository mediDataRepository = new MediDataRepository(JpaUtil.getEntityManager());
         MediDataRepresentation result;
         MediData mediData;
 

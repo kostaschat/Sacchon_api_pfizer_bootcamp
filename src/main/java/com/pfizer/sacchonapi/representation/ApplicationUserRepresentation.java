@@ -35,10 +35,7 @@ public class ApplicationUserRepresentation {
             role = applicationUser.getRole();
             firstName = applicationUser.getFirstName();
             lastName = applicationUser.getLastName();
-            username = applicationUser.getUsername();
-
             email = applicationUser.getEmail();
-            password = applicationUser.getPassword();
             address = applicationUser.getAddress();
             city = applicationUser.getCity();
             zipCode = applicationUser.getZipCode();
@@ -57,10 +54,7 @@ public class ApplicationUserRepresentation {
         applicationUser.setRole(role);
         applicationUser.setFirstName(firstName);
         applicationUser.setLastName(lastName);
-        applicationUser.setUsername(username);
-
         applicationUser.setEmail(email);
-        applicationUser.setPassword(password);
         applicationUser.setAddress(address);
         applicationUser.setCity(city);
         applicationUser.setZipCode(zipCode);

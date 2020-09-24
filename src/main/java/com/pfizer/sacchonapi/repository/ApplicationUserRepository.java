@@ -2,6 +2,7 @@ package com.pfizer.sacchonapi.repository;
 
 import com.pfizer.sacchonapi.model.ApplicationUser;
 import com.pfizer.sacchonapi.model.Consultation;
+import com.pfizer.sacchonapi.model.Doctor;
 import com.pfizer.sacchonapi.model.Patient;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
@@ -92,15 +93,66 @@ public class ApplicationUserRepository {
         return new ArrayList<>(new HashSet(applicationUsers));
     }
 
-    public Optional<ApplicationUser> save(ApplicationUser applicationUser){
+    public Optional<ApplicationUser> save(ApplicationUser applicationUser) {
         try {
             entityManager.getTransaction().begin();
-            entityManager.persist (applicationUser);
+            entityManager.persist(applicationUser);
             entityManager.getTransaction().commit();
             return Optional.of(applicationUser);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return Optional.empty();
+    }
+
+    public List<ApplicationUser> findInactiveDoctors(String fromDate, String toDate) {
+        Session s = (Session) entityManager.getDelegate();
+        String sql = "SELECT DISTINCT A.* from ApplicationUser A\n" +
+                " INNER JOIN Doctor D\n" +
+                " ON A.username = D.user_username\n" +
+                " INNER JOIN Consultation C\n" +
+                " ON C.doctor_id = D.id where A.active = 1 AND C.ConsultationDate NOT IN(\n" +
+                "SELECT C.ConsultationDate \n" +
+                "WHERE (C.ConsultationDate > :fromDate AND C.ConsultationDate < :toDate))";
+        NativeQuery query = s.createSQLQuery(sql);
+        query.setParameter("fromDate", fromDate);
+        query.setParameter("toDate", toDate);
+        query.addEntity(ApplicationUser.class);
+        return query.getResultList();
+
+    }
+
+    public List<ApplicationUser> findInactivePatients(String fromDate, String toDate) {
+        Session s = (Session) entityManager.getDelegate();
+        String sql = "SELECT DISTINCT A.* from ApplicationUser A\n" +
+                "INNER JOIN Patient P\n" +
+                "ON A.username = P.user_username\n" +
+                "INNER JOIN MediData M\n" +
+                "ON M.patient_id = P.id where A.active = 1 AND M.measuredDate NOT IN(\n" +
+                "SELECT M.measuredDate\n" +
+                "WHERE (M.measuredDate > :fromDate AND M.measuredDate < :toDate))";
+        NativeQuery query = s.createSQLQuery(sql);
+        query.setParameter("fromDate", fromDate);
+        query.setParameter("toDate", toDate);
+        query.addEntity(ApplicationUser.class);
+        return query.getResultList();
+
+    }
+
+    public boolean findByDetails(String username, String password) {
+
+        Session s = (Session) entityManager.getDelegate();
+        String sql = "SELECT A.* FROM ApplicationUser A where A.username = :username and A.password = :password";
+        NativeQuery query = s.createSQLQuery(sql);
+        query.setParameter("username", username);
+        query.setParameter("password", password);
+
+        try{
+            query.getSingleResult();
+            return true;
+        } catch (Exception e){
+            return false;
+        }
+
     }
 }
