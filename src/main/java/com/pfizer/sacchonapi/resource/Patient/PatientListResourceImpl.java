@@ -1,4 +1,4 @@
-package com.pfizer.sacchonapi.resource;
+package com.pfizer.sacchonapi.resource.Patient;
 
 import com.pfizer.sacchonapi.exception.NotFoundException;
 import com.pfizer.sacchonapi.model.ApplicationUser;
@@ -8,6 +8,7 @@ import com.pfizer.sacchonapi.repository.DoctorRepository;
 import com.pfizer.sacchonapi.repository.PatientRepository;
 import com.pfizer.sacchonapi.repository.util.JpaUtil;
 import com.pfizer.sacchonapi.representation.ApplicationUserRepresentation;
+import com.pfizer.sacchonapi.resource.MediData.MediDataResourceImpl;
 import com.pfizer.sacchonapi.security.ResourceUtils;
 import com.pfizer.sacchonapi.security.Shield;
 import org.restlet.Request;

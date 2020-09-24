@@ -1,4 +1,4 @@
-package com.pfizer.sacchonapi.resource;
+package com.pfizer.sacchonapi.resource.Login;
 
 import com.pfizer.sacchonapi.exception.BadEntityException;
 import com.pfizer.sacchonapi.representation.ApplicationUserRepresentation;

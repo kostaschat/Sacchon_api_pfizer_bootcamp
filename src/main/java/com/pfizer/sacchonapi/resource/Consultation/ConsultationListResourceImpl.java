@@ -1,4 +1,4 @@
-package com.pfizer.sacchonapi.resource;
+package com.pfizer.sacchonapi.resource.Consultation;
 
 import com.pfizer.sacchonapi.exception.BadEntityException;
 import com.pfizer.sacchonapi.exception.NotFoundException;
@@ -22,7 +22,6 @@ import org.restlet.resource.ServerResource;
 
 
 import javax.persistence.EntityManager;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -172,6 +171,9 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
                 if (patientOptional.isPresent()) {
                     patientOut = patientOptional.get();
                     consultation.setPatient(patientOut);
+                    patientOut.setHasConsultation(true);
+                    patientOut.setConsultationPending(false);
+                    patientRepository.save(patientOut);
                 }
 
                 Request request = Request.getCurrent();

@@ -1,4 +1,4 @@
-package com.pfizer.sacchonapi.resource;
+package com.pfizer.sacchonapi.resource.ApplicationUser;
 
 import com.pfizer.sacchonapi.exception.BadEntityException;
 import com.pfizer.sacchonapi.exception.NotFoundException;
@@ -10,6 +10,7 @@ import com.pfizer.sacchonapi.repository.DoctorRepository;
 import com.pfizer.sacchonapi.repository.PatientRepository;
 import com.pfizer.sacchonapi.repository.util.JpaUtil;
 import com.pfizer.sacchonapi.representation.ApplicationUserRepresentation;
+import com.pfizer.sacchonapi.resource.MediData.MediDataResourceImpl;
 import com.pfizer.sacchonapi.resource.util.ResourceValidator;
 import com.pfizer.sacchonapi.security.ResourceUtils;
 import com.pfizer.sacchonapi.security.Role;
@@ -22,7 +23,6 @@ import org.restlet.resource.ServerResource;
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;

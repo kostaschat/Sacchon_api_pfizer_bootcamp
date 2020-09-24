@@ -1,27 +1,18 @@
-package com.pfizer.sacchonapi.resource;
+package com.pfizer.sacchonapi.resource.ChiefDoctor;
 
 import com.pfizer.sacchonapi.exception.NotFoundException;
 import com.pfizer.sacchonapi.model.ApplicationUser;
-import com.pfizer.sacchonapi.model.MediData;
-import com.pfizer.sacchonapi.model.Patient;
 import com.pfizer.sacchonapi.repository.ApplicationUserRepository;
-import com.pfizer.sacchonapi.repository.MediDataRepository;
-import com.pfizer.sacchonapi.repository.PatientRepository;
 import com.pfizer.sacchonapi.repository.util.JpaUtil;
 import com.pfizer.sacchonapi.representation.ApplicationUserRepresentation;
-import com.pfizer.sacchonapi.representation.ConsultationRepresentation;
-import com.pfizer.sacchonapi.representation.MediDataRepresentation;
 import com.pfizer.sacchonapi.security.ResourceUtils;
 import com.pfizer.sacchonapi.security.Shield;
-import org.restlet.Request;
 import org.restlet.engine.Engine;
-import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.Logger;
 
 public class ChiefDoctorListResourceImpl extends ServerResource implements ChiefDoctorListResource {

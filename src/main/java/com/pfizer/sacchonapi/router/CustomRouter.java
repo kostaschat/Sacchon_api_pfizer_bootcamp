@@ -1,9 +1,16 @@
 package com.pfizer.sacchonapi.router;
 
-import com.pfizer.sacchonapi.ApiMain;
-import com.pfizer.sacchonapi.model.MediData;
 import com.pfizer.sacchonapi.resource.*;
-import com.pfizer.sacchonapi.security.Shield;
+import com.pfizer.sacchonapi.resource.ApplicationUser.ApplicationUserListResourceImpl;
+import com.pfizer.sacchonapi.resource.ApplicationUser.ApplicationUserResourceImpl;
+import com.pfizer.sacchonapi.resource.ChiefDoctor.ChiefDoctorListResourceImpl;
+import com.pfizer.sacchonapi.resource.Consultation.ConsultationListResourceImpl;
+import com.pfizer.sacchonapi.resource.Consultation.ConsultationResourceImpl;
+import com.pfizer.sacchonapi.resource.Login.LoginResourceImpl;
+import com.pfizer.sacchonapi.resource.MediData.MediDataListResourceImpl;
+import com.pfizer.sacchonapi.resource.MediData.MediDataResourceImpl;
+import com.pfizer.sacchonapi.resource.Patient.PatientListResourceImpl;
+import com.pfizer.sacchonapi.resource.Patient.PatientUserListResourceImpl;
 import org.restlet.Application;
 import org.restlet.routing.Router;
 
@@ -60,10 +67,8 @@ public class CustomRouter {
         //patient views their average daily blood glucose level over a user-specified period
         router.attach("/medidata/{datatype}/{fromdate}/{todate}", MediDataResourceImpl.class);
 
-
         //change permissions
         router.attach("/consultation/{cid}", ConsultationResourceImpl.class);
-
 
         //Reporter endpoints
         //The information submissions(personal monitor data) of a patient over a time range
@@ -83,18 +88,13 @@ public class CustomRouter {
         return router;
     }
 
-//    public Router publicResources() {
-//        Router router = new Router();
-//        router.attach("/ping", PingServerResource.class);
-//        return router;
-//    }
-
     public Router publicUser() {
         Router router = new Router();
         router.attach("/register", ApplicationUserListResourceImpl.class);
         router.attach("/register/", ApplicationUserListResourceImpl.class);
         router.attach("/login", LoginResourceImpl.class);
         router.attach("/login/", LoginResourceImpl.class);
+        router.attach("/ping", PingServerResource.class);
         return router;
     }
 

@@ -1,4 +1,4 @@
-package com.pfizer.sacchonapi.resource;
+package com.pfizer.sacchonapi.resource.MediData;
 
 import com.pfizer.sacchonapi.exception.BadEntityException;
 import com.pfizer.sacchonapi.exception.NotFoundException;
@@ -6,7 +6,6 @@ import com.pfizer.sacchonapi.model.*;
 import com.pfizer.sacchonapi.repository.ApplicationUserRepository;
 import com.pfizer.sacchonapi.repository.MediDataRepository;
 import com.pfizer.sacchonapi.repository.util.JpaUtil;
-import com.pfizer.sacchonapi.representation.ConsultationRepresentation;
 import com.pfizer.sacchonapi.representation.MediDataRepresentation;
 import com.pfizer.sacchonapi.resource.util.ResourceValidator;
 import com.pfizer.sacchonapi.security.ResourceUtils;
@@ -24,10 +23,10 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class MediDataListResourceImpl  extends ServerResource implements MediDataListResource{
+public class MediDataListResourceImpl extends ServerResource implements MediDataListResource {
 
     public static final Logger LOGGER = Engine.getLogger(MediDataResourceImpl.class);
-    private MediDataRepository mediDataRepository ;
+    private MediDataRepository mediDataRepository;
     private ApplicationUserRepository applicationUserRepository;
 
 
@@ -37,8 +36,7 @@ public class MediDataListResourceImpl  extends ServerResource implements MediDat
     private EntityManager em;
 
     @Override
-    protected void doRelease()
-    {
+    protected void doRelease() {
         em.close();
     }
 
@@ -48,7 +46,7 @@ public class MediDataListResourceImpl  extends ServerResource implements MediDat
         try {
             em = JpaUtil.getEntityManager();
             applicationUserRepository = new ApplicationUserRepository(em);
-            mediDataRepository = new MediDataRepository (em);
+            mediDataRepository = new MediDataRepository(em);
 
             try {
                 fromDate = getAttribute("fromdate");
@@ -62,13 +60,10 @@ public class MediDataListResourceImpl  extends ServerResource implements MediDat
             }
 
             pid = Long.parseLong(getAttribute("pid"));
-        }
-        catch(Exception e)
-        {
-            pid =-1;
+        } catch (Exception e) {
+            pid = -1;
             LOGGER.info(e.getMessage());
         }
-
 
 
         LOGGER.info("Initialising medidata resource ends");
@@ -78,7 +73,7 @@ public class MediDataListResourceImpl  extends ServerResource implements MediDat
 
         LOGGER.finer("Select all medical data.");
 
-        ResourceUtils.checkRoles(this, Shield.patient,Shield.doctor, Shield.chiefDoctor);
+        ResourceUtils.checkRoles(this, Shield.patient, Shield.doctor, Shield.chiefDoctor);
 
         try {
             List<MediData> mediData;
@@ -98,7 +93,7 @@ public class MediDataListResourceImpl  extends ServerResource implements MediDat
 
                 long d_id = doctorOut.getId();
 
-                mediData = mediDataRepository.findMediData(pid,d_id);
+                mediData = mediDataRepository.findMediData(pid, d_id);
             } else {
 
 
@@ -143,59 +138,58 @@ public class MediDataListResourceImpl  extends ServerResource implements MediDat
         }
     }
 
-    public List<MediData> getMonitoringMediData() throws NotFoundException
-    {
+    public List<MediData> getMonitoringMediData() throws NotFoundException {
         return mediDataRepository.findMonitoredMediData(pid, fromDate, toDate);
     }
 
     @Override
-        public MediDataRepresentation add(MediDataRepresentation mediDataIn) throws BadEntityException {
+    public MediDataRepresentation add(MediDataRepresentation mediDataIn) throws BadEntityException {
 
-            LOGGER.finer("Add a new medical data.");
+        LOGGER.finer("Add a new medical data.");
 
-            ResourceUtils.checkRole(this, Shield.patient);
-            LOGGER.finer("User allowed to add medical data.");
+        ResourceUtils.checkRole(this, Shield.patient);
+        LOGGER.finer("User allowed to add medical data.");
 
 
-            ResourceValidator.notNull(mediDataIn);
-            ResourceValidator.validate(mediDataIn);
-            LOGGER.finer("Medical Data checked");
+        ResourceValidator.notNull(mediDataIn);
+        ResourceValidator.validate(mediDataIn);
+        LOGGER.finer("Medical Data checked");
 
-            try {
-                MediData mediData = mediDataIn.createMediData();
-                Optional<MediData> mediDataOptOut = mediDataRepository.save(mediData);
+        try {
+            MediData mediData = mediDataIn.createMediData();
+            Optional<MediData> mediDataOptOut = mediDataRepository.save(mediData);
 
-                MediData mediDataOut;
-                if (mediDataOptOut.isPresent()) {
-                    mediDataOut = mediDataOptOut.get();
+            MediData mediDataOut;
+            if (mediDataOptOut.isPresent()) {
+                mediDataOut = mediDataOptOut.get();
 
-                    Request request = Request.getCurrent();
-                    String username = request.getClientInfo().getUser().getName();
-                    Optional<ApplicationUser> user = applicationUserRepository.findByUsername(username);
+                Request request = Request.getCurrent();
+                String username = request.getClientInfo().getUser().getName();
+                Optional<ApplicationUser> user = applicationUserRepository.findByUsername(username);
 
-                    Patient patientOut = null;
-                    if (user.isPresent()) {
-                        patientOut = user.get().getPatient();
-                    } else {
-                        LOGGER.config("This patient cannot be found in the database:" + username);
-                        throw new NotFoundException("No Patient with name : " + username);
-                    }
+                Patient patientOut = null;
+                if (user.isPresent()) {
+                    patientOut = user.get().getPatient();
+                } else {
+                    LOGGER.config("This patient cannot be found in the database:" + username);
+                    throw new NotFoundException("No Patient with name : " + username);
+                }
 
-                    mediData.setPatient(patientOut);
+                mediData.setPatient(patientOut);
 
-                    mediDataRepository.save(mediData);
-                } else
-                    throw new BadEntityException(" Medical Data has not been created");
+                mediDataRepository.save(mediData);
+            } else
+                throw new BadEntityException(" Medical Data has not been created");
 
-                MediDataRepresentation result = new MediDataRepresentation(mediDataOut);
+            MediDataRepresentation result = new MediDataRepresentation(mediDataOut);
 
-                LOGGER.finer("Product successfully added.");
+            LOGGER.finer("Product successfully added.");
 
-                return result;
-            } catch (Exception ex) {
-                LOGGER.log(Level.WARNING, "Error when adding a medical data", ex);
+            return result;
+        } catch (Exception ex) {
+            LOGGER.log(Level.WARNING, "Error when adding a medical data", ex);
 
-                throw new ResourceException(ex);
-            }
+            throw new ResourceException(ex);
+        }
     }
 }

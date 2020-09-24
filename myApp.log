@@ -208,7 +208,7 @@ antlr.NoViableAltException: unexpected token: *
 	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:704)
 	at org.hibernate.internal.AbstractSessionImpl.createQuery(AbstractSessionImpl.java:23)
 	at com.pfizer.sacchonapi.repository.ConsultationRepository.findPatientCons(ConsultationRepository.java:26)
-	at com.pfizer.sacchonapi.resource.ConsultationListResourceImpl.getConsultations(ConsultationListResourceImpl.java:73)
+	at com.pfizer.sacchonapi.resource.Consultation.ConsultationListResourceImpl.getConsultations(ConsultationListResourceImpl.java:73)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -354,7 +354,7 @@ antlr.SemanticException: could not resolve property: user_username of: com.pfize
 	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:704)
 	at org.hibernate.internal.AbstractSessionImpl.createQuery(AbstractSessionImpl.java:23)
 	at com.pfizer.sacchonapi.repository.ApplicationUserRepository.findDoctorsPatients(ApplicationUserRepository.java:30)
-	at com.pfizer.sacchonapi.resource.ApplicationUserListResourceImpl.getUsers(ApplicationUserListResourceImpl.java:131)
+	at com.pfizer.sacchonapi.resource.ApplicationUser.ApplicationUserListResourceImpl.getUsers(ApplicationUserListResourceImpl.java:131)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -455,7 +455,7 @@ antlr.SemanticException: could not resolve property: user_username of: com.pfize
 	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:704)
 	at org.hibernate.internal.AbstractSessionImpl.createQuery(AbstractSessionImpl.java:23)
 	at com.pfizer.sacchonapi.repository.ApplicationUserRepository.findDoctorsPatients(ApplicationUserRepository.java:30)
-	at com.pfizer.sacchonapi.resource.ApplicationUserListResourceImpl.getUsers(ApplicationUserListResourceImpl.java:131)
+	at com.pfizer.sacchonapi.resource.ApplicationUser.ApplicationUserListResourceImpl.getUsers(ApplicationUserListResourceImpl.java:131)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -585,7 +585,7 @@ antlr.NoViableAltException: unexpected token: =
 	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:704)
 	at org.hibernate.internal.AbstractSessionImpl.createQuery(AbstractSessionImpl.java:23)
 	at com.pfizer.sacchonapi.repository.ApplicationUserRepository.findDoctorsPatients(ApplicationUserRepository.java:30)
-	at com.pfizer.sacchonapi.resource.ApplicationUserListResourceImpl.getUsers(ApplicationUserListResourceImpl.java:131)
+	at com.pfizer.sacchonapi.resource.ApplicationUser.ApplicationUserListResourceImpl.getUsers(ApplicationUserListResourceImpl.java:131)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -776,7 +776,7 @@ antlr.SemanticException: could not resolve property: user_username of: com.pfize
 	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:704)
 	at org.hibernate.internal.AbstractSessionImpl.createQuery(AbstractSessionImpl.java:23)
 	at com.pfizer.sacchonapi.repository.ApplicationUserRepository.findDoctorsPatients(ApplicationUserRepository.java:30)
-	at com.pfizer.sacchonapi.resource.ApplicationUserListResourceImpl.getUsers(ApplicationUserListResourceImpl.java:131)
+	at com.pfizer.sacchonapi.resource.ApplicationUser.ApplicationUserListResourceImpl.getUsers(ApplicationUserListResourceImpl.java:131)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -877,7 +877,7 @@ antlr.SemanticException: could not resolve property: user_username of: com.pfize
 	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:704)
 	at org.hibernate.internal.AbstractSessionImpl.createQuery(AbstractSessionImpl.java:23)
 	at com.pfizer.sacchonapi.repository.ApplicationUserRepository.findDoctorsPatients(ApplicationUserRepository.java:30)
-	at com.pfizer.sacchonapi.resource.ApplicationUserListResourceImpl.getUsers(ApplicationUserListResourceImpl.java:131)
+	at com.pfizer.sacchonapi.resource.ApplicationUser.ApplicationUserListResourceImpl.getUsers(ApplicationUserListResourceImpl.java:131)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -979,7 +979,7 @@ org.hibernate.hql.internal.ast.InvalidPathException: Invalid path: 'P.doctor_id'
 	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:704)
 	at org.hibernate.internal.AbstractSessionImpl.createQuery(AbstractSessionImpl.java:23)
 	at com.pfizer.sacchonapi.repository.ApplicationUserRepository.findDoctorsPatients(ApplicationUserRepository.java:30)
-	at com.pfizer.sacchonapi.resource.ApplicationUserListResourceImpl.getUsers(ApplicationUserListResourceImpl.java:131)
+	at com.pfizer.sacchonapi.resource.ApplicationUser.ApplicationUserListResourceImpl.getUsers(ApplicationUserListResourceImpl.java:131)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -1062,7 +1062,7 @@ antlr.NoViableAltException: unexpected end of subtree
 	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:704)
 	at org.hibernate.internal.AbstractSessionImpl.createQuery(AbstractSessionImpl.java:23)
 	at com.pfizer.sacchonapi.repository.ApplicationUserRepository.findDoctorsPatients(ApplicationUserRepository.java:30)
-	at com.pfizer.sacchonapi.resource.ApplicationUserListResourceImpl.getUsers(ApplicationUserListResourceImpl.java:131)
+	at com.pfizer.sacchonapi.resource.ApplicationUser.ApplicationUserListResourceImpl.getUsers(ApplicationUserListResourceImpl.java:131)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -1146,7 +1146,7 @@ antlr.SemanticException: left-hand operand of a binary operator was null
 	at org.hibernate.internal.AbstractSharedSessionContract.createQuery(AbstractSharedSessionContract.java:704)
 	at org.hibernate.internal.AbstractSessionImpl.createQuery(AbstractSessionImpl.java:23)
 	at com.pfizer.sacchonapi.repository.ApplicationUserRepository.findDoctorsPatients(ApplicationUserRepository.java:30)
-	at com.pfizer.sacchonapi.resource.ApplicationUserListResourceImpl.getUsers(ApplicationUserListResourceImpl.java:131)
+	at com.pfizer.sacchonapi.resource.ApplicationUser.ApplicationUserListResourceImpl.getUsers(ApplicationUserListResourceImpl.java:131)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -2421,3 +2421,99 @@ antlr.SemanticException: left-hand operand of a binary operator was null
 2020-09-23 11:58:13,240 WARN [qtp2048537704-21] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:137] SQL Error: 2627, SQLState: 23000
 2020-09-23 11:58:13,241 ERROR [qtp2048537704-21] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:142] Violation of PRIMARY KEY constraint 'PK__Applicat__F3DBC5735A34C13A'. Cannot insert duplicate key in object 'dbo.ApplicationUser'. The duplicate key value is (dias).
 2020-09-23 11:58:13,246 ERROR [qtp2048537704-21] o.h.i.ExceptionMapperStandardImpl [ExceptionMapperStandardImpl.java:39] HHH000346: Error during managed flush [org.hibernate.exception.ConstraintViolationException: could not execute statement]
+2020-09-24 17:57:13,355 INFO [main] o.h.j.i.u.LogHelper [LogHelper.java:31] HHH000204: Processing PersistenceUnitInfo [name: PERSISTENCE]
+2020-09-24 17:57:13,512 INFO [main] o.h.Version [Version.java:46] HHH000412: Hibernate Core {5.4.1.Final}
+2020-09-24 17:57:13,910 INFO [main] o.h.a.c.Version [JavaReflectionManager.java:49] HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-09-24 17:57:14,466 WARN [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:72] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-09-24 17:57:14,607 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:115] HHH10001005: using driver [com.microsoft.sqlserver.jdbc.SQLServerDriver] at URL [jdbc:sqlserver://localhost;databaseName=sacchon]
+2020-09-24 17:57:14,608 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:124] HHH10001001: Connection properties: {password=****, user=sa}
+2020-09-24 17:57:14,609 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:129] HHH10001003: Autocommit mode: false
+2020-09-24 17:57:14,613 INFO [main] o.h.e.j.c.i.DriverManagerConnectionProviderImpl [DriverManagerConnectionProviderImpl.java:239] HHH000115: Hibernate connection pool size: 20 (min=1)
+2020-09-24 17:57:14,984 WARN [main] o.h.e.j.e.i.JdbcEnvironmentInitiator [JdbcEnvironmentInitiator.java:132] HHH000342: Could not obtain connection to query metadata : null
+2020-09-24 17:57:15,002 INFO [main] o.h.d.Dialect [Dialect.java:158] HHH000400: Using dialect: org.hibernate.dialect.SQLServer2012Dialect
+2020-09-24 17:57:15,035 WARN [main] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:137] SQL Error: 18456, SQLState: S0001
+2020-09-24 17:57:15,036 ERROR [main] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:142] Login failed for user 'sa'. ClientConnectionId:6eb6f419-f440-40cc-924e-01be17cdf2da
+2020-09-24 18:01:00,459 INFO [main] o.h.j.i.u.LogHelper [LogHelper.java:31] HHH000204: Processing PersistenceUnitInfo [name: PERSISTENCE]
+2020-09-24 18:01:00,546 INFO [main] o.h.Version [Version.java:46] HHH000412: Hibernate Core {5.4.1.Final}
+2020-09-24 18:01:00,877 INFO [main] o.h.a.c.Version [JavaReflectionManager.java:49] HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-09-24 18:01:01,479 WARN [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:72] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-09-24 18:01:01,610 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:115] HHH10001005: using driver [com.microsoft.sqlserver.jdbc.SQLServerDriver] at URL [jdbc:sqlserver://localhost;databaseName=sacchon]
+2020-09-24 18:01:01,611 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:124] HHH10001001: Connection properties: {password=****, user=sa}
+2020-09-24 18:01:01,612 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:129] HHH10001003: Autocommit mode: false
+2020-09-24 18:01:01,616 INFO [main] o.h.e.j.c.i.DriverManagerConnectionProviderImpl [DriverManagerConnectionProviderImpl.java:239] HHH000115: Hibernate connection pool size: 20 (min=1)
+2020-09-24 18:01:01,943 WARN [main] o.h.e.j.e.i.JdbcEnvironmentInitiator [JdbcEnvironmentInitiator.java:132] HHH000342: Could not obtain connection to query metadata : null
+2020-09-24 18:01:01,958 INFO [main] o.h.d.Dialect [Dialect.java:158] HHH000400: Using dialect: org.hibernate.dialect.SQLServer2012Dialect
+2020-09-24 18:01:01,984 WARN [main] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:137] SQL Error: 18456, SQLState: S0001
+2020-09-24 18:01:01,985 ERROR [main] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:142] Login failed for user 'sa'. ClientConnectionId:0b00fdc1-ecaf-40d7-9ea8-e2e44dde95e8
+2020-09-24 18:01:52,183 INFO [main] o.h.j.i.u.LogHelper [LogHelper.java:31] HHH000204: Processing PersistenceUnitInfo [name: PERSISTENCE]
+2020-09-24 18:01:52,286 INFO [main] o.h.Version [Version.java:46] HHH000412: Hibernate Core {5.4.1.Final}
+2020-09-24 18:01:52,591 INFO [main] o.h.a.c.Version [JavaReflectionManager.java:49] HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-09-24 18:01:53,168 WARN [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:72] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-09-24 18:01:53,290 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:115] HHH10001005: using driver [com.microsoft.sqlserver.jdbc.SQLServerDriver] at URL [jdbc:sqlserver://localhost;databaseName=sacchon]
+2020-09-24 18:01:53,291 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:124] HHH10001001: Connection properties: {password=****, user=sa}
+2020-09-24 18:01:53,291 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:129] HHH10001003: Autocommit mode: false
+2020-09-24 18:01:53,295 INFO [main] o.h.e.j.c.i.DriverManagerConnectionProviderImpl [DriverManagerConnectionProviderImpl.java:239] HHH000115: Hibernate connection pool size: 20 (min=1)
+2020-09-24 18:01:53,619 WARN [main] o.h.e.j.e.i.JdbcEnvironmentInitiator [JdbcEnvironmentInitiator.java:132] HHH000342: Could not obtain connection to query metadata : null
+2020-09-24 18:01:53,634 INFO [main] o.h.d.Dialect [Dialect.java:158] HHH000400: Using dialect: org.hibernate.dialect.SQLServer2012Dialect
+2020-09-24 18:01:53,661 WARN [main] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:137] SQL Error: 18456, SQLState: S0001
+2020-09-24 18:01:53,662 ERROR [main] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:142] Login failed for user 'sa'. ClientConnectionId:9df907da-1d62-4853-a59f-34a0f01ddf91
+2020-09-24 18:03:13,090 INFO [main] o.h.j.i.u.LogHelper [LogHelper.java:31] HHH000204: Processing PersistenceUnitInfo [name: PERSISTENCE]
+2020-09-24 18:03:13,196 INFO [main] o.h.Version [Version.java:46] HHH000412: Hibernate Core {5.4.1.Final}
+2020-09-24 18:03:13,497 INFO [main] o.h.a.c.Version [JavaReflectionManager.java:49] HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-09-24 18:03:14,049 WARN [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:72] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-09-24 18:03:14,178 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:115] HHH10001005: using driver [com.microsoft.sqlserver.jdbc.SQLServerDriver] at URL [jdbc:sqlserver://localhost;databaseName=sacchon2]
+2020-09-24 18:03:14,179 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:124] HHH10001001: Connection properties: {password=****, user=sa}
+2020-09-24 18:03:14,179 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:129] HHH10001003: Autocommit mode: false
+2020-09-24 18:03:14,184 INFO [main] o.h.e.j.c.i.DriverManagerConnectionProviderImpl [DriverManagerConnectionProviderImpl.java:239] HHH000115: Hibernate connection pool size: 20 (min=1)
+2020-09-24 18:03:14,530 INFO [main] o.h.d.Dialect [Dialect.java:158] HHH000400: Using dialect: org.hibernate.dialect.SQLServer2012Dialect
+2020-09-24 18:03:15,786 INFO [main] o.h.o.c.access [DdlTransactionIsolatorNonJtaImpl.java:47] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@68ddd415] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2020-09-24 18:03:16,006 INFO [main] o.h.e.t.j.p.i.JtaPlatformInitiator [JtaPlatformInitiator.java:52] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-09-24 18:03:16,140 INFO [main] o.e.j.u.log [Log.java:193] Logging initialized @4146ms to org.eclipse.jetty.util.log.Slf4jLog
+2020-09-24 18:03:16,183 INFO [main] o.e.j.s.Server [Server.java:374] jetty-9.4.11.v20180605; built: 2018-06-05T18:24:03.829Z; git: d5fc0523cfa96bfebfbda19606cad384d772f04c; jvm 11.0.8+10-LTS
+2020-09-24 18:03:16,222 INFO [main] o.e.j.s.AbstractConnector [AbstractConnector.java:289] Started ServerConnector@11f23203{HTTP/1.1,[http/1.1]}{0.0.0.0:9000}
+2020-09-24 18:03:16,223 INFO [main] o.e.j.s.Server [Server.java:411] Started @4230ms
+2020-09-24 18:20:09,309 INFO [main] o.h.j.i.u.LogHelper [LogHelper.java:31] HHH000204: Processing PersistenceUnitInfo [name: PERSISTENCE]
+2020-09-24 18:20:09,455 INFO [main] o.h.Version [Version.java:46] HHH000412: Hibernate Core {5.4.1.Final}
+2020-09-24 18:20:09,832 INFO [main] o.h.a.c.Version [JavaReflectionManager.java:49] HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-09-24 18:20:10,421 WARN [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:72] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-09-24 18:20:10,595 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:115] HHH10001005: using driver [com.microsoft.sqlserver.jdbc.SQLServerDriver] at URL [jdbc:sqlserver://localhost;databaseName=sacchon2]
+2020-09-24 18:20:10,596 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:124] HHH10001001: Connection properties: {password=****, user=sa}
+2020-09-24 18:20:10,596 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:129] HHH10001003: Autocommit mode: false
+2020-09-24 18:20:10,601 INFO [main] o.h.e.j.c.i.DriverManagerConnectionProviderImpl [DriverManagerConnectionProviderImpl.java:239] HHH000115: Hibernate connection pool size: 20 (min=1)
+2020-09-24 18:20:11,020 INFO [main] o.h.d.Dialect [Dialect.java:158] HHH000400: Using dialect: org.hibernate.dialect.SQLServer2012Dialect
+2020-09-24 18:20:12,385 INFO [main] o.h.o.c.access [DdlTransactionIsolatorNonJtaImpl.java:47] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@68ddd415] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2020-09-24 18:20:12,611 INFO [main] o.h.e.t.j.p.i.JtaPlatformInitiator [JtaPlatformInitiator.java:52] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-09-24 18:20:12,750 INFO [main] o.e.j.u.log [Log.java:193] Logging initialized @4609ms to org.eclipse.jetty.util.log.Slf4jLog
+2020-09-24 18:20:12,802 INFO [main] o.e.j.s.Server [Server.java:374] jetty-9.4.11.v20180605; built: 2018-06-05T18:24:03.829Z; git: d5fc0523cfa96bfebfbda19606cad384d772f04c; jvm 11.0.8+10-LTS
+2020-09-24 18:20:12,843 INFO [main] o.e.j.s.AbstractConnector [AbstractConnector.java:289] Started ServerConnector@11f23203{HTTP/1.1,[http/1.1]}{0.0.0.0:9000}
+2020-09-24 18:20:12,844 INFO [main] o.e.j.s.Server [Server.java:411] Started @4703ms
+2020-09-24 18:33:06,280 INFO [main] o.h.j.i.u.LogHelper [LogHelper.java:31] HHH000204: Processing PersistenceUnitInfo [name: PERSISTENCE]
+2020-09-24 18:33:06,380 INFO [main] o.h.Version [Version.java:46] HHH000412: Hibernate Core {5.4.1.Final}
+2020-09-24 18:33:06,671 INFO [main] o.h.a.c.Version [JavaReflectionManager.java:49] HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-09-24 18:33:07,225 WARN [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:72] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-09-24 18:33:07,354 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:115] HHH10001005: using driver [com.microsoft.sqlserver.jdbc.SQLServerDriver] at URL [jdbc:sqlserver://localhost;databaseName=sacchon2]
+2020-09-24 18:33:07,355 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:124] HHH10001001: Connection properties: {password=****, user=sa}
+2020-09-24 18:33:07,355 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:129] HHH10001003: Autocommit mode: false
+2020-09-24 18:33:07,359 INFO [main] o.h.e.j.c.i.DriverManagerConnectionProviderImpl [DriverManagerConnectionProviderImpl.java:239] HHH000115: Hibernate connection pool size: 20 (min=1)
+2020-09-24 18:33:07,690 INFO [main] o.h.d.Dialect [Dialect.java:158] HHH000400: Using dialect: org.hibernate.dialect.SQLServer2012Dialect
+2020-09-24 18:33:08,831 INFO [main] o.h.o.c.access [DdlTransactionIsolatorNonJtaImpl.java:47] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@5b000fe6] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2020-09-24 18:33:09,058 INFO [main] o.h.e.t.j.p.i.JtaPlatformInitiator [JtaPlatformInitiator.java:52] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-09-24 18:33:09,186 INFO [main] o.e.j.u.log [Log.java:193] Logging initialized @4062ms to org.eclipse.jetty.util.log.Slf4jLog
+2020-09-24 18:33:09,228 INFO [main] o.e.j.s.Server [Server.java:374] jetty-9.4.11.v20180605; built: 2018-06-05T18:24:03.829Z; git: d5fc0523cfa96bfebfbda19606cad384d772f04c; jvm 11.0.8+10-LTS
+2020-09-24 18:33:09,267 INFO [main] o.e.j.s.AbstractConnector [AbstractConnector.java:289] Started ServerConnector@995584e{HTTP/1.1,[http/1.1]}{0.0.0.0:9000}
+2020-09-24 18:33:09,268 INFO [main] o.e.j.s.Server [Server.java:411] Started @4145ms
+2020-09-24 18:36:47,804 INFO [main] o.h.j.i.u.LogHelper [LogHelper.java:31] HHH000204: Processing PersistenceUnitInfo [name: PERSISTENCE]
+2020-09-24 18:36:47,939 INFO [main] o.h.Version [Version.java:46] HHH000412: Hibernate Core {5.4.1.Final}
+2020-09-24 18:36:48,230 INFO [main] o.h.a.c.Version [JavaReflectionManager.java:49] HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-09-24 18:36:48,769 WARN [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:72] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-09-24 18:36:48,889 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:115] HHH10001005: using driver [com.microsoft.sqlserver.jdbc.SQLServerDriver] at URL [jdbc:sqlserver://localhost;databaseName=sacchon2]
+2020-09-24 18:36:48,890 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:124] HHH10001001: Connection properties: {password=****, user=sa}
+2020-09-24 18:36:48,890 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:129] HHH10001003: Autocommit mode: false
+2020-09-24 18:36:48,895 INFO [main] o.h.e.j.c.i.DriverManagerConnectionProviderImpl [DriverManagerConnectionProviderImpl.java:239] HHH000115: Hibernate connection pool size: 20 (min=1)
+2020-09-24 18:36:49,195 INFO [main] o.h.d.Dialect [Dialect.java:158] HHH000400: Using dialect: org.hibernate.dialect.SQLServer2012Dialect
+2020-09-24 18:36:50,340 INFO [main] o.h.o.c.access [DdlTransactionIsolatorNonJtaImpl.java:47] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@68ddd415] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2020-09-24 18:36:50,563 INFO [main] o.h.e.t.j.p.i.JtaPlatformInitiator [JtaPlatformInitiator.java:52] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-09-24 18:36:50,699 INFO [main] o.e.j.u.log [Log.java:193] Logging initialized @3973ms to org.eclipse.jetty.util.log.Slf4jLog
+2020-09-24 18:36:50,744 INFO [main] o.e.j.s.Server [Server.java:374] jetty-9.4.11.v20180605; built: 2018-06-05T18:24:03.829Z; git: d5fc0523cfa96bfebfbda19606cad384d772f04c; jvm 11.0.8+10-LTS
+2020-09-24 18:36:50,781 INFO [main] o.e.j.s.AbstractConnector [AbstractConnector.java:289] Started ServerConnector@11f23203{HTTP/1.1,[http/1.1]}{0.0.0.0:9000}
+2020-09-24 18:36:50,782 INFO [main] o.e.j.s.Server [Server.java:411] Started @4055ms

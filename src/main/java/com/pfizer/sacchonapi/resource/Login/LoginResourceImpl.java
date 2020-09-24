@@ -1,10 +1,8 @@
-package com.pfizer.sacchonapi.resource;
+package com.pfizer.sacchonapi.resource.Login;
 
 import com.pfizer.sacchonapi.exception.BadEntityException;
 import com.pfizer.sacchonapi.model.ApplicationUser;
 import com.pfizer.sacchonapi.repository.ApplicationUserRepository;
-import com.pfizer.sacchonapi.repository.DoctorRepository;
-import com.pfizer.sacchonapi.repository.PatientRepository;
 import com.pfizer.sacchonapi.repository.util.JpaUtil;
 import com.pfizer.sacchonapi.representation.ApplicationUserRepresentation;
 import com.pfizer.sacchonapi.resource.util.ResourceValidator;
@@ -15,7 +13,7 @@ import org.restlet.resource.ServerResource;
 import javax.persistence.EntityManager;
 import java.util.logging.Logger;
 
-public class LoginResourceImpl extends ServerResource implements LoginResource{
+public class LoginResourceImpl extends ServerResource implements LoginResource {
 
     public static final Logger LOGGER = Engine.getLogger(LoginResourceImpl.class);
 

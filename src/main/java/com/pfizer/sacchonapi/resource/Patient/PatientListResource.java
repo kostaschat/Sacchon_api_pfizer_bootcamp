@@ -1,4 +1,4 @@
-package com.pfizer.sacchonapi.resource;
+package com.pfizer.sacchonapi.resource.Patient;
 
 import com.pfizer.sacchonapi.exception.NotFoundException;
 import com.pfizer.sacchonapi.representation.ApplicationUserRepresentation;
