@@ -60,11 +60,6 @@ public class CustomRouter {
         //patient views their average daily blood glucose level over a user-specified period
         router.attach("/medidata/{datatype}/{fromdate}/{todate}", MediDataResourceImpl.class);
 
-        //chiefDoctor browse a list of the doctors with no activity over a time range
-        router.attach("/inactive-doctors/{fromdate}/{todate}", ChiefDoctorListResourceImpl.class);
-
-        //chiefDoctor browse a list of the patients with no activity over a time range
-        router.attach("/patients/{fromdate}/{todate}", ApplicationUserListResourceImpl.class);
 
         //change permissions
         router.attach("/consultation/{cid}", ConsultationResourceImpl.class);
@@ -80,7 +75,11 @@ public class CustomRouter {
         //The list of the patients who are waiting for a consultation and the time elapsed since they needed to have one
 
 
+        //chiefDoctor browse a list of the doctors with no activity over a time range
+        router.attach("/inactive-doctors/{fromdate}/{todate}", ChiefDoctorListResourceImpl.class);
 
+        //chiefDoctor browse a list of the patients with no activity over a time range
+        router.attach("/patients/{fromdate}/{todate}", ApplicationUserListResourceImpl.class);
         return router;
     }
 
