@@ -69,16 +69,14 @@ public class ApplicationUserRepository {
         //remove patients that received a consultation in the last month
         List<Patient> patients = query.getResultList();
         List<Patient> finalPatients = new ArrayList<>();
-        boolean getOut = false;
-
 
         for (Patient patient : patients) {
             // System.out.println(patient.getApplicationUser().getFirstName());
             List<Consultation> consultations = patient.getApplicationUser().getPatient().getConsultations();
 
             for (Consultation consultation : consultations) {
-                if ((consultation.getConsultationDate().after(before30)) && (consultation.getConsultationDate().before(today)) || consultation.getConsultationDate() == today) {
-                    getOut = true;
+                if (((consultation.getConsultationDate().after(before30)) && (consultation.getConsultationDate().before(today))) || consultation.getConsultationDate() == today) {
+
                     break;
                 } else {
                     finalPatients.add(patient);
