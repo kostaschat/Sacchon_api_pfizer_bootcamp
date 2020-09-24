@@ -1,13 +1,11 @@
 package com.pfizer.sacchonapi.resource;
 
-import com.pfizer.sacchonapi.exception.BadEntityException;
 import com.pfizer.sacchonapi.exception.NotFoundException;
 import com.pfizer.sacchonapi.model.ApplicationUser;
 import com.pfizer.sacchonapi.repository.ApplicationUserRepository;
-import com.pfizer.sacchonapi.repository.DoctorRepository;
-import com.pfizer.sacchonapi.repository.PatientRepository;
 import com.pfizer.sacchonapi.repository.util.JpaUtil;
 import com.pfizer.sacchonapi.representation.ApplicationUserRepresentation;
+import com.pfizer.sacchonapi.representation.PatientsWithoutConsultationRepresentation;
 import com.pfizer.sacchonapi.security.ResourceUtils;
 import com.pfizer.sacchonapi.security.Role;
 import com.pfizer.sacchonapi.security.Shield;
@@ -45,11 +43,10 @@ public class PatientUserListResourceImpl extends ServerResource implements Patie
     }
 
     @Override
-    public List<ApplicationUserRepresentation> getUsers() throws NotFoundException {
+    public <T> List<T> getUsers() throws NotFoundException {
 
         List<ApplicationUser> applicationUsers = new ArrayList<>();
         List<ApplicationUserRepresentation> result = new ArrayList<>();
-
 
         //both of doctors can used this method but for different purposes
         ResourceUtils.checkRoles(this, Shield.chiefDoctor, Shield.doctor);
@@ -64,7 +61,7 @@ public class PatientUserListResourceImpl extends ServerResource implements Patie
         if(user.isPresent())
         {
             role = user.get().getRole();
-            did = user.get().getDoctor().getId();
+
         }else {
             LOGGER.config("This doctor cannon be found in the database:" + currentUser);
             throw new NotFoundException("No doctor with name: " + currentUser);
@@ -73,6 +70,7 @@ public class PatientUserListResourceImpl extends ServerResource implements Patie
         System.out.println("here i am " + role);
         if(role.getRoleName() == "doctor")
         {
+            did = user.get().getDoctor().getId();
             System.out.println("i am a doctor");
             Date dateToday = new Date();
             Calendar cal = new GregorianCalendar();
@@ -81,14 +79,16 @@ public class PatientUserListResourceImpl extends ServerResource implements Patie
             Date today30 = cal.getTime();
             applicationUsers = applicationUserRepository.findUnconsultedPatients(did, dateToday, today30);
 
-        }else //if he is a chief doctor
+            applicationUsers.forEach(p -> result.add(new ApplicationUserRepresentation(p)));
+        }else if(role.getRoleName() == "chiefDoctor")//if he is a chief doctor
         {
-
+            List<T> patientList = (List<T>) applicationUserRepository.WaitingForConsultationAndTimeEllapsed();
+            return patientList;
         }
 
 
-        applicationUsers.forEach(p -> result.add(new ApplicationUserRepresentation(p)));
-        return result;
+
+        return (List<T>) result;
     }
 
 }

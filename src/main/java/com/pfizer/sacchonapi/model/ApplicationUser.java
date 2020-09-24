@@ -45,5 +45,11 @@ public class ApplicationUser{
         this.lastName = applicationUser.getLastName();
         this.email = applicationUser.getEmail();
         this.active = applicationUser.isActive();
+        this.address = applicationUser.getAddress();
+        this.city = applicationUser.getCity();
+        this.zipCode = applicationUser.getZipCode();
+        this.phoneNumber = applicationUser.getPhoneNumber();
+        this.dob = applicationUser.getDob();
+        this.creationDate = applicationUser.getCreationDate();
     }
 }
