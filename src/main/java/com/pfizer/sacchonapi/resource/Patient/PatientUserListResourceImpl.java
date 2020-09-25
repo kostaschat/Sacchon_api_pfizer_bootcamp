@@ -19,7 +19,7 @@ import javax.persistence.EntityManager;
 import java.util.*;
 import java.util.logging.Logger;
 
-public class PatientUserListResourceImpl extends ServerResource implements PatientUserListResource{
+public class PatientUserListResourceImpl extends ServerResource implements PatientUserListResource {
 
     public static final Logger LOGGER = Engine.getLogger(MediDataResourceImpl.class);
 
@@ -59,18 +59,16 @@ public class PatientUserListResourceImpl extends ServerResource implements Patie
         Role role;
         long did;
 
-        if(user.isPresent())
-        {
+        if (user.isPresent()) {
             role = user.get().getRole();
 
-        }else {
+        } else {
             LOGGER.config("This doctor cannon be found in the database:" + currentUser);
             throw new NotFoundException("No doctor with name: " + currentUser);
         }
 
         System.out.println("here i am " + role);
-        if(role.getRoleName() == "doctor")
-        {
+        if (role.getRoleName() == "doctor") {
             did = user.get().getDoctor().getId();
             System.out.println("i am a doctor");
             Date dateToday = new Date();
@@ -81,12 +79,11 @@ public class PatientUserListResourceImpl extends ServerResource implements Patie
             applicationUsers = applicationUserRepository.findUnconsultedPatients(did, dateToday, today30);
 
             applicationUsers.forEach(p -> result.add(new ApplicationUserRepresentation(p)));
-        }else if(role.getRoleName() == "chiefDoctor")//if he is a chief doctor
+        } else if (role.getRoleName() == "chiefDoctor")//if he is a chief doctor
         {
             List<T> patientList = (List<T>) applicationUserRepository.WaitingForConsultationAndTimeEllapsed();
             return patientList;
         }
-
 
 
         return (List<T>) result;
