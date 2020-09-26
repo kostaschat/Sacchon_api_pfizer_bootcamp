@@ -7,6 +7,8 @@ import { PatientConsultationComponent } from './patient/patient-consultation/pat
 import { PatientInsertDataComponent } from './patient/patient-insert-data/patient-insert-data.component';
 import { PatientListComponent } from './patient/patient-list/patient-list.component';
 import { PatientModule } from './patient/patient.module';
+import { RegisterComponent } from './users/register/register.component';
+import { UsersModule } from './users/users.module';
 
 const routes: Routes = [
   {
@@ -20,12 +22,15 @@ const routes: Routes = [
   },
   {
     path: 'patient/list-data', component: PatientListComponent
+  },
+  {
+    path: 'register', component: RegisterComponent
   }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes),
-  HttpClientModule, PatientModule, DashboardModule],
+  HttpClientModule, PatientModule, DashboardModule,UsersModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
