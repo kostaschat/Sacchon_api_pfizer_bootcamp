@@ -23,9 +23,9 @@ export class MediDataService {
       );
   }
 
+
   addMedi(values):Observable<any>{
     return this.http.post(this.baseUrl,{
-      'id': values.get('id').value,
       'carb': values.get('carb').value,
       'glucose':values.get('glucose').value,
       'measuredDate':values.get('measuredDate').value

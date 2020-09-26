@@ -7,7 +7,9 @@
             <p class="card-text">Carb: {{medi.carb}}</p>
             <p class="card-text">Glucose: {{medi.glucose}}</p>
             <p class="card-text">MeasuredDate: {{medi.measuredDate | date}}</p>
+            <button class="btn btn-primary" (click)="onClickUpdate($event, medi)">Update</button>
           </div>
         </div>
     </div>
 </div>
+

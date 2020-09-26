@@ -22,5 +22,7 @@ export class MediListComponent implements OnInit {
     }
   }
 
-  
+  onClickUpdate(event, medi){
+      console.log(medi);
+  }
 }
