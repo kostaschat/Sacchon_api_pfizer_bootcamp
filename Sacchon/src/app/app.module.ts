@@ -12,11 +12,11 @@ import { MatSortModule } from '@angular/material/sort';
 import { NavComponent } from './nav/nav.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent
-   
   ],
   imports: [
     AppRoutingModule,
@@ -28,7 +28,6 @@ import { NavComponent } from './nav/nav.component';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule
-
   ],
   providers: [],
   bootstrap: [AppComponent]

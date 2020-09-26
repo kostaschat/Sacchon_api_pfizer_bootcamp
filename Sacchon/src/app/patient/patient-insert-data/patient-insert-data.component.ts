@@ -5,7 +5,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 @Component({
   selector: 'app-patient-insert-data',
   templateUrl: './patient-insert-data.component.html',
-  styleUrls: ['./patient-insert-data.component.css']
+  styleUrls: ['./patient-insert-data.component.scss']
 })
 export class PatientInsertDataComponent implements OnInit {
   form: FormGroup;

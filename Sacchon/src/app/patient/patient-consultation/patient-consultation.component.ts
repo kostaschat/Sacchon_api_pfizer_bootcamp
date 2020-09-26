@@ -7,7 +7,7 @@ import { PatientConsultationDataSource, PatientConsultationItem } from './patien
 @Component({
   selector: 'app-patient-consultation',
   templateUrl: './patient-consultation.component.html',
-  styleUrls: ['./patient-consultation.component.css']
+  styleUrls: ['./patient-consultation.component.scss']
 })
 export class PatientConsultationComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;

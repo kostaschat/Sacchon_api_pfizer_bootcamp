@@ -7,6 +7,8 @@ import { PatientConsultationComponent } from './patient/patient-consultation/pat
 import { PatientInsertDataComponent } from './patient/patient-insert-data/patient-insert-data.component';
 import { PatientListComponent } from './patient/patient-list/patient-list.component';
 import { PatientModule } from './patient/patient.module';
+import { LoginComponent } from './users/login/login.component';
+import { LogoutComponent } from './users/logout/logout.component';
 import { RegisterComponent } from './users/register/register.component';
 import { UsersModule } from './users/users.module';
 
@@ -22,6 +24,12 @@ const routes: Routes = [
   },
   {
     path: 'patient/list-data', component: PatientListComponent
+  },
+  {
+    path: 'login', component: LoginComponent
+  },
+  {
+    path: 'logout', component: LogoutComponent
   },
   {
     path: 'register', component: RegisterComponent
