@@ -1,37 +1,38 @@
-
-<form [formGroup]="form" (submit)="formSumbit()" style=" width: 50%; margin: auto;">
-    <!-- carb  -->
-    <div class="form-group">
-      <label  for="carbInput">Carbs (grams) </label>
-      <input  type="number"
-              class="form-control"
-              id="carbInput"
-              placeholder="carb"
-              formControlName="carb">
-  
-      <div *ngIf="form.get('carb').errors?.required && form.get('carb').dirty" class="text-danger">
-        Field is required
+<div class="container">
+  <div class="addmedidata-content">
+  <form [formGroup]="form" (submit)="formSumbit()">
+      <div class="form-group">
+        <h1>Let’s add your medical data!</h1>
+        <h2>Please fill out the information below.</h2>
       </div>
-    </div>
-    <!-- /carb -->
-    <!-- glucose  -->
-    <div class="form-group">
-        <label  for="carbInput">Glucose ( mg/dL) </label>
-        <input  type="number"
-                class="form-control"
-                id="glucoseInput"
-                placeholder="Enter the glucose"
-                formControlName="glucose">
-    
-        <div *ngIf="form.get('glucose').errors?.required && form.get('glucose').dirty" class="text-danger">
+
+      <div class="form-group">
+        <label for="carbInput">Carbs (grams) </label>
+        <input type="number" class="form-control" id="carbInput"placeholder="carb"formControlName="carb">
+        <div *ngIf="form.get('carb').errors?.required && form.get('carb').dirty" class="text-danger">
           Field is required
         </div>
       </div>
-      <!-- /carb -->
       
-      {{form.value | json}}  
-        //[disabled]="!form.valid"
-    <button type="submit" class="btn btn-primary"   >Submit</button>
-  </form>
- 
+      <div class="form-group">
+          <label for="carbInput">Glucose ( mg/dL) </label>
+          <input type="number"class="form-control" id="glucoseInput" placeholder="Enter the glucose" formControlName="glucose">
+          <div *ngIf="form.get('glucose').errors?.required && form.get('glucose').dirty" class="text-danger">
+            Field is required
+          </div>
+      </div>
+      
+      <div class="form-group">
+          <label  for="measuredDate">Glucose ( mg/dL) </label>
+          <input  type="date" class="form-control" id="measuredDate" placeholder="Enter the glucose" formControlName="measuredDate">
+          <div *ngIf="form.get('measuredDate').errors?.required && form.get('measuredDate').dirty" class="text-danger">
+            Field is required
+          </div>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
 

@@ -10,6 +10,7 @@ import {MatTableModule} from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { NavComponent } from './nav/nav.component';
+import { MediDataModule } from './medi-data/medi-data.module';
 
 
 
@@ -27,7 +28,8 @@ import { NavComponent } from './nav/nav.component';
     MatSliderModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MediDataModule
   ],
   providers: [],
   bootstrap: [AppComponent]

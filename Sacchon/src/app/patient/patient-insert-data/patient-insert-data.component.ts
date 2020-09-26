@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { PatientService } from '../patients.service';
 
 @Component({
   selector: 'app-patient-insert-data',
@@ -10,23 +11,23 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class PatientInsertDataComponent implements OnInit {
   form: FormGroup;
 
- private readonly url ='';
-  
-  constructor(private http: HttpClient) { 
+  constructor(private patientService: PatientService) { 
   }
 
   ngOnInit() {
     this.form = new FormGroup({
       carb: new FormControl(null, [Validators.required]),
-      glucose: new FormControl(null, Validators.required)
-      
+      glucose: new FormControl(null, Validators.required),
+      measuredDate: new FormControl(null, Validators.required)
     });
- 
   }
-  formSumbit(){
-    console.log(this.form.value)
-    this.http.post(this.url,this.form.value)
 
+  
+  formSumbit(){
+    this.patientService.addMedi(this.form).subscribe(data => {
+      alert(JSON.stringify(data));
+      this.ngOnInit();
+    });
   }
 }
 

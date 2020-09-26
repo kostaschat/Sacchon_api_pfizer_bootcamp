@@ -1,0 +1,13 @@
+<div class="container">
+    <h2 class="title" style="padding-top:30px;">My Medical Data</h2>
+    <div class="row">
+        <div class="card col-sm-4 col-md-3 col-lg-2 my-5 mx-3" *ngFor="let medi of mediData" style="width: 18rem;">
+          <div class="card-body">
+            <p class="card-text">Uri: {{medi.uri}}</p>
+            <p class="card-text">Carb: {{medi.carb}}</p>
+            <p class="card-text">Glucose: {{medi.glucose}}</p>
+            <p class="card-text">MeasuredDate: {{medi.measuredDate | date}}</p>
+          </div>
+        </div>
+    </div>
+</div>

@@ -10,6 +10,8 @@ export class PatientService {
 
   constructor(private http: HttpClient) { }
 
+  readonly baseUrl = 'http://localhost:9000/v1/medidata';
+
   getProducts(): Observable<Patient[]> {
 
     let headers = new HttpHeaders();
@@ -20,5 +22,14 @@ export class PatientService {
     //  let headers = new HttpHeaders().set('anestis','anestis');
     // let headers = new HttpHeaders({'Authorization':'Basic'+ btoa('anestis'+':'+'anestis')});
     return this.http.get<Patient[]>('http://localhost:9000/v1/medidata');
+  }
+
+  addMedi(values):Observable<any>{
+    return this.http.post(this.baseUrl,{
+     
+      'carb': values.get('carb').value,
+      'glucose':values.get('glucose').value,
+      'measuredDate':values.get('measuredDate').value
+    },{headers:new HttpHeaders({'Authorization': 'Basic ' + btoa(sessionStorage.getItem("credentials"))})});
   }
 }

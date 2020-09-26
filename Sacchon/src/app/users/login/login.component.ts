@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
           console.log(this.res)
 
           if (this.res == true){
-            sessionStorage.setItem( data.username ,data.password)
+            sessionStorage.setItem("credentials", data.username + ":" + data.password)
             this.router.navigate(['dashboard'])
            }
            else {
