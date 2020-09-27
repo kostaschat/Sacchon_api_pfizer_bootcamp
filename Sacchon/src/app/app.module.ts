@@ -11,6 +11,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { NavComponent } from './nav/nav.component';
 import { MediDataModule } from './medi-data/medi-data.module';
+import { ConsultationsModule } from './consultations/consultations.module';
+import { ConsultationsListComponent } from './consultations/consultations-list/consultations-list.component';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 
 
@@ -29,7 +32,9 @@ import { MediDataModule } from './medi-data/medi-data.module';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MediDataModule
+    MediDataModule,
+    ConsultationsModule,
+    MDBBootstrapModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

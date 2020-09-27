@@ -1,6 +1,8 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ConsultationsListComponent } from './consultations/consultations-list/consultations-list.component';
+import { ConsultationsModule } from './consultations/consultations.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 import { MediInsertComponent } from './medi-data/medi-insert/medi-insert.component';
@@ -16,7 +18,7 @@ import { UsersModule } from './users/users.module';
 
 const routes: Routes = [
   {
-    path: 'patient/consultation', component: PatientConsultationComponent
+    path: 'consultations', component: ConsultationsListComponent
   },
   {
     path: 'dashboard', component: DashboardComponent
@@ -40,7 +42,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes),
-  HttpClientModule, PatientModule, DashboardModule,UsersModule],
+  HttpClientModule, PatientModule, DashboardModule,UsersModule, ConsultationsModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

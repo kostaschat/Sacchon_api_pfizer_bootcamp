@@ -29,7 +29,9 @@
             ],
             "styles": [
               "node_modules/font-awesome/scss/font-awesome.scss",
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/angular-bootstrap-md/assets/scss/bootstrap/bootstrap.scss",
+              "node_modules/angular-bootstrap-md/assets/scss/mdb.scss"
             ],
             "scripts": []
           },

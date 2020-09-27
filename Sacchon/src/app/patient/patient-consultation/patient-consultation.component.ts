@@ -10,22 +10,22 @@ import { PatientConsultationDataSource, PatientConsultationItem } from './patien
   styleUrls: ['./patient-consultation.component.scss']
 })
 export class PatientConsultationComponent implements AfterViewInit, OnInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatTable) table: MatTable<PatientConsultationItem>;
-  dataSource: PatientConsultationDataSource;
+  // @ViewChild(MatPaginator) paginator: MatPaginator;
+  // @ViewChild(MatSort) sort: MatSort;
+  // @ViewChild(MatTable) table: MatTable<PatientConsultationItem>;
+  // dataSource: PatientConsultationDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['date', 'consultation','consultation','consultation'];
 
   ngOnInit() {
-    this.dataSource = new PatientConsultationDataSource();
+    // this.dataSource = new PatientConsultationDataSource();
   }
 
   ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-    this.table.dataSource = this.dataSource;
+    // this.dataSource.sort = this.sort;
+    // this.dataSource.paginator = this.paginator;
+    // this.table.dataSource = this.dataSource;
   }
 }
 
