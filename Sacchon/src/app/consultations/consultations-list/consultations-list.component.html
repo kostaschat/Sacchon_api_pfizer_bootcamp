@@ -1,0 +1,16 @@
+<table mdbTable hover="true">
+    <thead>
+      <tr>
+        <th *ngFor="let lbl of labelsTable" scope="col">{{lbl}} </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr mdbTableCol *ngFor="let value of consultations; let i = index">
+        <th scope="row">{{i+1}}</th>
+        <td>{{value.medicationName}}</td>
+        <td>{{value.dosage}}</td>
+        <td>{{value.consultationDate | date}}</td>
+    
+      </tr>
+    </tbody>
+  </table>
