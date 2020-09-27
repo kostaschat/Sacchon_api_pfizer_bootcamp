@@ -20,6 +20,7 @@ import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -122,7 +123,7 @@ public class ApplicationUserResourceImpl extends ServerResource implements Appli
 
         ResourceUtils.checkRoles(this, Shield.patient, Shield.doctor);
         LOGGER.finer("User allowed to remove his account.");
-
+        long did, pid;
         try {
             Request request = Request.getCurrent();
             String currentUser = request.getClientInfo().getUser().getName();
@@ -132,6 +133,13 @@ public class ApplicationUserResourceImpl extends ServerResource implements Appli
             if (user.isPresent()) {
                 userOut = user.get();
                 userOut.setActive(false);
+                if(user.get().getRole().equals("doctor"))
+                {
+                    did = userOut.getDoctor().getId();
+                    //find the patients of this doctor and make their doctor id null
+                    detachUsersFromThisDoctor(did);
+                }
+
             } else {
                 LOGGER.config("This user cannot be found in the database:" + currentUser);
                 throw new NotFoundException("No user with name : " + currentUser);
@@ -146,5 +154,17 @@ public class ApplicationUserResourceImpl extends ServerResource implements Appli
             throw new ResourceException(e);
         }
 
+    }
+
+
+    public void detachUsersFromThisDoctor(long did) throws ResourceException
+    {
+        List<ApplicationUser> patients = applicationUserRepository.findMyPatients(did);
+        for(ApplicationUser patient: patients)
+        {
+            patient.getPatient().setDoctor(null);
+            patient.getPatient().setHasDoctor(false);
+            applicationUserRepository.save(patient);
+        }
     }
 }
