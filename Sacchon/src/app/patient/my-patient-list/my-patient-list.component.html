@@ -25,7 +25,7 @@
         Phone Number: {{patient.phoneNumber}} <br>
         Creation Date: {{patient.creationDate | date}} <br>
 
-        <button type="button" style="margin:5px;" class="btn btn-primary float-right" (click)="gotoMediList('/medi/list-data/',patient.userId)">Medidata</button> 
+        <button type="button" style="margin:5px;" class="btn btn-primary float-right" (click)="gotoMediList('/medi/list-data/',patient.id)">Medidata</button> 
         <button type="button" style="margin:5px;" class="btn btn-warning float-right">Consultations</button>
       </div>
     </div>

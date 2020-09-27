@@ -11,7 +11,7 @@ export class MediDataService {
   constructor(private http: HttpClient) { }
 
   readonly baseUrl = 'http://localhost:9000/v1/medidata';
-
+  readonly url = 'http://localhost:9000/v1/all-medidata';
 
 
   getMedi(): Observable<MediData[]> {
@@ -27,7 +27,7 @@ export class MediDataService {
   
   getMediOfPatient(id): Observable<MediData[]> {
     return this.http.get<MediData[]>(
-      this.baseUrl +'/' + id,
+      this.url +'/' + id,
       {headers:new HttpHeaders(
         {'Authorization': 'Basic ' + btoa(sessionStorage.getItem("credentials"))}
         )

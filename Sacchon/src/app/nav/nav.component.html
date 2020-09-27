@@ -1,5 +1,4 @@
 <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
-  <div class="container">
     <a class="navbar-brand" [routerLink]="['dashboard']">Sacchon</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -33,23 +32,11 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" [routerLink]="['doctor/mypatients']">My Patients</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" [routerLink]="['doctor/newpatients']">New patients</a>
+            <a class="dropdown-item" [routerLink]="['patients']">New patients</a>
           </div>
 
         </li>
-        <li class="nav-item dropdown" *ngIf="sessionStorage.getItem('role') === 'doctor'"> 
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            patients
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" [routerLink]="['patients']">Search Patients</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" [routerLink]="['doctor/mypatients']">My Patients</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" [routerLink]="['doctor/newpatients']">New patients</a>
-          </div>
-        </li>
-        
+
       </ul>
       <ul class="navbar-nav ml-auto">
         <div *ngIf="sessionStorage.getItem('credentials') == null" style="display:inline-flex;">    
@@ -71,8 +58,6 @@
             </div>
           </li>
       </div>  
-
       </ul>
     </div>
-  </div>
   </nav>
