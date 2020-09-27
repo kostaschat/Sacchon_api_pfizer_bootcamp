@@ -1,5 +1,4 @@
 export interface Patient {
-<<<<<<< HEAD
     firstName : String;
     lastName : String;
     email : String;
@@ -9,19 +8,5 @@ export interface Patient {
     phoneNumber : String;
     creationDate : Date;
     dob : Date;
-    id : Int32Array;
+    id : number;
   }
-=======
-    
-    username: string;
-    password: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    phoneNumber: string;
-    dob: Date;
-    creationDate: Date;
-    userId: number;
-  }
-  
->>>>>>> a84bab13510646f76efa0c752e3bec19b4964d6c

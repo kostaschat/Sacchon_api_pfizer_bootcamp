@@ -12,14 +12,9 @@ import { MatSortModule } from '@angular/material/sort';
 import { NavComponent } from './nav/nav.component';
 import { MediDataModule } from './medi-data/medi-data.module';
 import { ConsultationsModule } from './consultations/consultations.module';
-import { ConsultationsListComponent } from './consultations/consultations-list/consultations-list.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
-<<<<<<< HEAD
 import { PatientModule } from './patient/patient.module';
-
-=======
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
->>>>>>> a84bab13510646f76efa0c752e3bec19b4964d6c
 
 
 
@@ -40,12 +35,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatSortModule,
     MediDataModule,
     ConsultationsModule,
-<<<<<<< HEAD
     PatientModule,
-=======
     ReactiveFormsModule,
     FormsModule,
->>>>>>> a84bab13510646f76efa0c752e3bec19b4964d6c
     MDBBootstrapModule.forRoot()
   ],
   providers: [],
