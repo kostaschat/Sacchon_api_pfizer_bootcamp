@@ -125,13 +125,9 @@ public class MediDataListResourceImpl extends ServerResource implements MediData
                         LOGGER.config("This Patient cannon be found in the database:" + username);
                         throw new NotFoundException("No patient with name : " + username);
                     }
-
                     long id = patientOut.getId();
                     mediData = mediDataRepository.findMediData(id);
-
-
                 }
-
             }
             mediData.forEach(m -> result.add(new MediDataRepresentation(m)));
             return result;
