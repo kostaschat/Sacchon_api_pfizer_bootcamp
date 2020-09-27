@@ -23,11 +23,11 @@ export class PatientInsertDataComponent implements OnInit {
   }
 
   
-  formSumbit(){
-    this.patientService.addMedi(this.form).subscribe(data => {
-      alert(JSON.stringify(data));
-      this.ngOnInit();
-    });
-  }
+  // formSumbit(){
+  //   this.patientService.addMedi(this.form).subscribe(data => {
+  //     alert(JSON.stringify(data));
+  //     this.ngOnInit();
+  //   });
+  // }
 }
 

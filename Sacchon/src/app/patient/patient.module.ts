@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 
 
 import { PatientRoutingModule } from './patient-routing.module';
-import { PatientListComponent } from './patient-list/patient-list.component';
+import { MyPatientListComponent } from './my-patient-list/my-patient-list.component';
 import { CommonModule } from '@angular/common';
 import { PatientInsertDataComponent } from './patient-insert-data/patient-insert-data.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PatientConsultationComponent } from './patient-consultation/patient-consultation.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -13,14 +13,15 @@ import { MatSortModule } from '@angular/material/sort';
 
 
 @NgModule({
-  declarations: [PatientListComponent, PatientInsertDataComponent, PatientConsultationComponent],
+  declarations: [MyPatientListComponent, PatientInsertDataComponent, PatientConsultationComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    FormsModule, 
     PatientRoutingModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule
-  ],exports: [PatientListComponent,PatientRoutingModule]
+  ],exports: [MyPatientListComponent,PatientRoutingModule]
 })
 export class PatientModule { }

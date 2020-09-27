@@ -1,0 +1,52 @@
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Patient } from '../patient';
+import { PatientService } from '../patients.service';
+import { ReactiveFormsModule} from '@angular/forms';
+import { Console } from 'console';
+import { MediDataService } from 'src/app/medi-data/medi-data.service';
+
+
+
+@Component({
+  selector: 'app-my-patient-list',
+  templateUrl: './my-patient-list.component.html',
+  styleUrls: ['./my-patient-list.component.scss']
+})
+
+export class MyPatientListComponent implements OnInit {
+  patients: Patient[];
+  constructor(private patientService: PatientService, private router: Router) { }
+  ngOnInit(): void {
+
+    if (sessionStorage.getItem("credentials") == null) {
+      this.router.navigate(['login'])
+    } else {
+      this.patientService.getMyPatients().subscribe(p => this.patients = p);
+    }
+
+  }
+
+  showUncolsutedPatients(values:any){
+    if(values.currentTarget.checked){
+      console.log("is it checked" + values.currentTarget.checked)
+      this.patientService.getMyUnconsultedPatients().subscribe(p => this.patients = p);
+    }else {
+      this.patientService.getMyPatients().subscribe(p => this.patients = p);
+    }
+  }
+
+  gotoMediList(url, id){
+   
+    this.router.navigate([url], {queryParams:{id : id}}).then( (e) => {
+      if (e) {
+        console.log("Navigation is successful!");
+      } else {
+        console.log("Navigation has failed!");
+      }
+    });
+
+  }
+
+
+}

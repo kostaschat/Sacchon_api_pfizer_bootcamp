@@ -1,0 +1,35 @@
+<h1>Patient list</h1>
+
+<div class="form-check" style="float: right;" >
+  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" (change)="showUncolsutedPatients($event)">
+  <label class="form-check-label" for="defaultCheck1">
+    Without consultation in the last month
+  </label>
+</div>
+
+<div id="accordion" class="bg-light clearfix" style="margin-top:50px;" >
+  <div class="card"  *ngFor="let patient of patients;let i = index">
+    <div class="card-header" id="{{patient.firstName + 't'}}">
+      <h5 class="mb-0">
+        <button class="btn btn-link" data-toggle="collapse"  [attr.data-target]="'#'+patient.firstName" aria-expanded="true" [attr.aria-controls]="patient.firstName">
+          {{patient.lastName}} {{patient.firstName}} 
+        </button>
+      </h5>
+    </div>
+
+    <div id="{{patient.firstName}}" class="collapse" [attr.aria-labelledby]="patient.firstName +'t'" data-parent="#accordion">
+      <div class="card-body">
+        <h6>Patient's Info</h6>
+        Date of Birth: {{patient.dob | date}} <br>
+        Email: {{patient.email}} <br>
+        Phone Number: {{patient.phoneNumber}} <br>
+        Creation Date: {{patient.creationDate | date}} <br>
+
+        <button type="button" style="margin:5px;" class="btn btn-primary float-right" (click)="gotoMediList('/medi/list-data/',patient.userId)">Medidata</button> 
+        <button type="button" style="margin:5px;" class="btn btn-warning float-right">Consultations</button>
+      </div>
+    </div>
+  </div>
+
+
+</div>

@@ -14,6 +14,7 @@ import { MediDataModule } from './medi-data/medi-data.module';
 import { ConsultationsModule } from './consultations/consultations.module';
 import { ConsultationsListComponent } from './consultations/consultations-list/consultations-list.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -34,6 +35,8 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
     MatSortModule,
     MediDataModule,
     ConsultationsModule,
+    ReactiveFormsModule,
+    FormsModule,
     MDBBootstrapModule.forRoot()
   ],
   providers: [],
