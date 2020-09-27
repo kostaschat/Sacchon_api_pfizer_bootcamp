@@ -24,24 +24,41 @@
             <a class="dropdown-item" [routerLink]="['dashboard']">Edit</a>
           </div>
         </li>
-        
-      </ul>
-      <ul class="navbar-nav ml-auto nav-flex-icons">
-       
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" id="account" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-user"></i> Hello {{sessionStorage.getItem('username')}}!</a>
-          <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="account">
-            <div *ngIf="sessionStorage.getItem('credentials') == null">      
-                <a class="nav-link" [routerLink]="['login']">Login</a>            
-                <a class="nav-link" [routerLink]="['register']" > Register</a>          
-            </div> 
-            <div *ngIf="sessionStorage.getItem('credentials') != null">
-              <a class="nav-link" [routerLink]="['logout']" > Log out</a>     
-            </div>  
+        <li class="nav-item dropdown" *ngIf="sessionStorage.getItem('role') === 'doctor'"> 
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            patients
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" [routerLink]="['patients']">Search Patients</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" [routerLink]="['doctor/mypatients']">My Patients</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" [routerLink]="['doctor/newpatients']">New patients</a>
           </div>
         </li>
+        
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <div *ngIf="sessionStorage.getItem('credentials') == null" style="display:inline-flex;">    
+          <li class="nav-item">  
+           <a class="nav-link" [routerLink]="['login']">Login</a> 
+          </li>
+       
+          <li class="nav-item">           
+           <a class="nav-link" [routerLink]="['register']" > Register</a> 
+          </li>         
+        </div> 
+
+        <div *ngIf="sessionStorage.getItem('credentials') != null">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="account" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-user"></i> Hello {{sessionStorage.getItem('username')}}!</a>
+            <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="account">           
+                <a class="nav-link" [routerLink]="['logout']" > Log out</a>     
+            </div>
+          </li>
+      </div>  
+
       </ul>
     </div>
   </div>

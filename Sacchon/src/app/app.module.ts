@@ -14,6 +14,8 @@ import { MediDataModule } from './medi-data/medi-data.module';
 import { ConsultationsModule } from './consultations/consultations.module';
 import { ConsultationsListComponent } from './consultations/consultations-list/consultations-list.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { PatientModule } from './patient/patient.module';
+
 
 
 
@@ -34,6 +36,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
     MatSortModule,
     MediDataModule,
     ConsultationsModule,
+    PatientModule,
     MDBBootstrapModule.forRoot()
   ],
   providers: [],

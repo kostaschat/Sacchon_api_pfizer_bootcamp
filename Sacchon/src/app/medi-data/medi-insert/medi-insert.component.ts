@@ -24,6 +24,7 @@ export class MediInsertComponent implements OnInit {
     this.mediDataService.addMedi(this.form).subscribe(data => {
       alert(JSON.stringify(data));
       this.ngOnInit();
-    });
+    })
+    
   }
 }
