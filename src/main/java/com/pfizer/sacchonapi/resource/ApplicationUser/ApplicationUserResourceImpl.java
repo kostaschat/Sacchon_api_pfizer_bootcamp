@@ -104,7 +104,7 @@ public class ApplicationUserResourceImpl extends ServerResource implements Appli
                 throw new NotFoundException("No patient with id in the database : " + uid);
             }
 
-            Optional<Patient> p = patientRepository.save(patientOut);
+            Optional<Patient> p = patientRepository.update(patientOut);
 
             LOGGER.finer("Consultation successfully saved.");
             return new ApplicationUserRepresentation(p.get().getApplicationUser().getPatient().getApplicationUser());

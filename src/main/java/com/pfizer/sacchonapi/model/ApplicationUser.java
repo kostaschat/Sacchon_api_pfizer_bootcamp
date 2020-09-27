@@ -28,8 +28,10 @@ public class ApplicationUser{
     private String zipCode;
     private String phoneNumber;
     private Date dob;
-    private LocalDateTime creationDate;
+    private Date creationDate;
     private boolean active;
+    private long id;
+
 
     @OneToOne(mappedBy = "applicationUser")
     private Patient patient;

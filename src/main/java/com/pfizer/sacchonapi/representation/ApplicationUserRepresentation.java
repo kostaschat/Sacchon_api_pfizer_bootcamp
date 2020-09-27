@@ -1,5 +1,6 @@
 package com.pfizer.sacchonapi.representation;
 
+import com.pfizer.sacchonapi.exception.NotFoundException;
 import com.pfizer.sacchonapi.model.ApplicationUser;
 import com.pfizer.sacchonapi.security.Role;
 import lombok.Data;
@@ -24,9 +25,9 @@ public class ApplicationUserRepresentation {
     private String zipCode;
     private String phoneNumber;
     private Date dob;
-    private LocalDateTime creationDate;
+    private Date creationDate;
 
-    private String uri;
+    private long id;
 
     public ApplicationUserRepresentation(ApplicationUser applicationUser) {
         if (applicationUser != null) {
@@ -42,8 +43,16 @@ public class ApplicationUserRepresentation {
             phoneNumber = applicationUser.getPhoneNumber();
             dob = applicationUser.getDob();
             creationDate = applicationUser.getCreationDate();
+            id = applicationUser.getId();
 
-            uri =  "http://localhost:9000/v1/user/" + applicationUser.getUsername();
+//            try {
+//                if (role.getRoleName().equals("patient"))
+//                    id = applicationUser.getPatient().getId();
+//                else
+//                    id = applicationUser.getDoctor().getId();
+//            } catch (Exception e){
+//                System.out.println(e);
+//            }
         }
     }
 
