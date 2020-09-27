@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Patient } from '../patient';
-import { PatientService } from '../patients.service';
-import { ReactiveFormsModule} from '@angular/forms';
-import { Console } from 'console';
-import { MediDataService } from 'src/app/medi-data/medi-data.service';
+import { PatientService } from '../patient.service';
 
 
 

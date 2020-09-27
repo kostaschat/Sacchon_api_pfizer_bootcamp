@@ -1,5 +1,5 @@
 export interface MediData {
-    //uri: string;
+    uri: string;
     carb: number;
     glucose: number;
     measuredDate: Date;
