@@ -39,7 +39,7 @@ public class LoginResourceImpl extends ServerResource implements LoginResource {
     }
 
     @Override
-    public boolean findUser(ApplicationUserRepresentation reprIn) throws BadEntityException {
+    public String findUser(ApplicationUserRepresentation reprIn) throws BadEntityException {
 
         ResourceValidator.notNull(reprIn);
         ResourceValidator.validateLogin(reprIn);
@@ -47,6 +47,5 @@ public class LoginResourceImpl extends ServerResource implements LoginResource {
         ApplicationUser applicationUser = reprIn.createUser();
 
         return applicationUserRepository.findByDetails(applicationUser.getUsername(),applicationUser.getPassword());
-
     }
 }

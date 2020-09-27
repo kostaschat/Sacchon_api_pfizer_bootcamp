@@ -5,6 +5,7 @@ import com.pfizer.sacchonapi.model.Consultation;
 import com.pfizer.sacchonapi.model.Patient;
 import com.pfizer.sacchonapi.representation.ApplicationUserRepresentation;
 import com.pfizer.sacchonapi.representation.PatientsWithoutConsultationRepresentation;
+import com.pfizer.sacchonapi.security.Role;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 
@@ -106,13 +107,10 @@ public class ApplicationUserRepository {
 
     public List<ApplicationUser> findInactiveDoctors(String fromDate, String toDate) {
         Session s = (Session) entityManager.getDelegate();
-        String sql = "SELECT DISTINCT A.* from ApplicationUser A\n" +
-                " INNER JOIN Doctor D\n" +
-                " ON A.username = D.user_username\n" +
-                " INNER JOIN Consultation C\n" +
-                " ON C.doctor_id = D.id where A.active = 1 AND C.ConsultationDate NOT IN(\n" +
-                "SELECT C.ConsultationDate \n" +
-                "WHERE (C.ConsultationDate > :fromDate AND C.ConsultationDate < :toDate))";
+        String sql = "SELECT A.* FROM  Doctor D, ApplicationUser A WHERE NOT id in (\n" +
+                "SELECT C.doctor_id FROM Consultation C\n" +
+                "WHERE (C.ConsultationDate>=:fromDate and C.ConsultationDate<=:toDate))\n" +
+                "AND A.username = D.user_username";
         NativeQuery query = s.createSQLQuery(sql);
         query.setParameter("fromDate", fromDate);
         query.setParameter("toDate", toDate);
@@ -123,13 +121,10 @@ public class ApplicationUserRepository {
 
     public List<ApplicationUser> findInactivePatients(String fromDate, String toDate) {
         Session s = (Session) entityManager.getDelegate();
-        String sql = "SELECT DISTINCT A.* from ApplicationUser A\n" +
-                "INNER JOIN Patient P\n" +
-                "ON A.username = P.user_username\n" +
-                "INNER JOIN MediData M\n" +
-                "ON M.patient_id = P.id where A.active = 1 AND M.measuredDate NOT IN(\n" +
-                "SELECT M.measuredDate\n" +
-                "WHERE (M.measuredDate > :fromDate AND M.measuredDate < :toDate))";
+        String sql = "SELECT A.* FROM  Patient P, ApplicationUser A WHERE NOT id in (\n" +
+                "SELECT M.patient_id FROM MediData M\n" +
+                "WHERE (M.measuredDate>=:fromDate and M.measuredDate<=:toDate))\n" +
+                "AND A.username = P.user_username";
         NativeQuery query = s.createSQLQuery(sql);
         query.setParameter("fromDate", fromDate);
         query.setParameter("toDate", toDate);
@@ -138,22 +133,39 @@ public class ApplicationUserRepository {
 
     }
 
-    public boolean findByDetails(String username, String password) {
+//    public boolean findByDetails(String username, String password) {
+//
+//        Session s = (Session) entityManager.getDelegate();
+//        String sql = "SELECT A.role FROM ApplicationUser A where A.username = :username and A.password = :password";
+//        NativeQuery query = s.createSQLQuery(sql);
+//        query.setParameter("username", username);
+//        query.setParameter("password", password);
+//
+//        try {
+//            query.getSingleResult();
+//            return  true;
+//        } catch (Exception e) {
+//            return false;
+//        }
+//
+//    }
+
+    public String findByDetails(String username, String password) {
 
         Session s = (Session) entityManager.getDelegate();
-        String sql = "SELECT A.* FROM ApplicationUser A where A.username = :username and A.password = :password";
+        String sql = "SELECT A.role FROM ApplicationUser A where A.username = :username and A.password = :password";
         NativeQuery query = s.createSQLQuery(sql);
         query.setParameter("username", username);
         query.setParameter("password", password);
 
-        try{
-            query.getSingleResult();
-            return true;
-        } catch (Exception e){
-            return false;
+        try {
+            return (String) query.getSingleResult();
+        } catch (Exception e) {
+            return null;
         }
 
     }
+
 
     public List<PatientsWithoutConsultationRepresentation> WaitingForConsultationAndTimeEllapsed() {
 
