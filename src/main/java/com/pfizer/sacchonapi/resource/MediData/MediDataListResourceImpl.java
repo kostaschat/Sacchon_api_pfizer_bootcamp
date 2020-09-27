@@ -96,7 +96,6 @@ public class MediDataListResourceImpl extends ServerResource implements MediData
                 mediData = mediDataRepository.findMediData(pid, d_id);
             } else {
 
-
                 Request request = Request.getCurrent();
                 String username = request.getClientInfo().getUser().getName();
                 Optional<ApplicationUser> user = applicationUserRepository.findByUsername(username);
