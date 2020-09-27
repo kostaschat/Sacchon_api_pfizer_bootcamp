@@ -23,6 +23,19 @@
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" [routerLink]="['dashboard']">Edit</a>
           </div>
+          
+        </li>
+
+        <li class="nav-item dropdown" *ngIf="sessionStorage.getItem('role') === 'doctor'">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Patients
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" [routerLink]="['doctor/mypatients']">My Patients</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" [routerLink]="['doctor/newpatients']">New patients</a>
+          </div>
+
         </li>
         <li class="nav-item dropdown" *ngIf="sessionStorage.getItem('role') === 'doctor'"> 
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

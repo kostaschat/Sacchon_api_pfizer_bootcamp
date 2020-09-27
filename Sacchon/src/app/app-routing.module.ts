@@ -7,7 +7,13 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 import { MediInsertComponent } from './medi-data/medi-insert/medi-insert.component';
 import { MediListComponent } from './medi-data/medi-list/medi-list.component';
+<<<<<<< HEAD
 import { AvailablePatientListComponent } from './patient/available-patient-list/available-patient-list.component';
+=======
+import { PatientConsultationComponent } from './patient/patient-consultation/patient-consultation.component';
+import { PatientInsertDataComponent } from './patient/patient-insert-data/patient-insert-data.component';
+import { MyPatientListComponent } from './patient/my-patient-list/my-patient-list.component';
+>>>>>>> a84bab13510646f76efa0c752e3bec19b4964d6c
 import { PatientModule } from './patient/patient.module';
 import { LoginComponent } from './users/login/login.component';
 import { LogoutComponent } from './users/logout/logout.component';
@@ -15,6 +21,11 @@ import { RegisterComponent } from './users/register/register.component';
 import { UsersModule } from './users/users.module';
 
 const routes: Routes = [
+
+
+  {
+    path: 'doctor/mypatients', component: MyPatientListComponent
+  },
   {
     path: 'consultations', component: ConsultationsListComponent
   },
@@ -26,6 +37,9 @@ const routes: Routes = [
   },
   {
     path: 'medi/list-data', component: MediListComponent
+  },
+  {
+    path: 'medi/list-data/:pid', component: MediListComponent
   },
   {
     path: 'login', component: LoginComponent
