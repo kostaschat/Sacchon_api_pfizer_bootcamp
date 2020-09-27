@@ -31,13 +31,15 @@ export class LoginComponent implements OnInit {
       "password":this.form.get('password').value
     }
   
-    this.http.post(this.url, data).subscribe(
+    this.http.post(this.url, data,{ responseType:'text'}).subscribe(
         (response) => {
           this.res = response;
           console.log(this.res)
 
-          if (this.res == true){
+          if (this.res != null){
             sessionStorage.setItem("credentials", data.username + ":" + data.password)
+            sessionStorage.setItem("role", this.res)
+            sessionStorage.setItem("username", data.username)
             this.router.navigate(['dashboard'])
            }
            else {
