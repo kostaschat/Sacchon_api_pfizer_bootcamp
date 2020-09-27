@@ -59,11 +59,13 @@ public class ApplicationUserRepository {
     public List<ApplicationUser> findUnconsultedPatients(long did, Date today, Date before30) {
 
         Session s = (Session) entityManager.getDelegate();
+        
         String sql = "SELECT P.*  from ApplicationUser A " +
                 "INNER JOIN Patient P " +
                 "ON A.username = P.user_username " +
-                "INNER JOIN Consultation C " +
-                "ON C.patient_id = P.id where P.doctor_id = :did and A.active = 1";
+                "where P.doctor_id = :did and A.active = 1";
+
+
         NativeQuery query = s.createSQLQuery(sql);
         query.setParameter("did", did);
         query.addEntity(Patient.class);
@@ -75,9 +77,11 @@ public class ApplicationUserRepository {
         for (Patient patient : patients) {
             // System.out.println(patient.getApplicationUser().getFirstName());
             List<Consultation> consultations = patient.getApplicationUser().getPatient().getConsultations();
-
+            if (consultations.size() == 0){
+                finalPatients.add(patient);
+            }
             for (Consultation consultation : consultations) {
-                if (((consultation.getConsultationDate().after(before30)) && (consultation.getConsultationDate().before(today))) || consultation.getConsultationDate() == today) {
+                if (((consultation.getConsultationDate().after(before30)) && (consultation.getConsultationDate().before(today))) || consultation.getConsultationDate() == today ) {
 
                     break;
                 } else {
@@ -104,6 +108,7 @@ public class ApplicationUserRepository {
         }
         return Optional.empty();
     }
+
 
     public List<ApplicationUser> findInactiveDoctors(String fromDate, String toDate) {
         Session s = (Session) entityManager.getDelegate();

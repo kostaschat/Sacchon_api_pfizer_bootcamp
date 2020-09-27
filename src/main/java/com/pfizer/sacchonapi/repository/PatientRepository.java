@@ -1,5 +1,6 @@
 package com.pfizer.sacchonapi.repository;
 
+import com.pfizer.sacchonapi.model.MediData;
 import com.pfizer.sacchonapi.model.Patient;
 
 import javax.persistence.EntityManager;
@@ -45,4 +46,18 @@ public class PatientRepository {
         return Optional.empty();
     }
 
+    public Optional<Patient> update(Patient patient) {
+
+        Patient in = entityManager.find(Patient.class, patient.getId());
+        in.setDoctor(patient.getDoctor());
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist (in);
+            entityManager.getTransaction().commit();
+            return Optional.of(in);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Optional.empty();
+    }
 }

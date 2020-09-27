@@ -23,6 +23,7 @@ import org.restlet.resource.ServerResource;
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -74,7 +75,8 @@ public class ApplicationUserListResourceImpl extends ServerResource implements A
 
             ApplicationUser applicationUser = userIn.createUser();
             applicationUser.setActive(true);
-            applicationUser.setCreationDate(LocalDateTime.now());
+            Date date = new Date();
+            applicationUser.setCreationDate(date);
 
             Optional<ApplicationUser> customerOptOut = applicationUserRepository.save(applicationUser);
             ApplicationUser userOut;
@@ -90,14 +92,17 @@ public class ApplicationUserListResourceImpl extends ServerResource implements A
                     patient.setConsultationPending(true);
                     patient.setApplicationUser(userOut);
                     patientRepository.save(patient);
+                    userOut.setId(patient.getId());
                 } else if (userOut.getRole() == Role.doctor) {
                     Doctor doctor = new Doctor();
                     doctor.setApplicationUser(userOut);
                     doctorRepository.save(doctor);
+                    userOut.setId(doctor.getId());
                 }
             } else
                 throw new BadEntityException("User has not been created");
 
+            applicationUserRepository.save(userOut);
             ApplicationUserRepresentation result = new ApplicationUserRepresentation(userOut);
 
             return result;

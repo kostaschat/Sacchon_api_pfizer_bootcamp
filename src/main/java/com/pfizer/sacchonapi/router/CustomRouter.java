@@ -26,15 +26,15 @@ public class CustomRouter {
 
         Router router = new Router(application.getContext());
 
-
-
-
         //doctor-patient remove his account
         router.attach("/remove-account", ApplicationUserResourceImpl.class);
         router.attach("/remove-account/", ApplicationUserResourceImpl.class);
 
         //patient browse a specific medidata
         router.attach("/medidata/{id}", MediDataResourceImpl.class);
+
+        //doctor add a consultation to a patient
+        router.attach("/add-consultation/{pid}", ConsultationListResourceImpl.class);
 
         //doctor browse available-new patients
         router.attach("/patients", ApplicationUserListResourceImpl.class);
@@ -47,14 +47,11 @@ public class CustomRouter {
         //patients with no consultation in the last month
         router.attach("/patients/no-consultation", PatientUserListResourceImpl.class);
 
-        //doctor add a consultation to a patient
-        router.attach("/add-consultation/{pid}", ConsultationListResourceImpl.class);
-
         //doctor browse the consultations of a patient
         router.attach("/consultations/{pid}", ConsultationListResourceImpl.class);
 
         //doctor browse medical data of a patient
-        router.attach("/medidata/{pid}", MediDataListResourceImpl.class);
+        router.attach("/all-medidata/{pid}", MediDataListResourceImpl.class);
 
         //doctor consults a new patient
         router.attach("/consult-patient/{pid}", ApplicationUserResourceImpl.class);
