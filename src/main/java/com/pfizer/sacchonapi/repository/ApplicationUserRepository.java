@@ -116,7 +116,6 @@ public class ApplicationUserRepository {
         query.setParameter("toDate", toDate);
         query.addEntity(ApplicationUser.class);
         return query.getResultList();
-
     }
 
     public List<ApplicationUser> findInactivePatients(String fromDate, String toDate) {
@@ -130,7 +129,6 @@ public class ApplicationUserRepository {
         query.setParameter("toDate", toDate);
         query.addEntity(ApplicationUser.class);
         return query.getResultList();
-
     }
 
 //    public boolean findByDetails(String username, String password) {
