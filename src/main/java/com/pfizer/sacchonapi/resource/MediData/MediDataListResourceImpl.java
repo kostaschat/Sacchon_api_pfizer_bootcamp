@@ -5,6 +5,7 @@ import com.pfizer.sacchonapi.exception.NotFoundException;
 import com.pfizer.sacchonapi.model.*;
 import com.pfizer.sacchonapi.repository.ApplicationUserRepository;
 import com.pfizer.sacchonapi.repository.MediDataRepository;
+import com.pfizer.sacchonapi.repository.PatientRepository;
 import com.pfizer.sacchonapi.repository.util.JpaUtil;
 import com.pfizer.sacchonapi.representation.MediDataRepresentation;
 import com.pfizer.sacchonapi.resource.util.ResourceValidator;
@@ -28,6 +29,7 @@ public class MediDataListResourceImpl extends ServerResource implements MediData
     public static final Logger LOGGER = Engine.getLogger(MediDataResourceImpl.class);
     private MediDataRepository mediDataRepository;
     private ApplicationUserRepository applicationUserRepository;
+    private PatientRepository patientRepository;
 
 
     private String fromDate;
@@ -47,6 +49,7 @@ public class MediDataListResourceImpl extends ServerResource implements MediData
             em = JpaUtil.getEntityManager();
             applicationUserRepository = new ApplicationUserRepository(em);
             mediDataRepository = new MediDataRepository(em);
+            patientRepository = new PatientRepository(em);
 
             try {
                 fromDate = getAttribute("fromdate");
@@ -176,8 +179,14 @@ public class MediDataListResourceImpl extends ServerResource implements MediData
                 }
 
                 mediData.setPatient(patientOut);
-
                 mediDataRepository.save(mediData);
+               boolean checkIfPassed =  mediDataRepository.checkIfReady(patientOut.getId());
+               if(checkIfPassed) {
+                   patientOut.setConsultationPending(true);
+                   patientOut.setHasConsultation(false);
+                   patientRepository.save(patientOut);
+               }
+
             } else
                 throw new BadEntityException(" Medical Data has not been created");
 

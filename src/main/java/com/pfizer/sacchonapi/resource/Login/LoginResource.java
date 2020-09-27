@@ -7,6 +7,6 @@ import org.restlet.resource.Get;
 import org.restlet.resource.Post;
 
 public interface LoginResource {
-    @Get("json")
+    @Post("json")
     public boolean findUser(ApplicationUserRepresentation applicationUserRepresentation) throws BadEntityException;
 }

@@ -122,5 +122,23 @@ public class MediDataRepository {
         }
         return true;
     }
+
+    public boolean checkIfReady(long id) {
+
+        Session s = (Session) entityManager.getDelegate();
+        String sql = "Select (COUNT(DISTINCT CAST(M.measuredDate AS DATE))) AS Days " +
+                "from Patient P, MediData M " +
+                "where P.id = M.patient_id and P.id = :id " +
+                "and M.measuredDate > (SELECT MAX(C.ConsultationDate) " +
+                "FROM Consultation C where C.patient_id = M.patient_id)";
+
+        NativeQuery query = s.createSQLQuery(sql);
+        query.setParameter("id", id);
+        List value = query.list();
+        System.out.println(value.get(0));
+        double x = Double.parseDouble(value.get(0).toString());
+        return (x >= 30);
+
+    }
 }
 
