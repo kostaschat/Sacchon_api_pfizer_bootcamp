@@ -16,7 +16,12 @@ public class MediData {
     private double glucose;
     private double carb;
     private Date measuredDate;
+
     @ManyToOne
     @JoinColumn(name= "patient_id")
     private Patient patient;
+
+    @ManyToOne
+    @JoinColumn(name= "consultation_id")
+    private Consultation consultation;
 }

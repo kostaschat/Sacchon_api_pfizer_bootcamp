@@ -78,13 +78,14 @@ public class MediDataListResourceImpl extends ServerResource implements MediData
 
         ResourceUtils.checkRoles(this, Shield.patient, Shield.doctor, Shield.chiefDoctor);
 
+        Request request = Request.getCurrent();
+        String username = request.getClientInfo().getUser().getName();
+        Optional<ApplicationUser> user = applicationUserRepository.findByUsername(username);
+
         try {
             List<MediData> mediData;
             List<MediDataRepresentation> result = new ArrayList<>();
             if (pid != -1) {
-                Request request = Request.getCurrent();
-                String username = request.getClientInfo().getUser().getName();
-                Optional<ApplicationUser> user = applicationUserRepository.findByUsername(username);
 
                 Doctor doctorOut;
                 if (user.isPresent()) {
@@ -98,11 +99,6 @@ public class MediDataListResourceImpl extends ServerResource implements MediData
 
                 mediData = mediDataRepository.findMediData(pid, d_id);
             } else {
-
-                Request request = Request.getCurrent();
-                String username = request.getClientInfo().getUser().getName();
-                Optional<ApplicationUser> user = applicationUserRepository.findByUsername(username);
-
                 Role role;
 
                 if (user.isPresent()) {
@@ -111,11 +107,8 @@ public class MediDataListResourceImpl extends ServerResource implements MediData
                     LOGGER.config("This doctor cannon be found in the database:" + username);
                     throw new NotFoundException("No doctor with name: " + username);
                 }
-
-                if (role.equals("chiefDoctor")) {
-
+                if (role.getRoleName().equals("chiefDoctor")) {
                     mediData = getMonitoringMediData();
-
                 } else {
 
                     Patient patientOut;
@@ -136,7 +129,7 @@ public class MediDataListResourceImpl extends ServerResource implements MediData
         }
     }
 
-    public List<MediData> getMonitoringMediData() throws NotFoundException {
+    public List<MediData> getMonitoringMediData() {
         return mediDataRepository.findMonitoredMediData(pid, fromDate, toDate);
     }
 
@@ -153,46 +146,52 @@ public class MediDataListResourceImpl extends ServerResource implements MediData
         ResourceValidator.validate(mediDataIn);
         LOGGER.finer("Medical Data checked");
 
+        Request request = Request.getCurrent();
+        String username = request.getClientInfo().getUser().getName();
+        Optional<ApplicationUser> user = applicationUserRepository.findByUsername(username);
+
+
+
         try {
-            MediData mediData = mediDataIn.createMediData();
-            Optional<MediData> mediDataOptOut = mediDataRepository.save(mediData);
+            if (user.isPresent() && user.get().getPatient().isConsultationPending()) {
+                LOGGER.finer("Please wait a doctor to consult your previous Medical Data");
+                return null;
+            }else {
+                MediData mediData = mediDataIn.createMediData();
+                Optional<MediData> mediDataOptOut = mediDataRepository.save(mediData);
 
-            MediData mediDataOut;
-            if (mediDataOptOut.isPresent()) {
-                mediDataOut = mediDataOptOut.get();
+                MediData mediDataOut;
+                if (mediDataOptOut.isPresent()) {
+                    mediDataOut = mediDataOptOut.get();
 
-                Request request = Request.getCurrent();
-                String username = request.getClientInfo().getUser().getName();
-                Optional<ApplicationUser> user = applicationUserRepository.findByUsername(username);
+                    Patient patientOut;
+                    if (user.isPresent()) {
+                        patientOut = user.get().getPatient();
+                    } else {
+                        LOGGER.config("This patient cannot be found in the database:" + username);
+                        throw new NotFoundException("No Patient with name : " + username);
+                    }
 
-                Patient patientOut = null;
-                if (user.isPresent()) {
-                    patientOut = user.get().getPatient();
-                } else {
-                    LOGGER.config("This patient cannot be found in the database:" + username);
-                    throw new NotFoundException("No Patient with name : " + username);
-                }
+                    mediData.setPatient(patientOut);
+                    mediDataRepository.save(mediData);
+                    boolean checkIfPassed = mediDataRepository.checkIfReady(patientOut.getId());
+                    if (checkIfPassed) {
+                        patientOut.setConsultationPending(true);
+                        patientOut.setHasConsultation(false);
+                        patientRepository.save(patientOut);
+                    }
 
-                mediData.setPatient(patientOut);
-                mediDataRepository.save(mediData);
-               boolean checkIfPassed =  mediDataRepository.checkIfReady(patientOut.getId());
-               if(checkIfPassed) {
-                   patientOut.setConsultationPending(true);
-                   patientOut.setHasConsultation(false);
-                   patientRepository.save(patientOut);
-               }
+                } else
+                    throw new BadEntityException(" Medical Data has not been created");
 
-            } else
-                throw new BadEntityException(" Medical Data has not been created");
+                MediDataRepresentation result = new MediDataRepresentation(mediDataOut);
 
-            MediDataRepresentation result = new MediDataRepresentation(mediDataOut);
+                LOGGER.finer("Product successfully added.");
 
-            LOGGER.finer("Product successfully added.");
-
-            return result;
+                return result;
+            }
         } catch (Exception ex) {
             LOGGER.log(Level.WARNING, "Error when adding a medical data", ex);
-
             throw new ResourceException(ex);
         }
     }

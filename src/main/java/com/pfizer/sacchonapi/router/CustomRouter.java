@@ -44,6 +44,10 @@ public class CustomRouter {
         router.attach("/my-patients", PatientListResourceImpl.class);
         router.attach("/my-patients/", PatientListResourceImpl.class);
 
+        //patient remove the modification mesagge
+        router.attach("/error-modify", PatientListResourceImpl.class);
+        router.attach("/error-modify/", PatientListResourceImpl.class);
+
         //patients with no consultation in the last month
         router.attach("/patients/no-consultation", PatientUserListResourceImpl.class);
 

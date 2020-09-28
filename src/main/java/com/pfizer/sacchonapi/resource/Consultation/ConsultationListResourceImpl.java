@@ -2,14 +2,8 @@ package com.pfizer.sacchonapi.resource.Consultation;
 
 import com.pfizer.sacchonapi.exception.BadEntityException;
 import com.pfizer.sacchonapi.exception.NotFoundException;
-import com.pfizer.sacchonapi.model.ApplicationUser;
-import com.pfizer.sacchonapi.model.Consultation;
-import com.pfizer.sacchonapi.model.Doctor;
-import com.pfizer.sacchonapi.model.Patient;
-import com.pfizer.sacchonapi.repository.ApplicationUserRepository;
-import com.pfizer.sacchonapi.repository.ConsultationRepository;
-import com.pfizer.sacchonapi.repository.DoctorRepository;
-import com.pfizer.sacchonapi.repository.PatientRepository;
+import com.pfizer.sacchonapi.model.*;
+import com.pfizer.sacchonapi.repository.*;
 import com.pfizer.sacchonapi.repository.util.JpaUtil;
 import com.pfizer.sacchonapi.representation.ConsultationRepresentation;
 import com.pfizer.sacchonapi.resource.util.ResourceValidator;
@@ -37,6 +31,7 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
     private PatientRepository patientRepository;
     private DoctorRepository doctorRepository;
     private ApplicationUserRepository applicationUserRepository;
+    private MediDataRepository mediDataRepository;
     private String startDate;
     private String endDate;
     private long p_id;
@@ -58,6 +53,7 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
             consultationRepository = new ConsultationRepository(em);
             patientRepository = new PatientRepository(em);
             applicationUserRepository = new ApplicationUserRepository(em);
+            mediDataRepository = new MediDataRepository(em);
 
             try {
                 startDate = getAttribute("fromdate");
@@ -174,6 +170,11 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
                     patientOut.setHasConsultation(true);
                     patientOut.setConsultationPending(false);
                     patientRepository.save(patientOut);
+
+                    List<MediData> mediData = mediDataRepository.findMediDataWithNoConsultation(patientOut.getId());
+                    for (MediData m : mediData ){
+                        m.setConsultation(consultation);
+                    }
                 }
 
                 Request request = Request.getCurrent();
@@ -189,7 +190,6 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
                 }
 
                 consultation.setDoctor(doctorOut);
-
                 consultationRepository.save(consultation);
             } else
                 throw new BadEntityException(" Consultation has not been created");

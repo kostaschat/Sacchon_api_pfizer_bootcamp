@@ -1,7 +1,9 @@
 package com.pfizer.sacchonapi.resource.Patient;
 
+import com.pfizer.sacchonapi.exception.BadEntityException;
 import com.pfizer.sacchonapi.exception.NotFoundException;
 import com.pfizer.sacchonapi.model.ApplicationUser;
+import com.pfizer.sacchonapi.model.Doctor;
 import com.pfizer.sacchonapi.model.Patient;
 import com.pfizer.sacchonapi.repository.ApplicationUserRepository;
 import com.pfizer.sacchonapi.repository.DoctorRepository;
@@ -20,6 +22,7 @@ import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class PatientListResourceImpl extends ServerResource implements PatientListResource{
@@ -78,6 +81,29 @@ public class PatientListResourceImpl extends ServerResource implements PatientLi
             return result;
         } catch (Exception e) {
             throw new NotFoundException("Users not found");
+        }
+    }
+
+    @Override
+    public void errorModify() throws NotFoundException, BadEntityException {
+        ResourceUtils.checkRole(this, Shield.patient);
+        try {
+            Request request = Request.getCurrent();
+            String currentUser = request.getClientInfo().getUser().getName();
+            Optional<ApplicationUser> user = applicationUserRepository.findByUsername(currentUser);
+            Patient patientOut = null;
+
+            if (user.isPresent()) {
+                patientOut = user.get().getPatient();
+                patientOut.setModified(false);
+                patientRepository.update(patientOut);
+            } else {
+                LOGGER.config("This patient cannot be found in the database:" + currentUser);
+                throw new NotFoundException("No patient with name : " + currentUser);
+            }
+        } catch (Exception e) {
+            LOGGER.log(Level.WARNING, "Error when adding a consultation", e);
+            throw new ResourceException(e);
         }
     }
 }

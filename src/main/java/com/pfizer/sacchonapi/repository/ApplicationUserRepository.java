@@ -112,7 +112,7 @@ public class ApplicationUserRepository {
 
     public List<ApplicationUser> findInactiveDoctors(String fromDate, String toDate) {
         Session s = (Session) entityManager.getDelegate();
-        String sql = "SELECT A.* FROM  Doctor D, ApplicationUser A WHERE NOT id in (\n" +
+        String sql = "SELECT A.* FROM  Doctor D, ApplicationUser A WHERE NOT D.id in (\n" +
                 "SELECT C.doctor_id FROM Consultation C\n" +
                 "WHERE (C.ConsultationDate>=:fromDate and C.ConsultationDate<=:toDate))\n" +
                 "AND A.username = D.user_username";
@@ -125,7 +125,7 @@ public class ApplicationUserRepository {
 
     public List<ApplicationUser> findInactivePatients(String fromDate, String toDate) {
         Session s = (Session) entityManager.getDelegate();
-        String sql = "SELECT A.* FROM  Patient P, ApplicationUser A WHERE NOT id in (\n" +
+        String sql = "SELECT A.* FROM  Patient P, ApplicationUser A WHERE NOT P.id in (\n" +
                 "SELECT M.patient_id FROM MediData M\n" +
                 "WHERE (M.measuredDate>=:fromDate and M.measuredDate<=:toDate))\n" +
                 "AND A.username = P.user_username";
@@ -162,11 +162,18 @@ public class ApplicationUserRepository {
         query.setParameter("password", password);
 
         try {
-            return (String) query.getSingleResult();
-        } catch (Exception e) {
-            return null;
-        }
+            String sql2 = "SELECT P.modified FROM Patient P, ApplicationUser A" +
+                    " where A.username = :username AND P.user_username = A.username";
+            NativeQuery query2 = s.createSQLQuery(sql2);
+            query2.setParameter("username", username);
 
+            System.out.println(query.getSingleResult());
+            System.out.println(query2.getSingleResult());
+
+            return query.getSingleResult() + "-" + query2.getSingleResult();
+        } catch (Exception e) {
+            return (String) query.getSingleResult();
+        }
     }
 
 

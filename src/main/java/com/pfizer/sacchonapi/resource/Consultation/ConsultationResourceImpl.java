@@ -3,7 +3,9 @@ package com.pfizer.sacchonapi.resource.Consultation;
 import com.pfizer.sacchonapi.exception.BadEntityException;
 import com.pfizer.sacchonapi.exception.NotFoundException;
 import com.pfizer.sacchonapi.model.Consultation;
+import com.pfizer.sacchonapi.model.Patient;
 import com.pfizer.sacchonapi.repository.ConsultationRepository;
+import com.pfizer.sacchonapi.repository.PatientRepository;
 import com.pfizer.sacchonapi.repository.util.JpaUtil;
 import com.pfizer.sacchonapi.representation.ConsultationRepresentation;
 import com.pfizer.sacchonapi.resource.util.ResourceValidator;
@@ -21,6 +23,7 @@ public class ConsultationResourceImpl extends ServerResource implements Consulta
     public static final Logger LOGGER = Engine.getLogger(ConsultationResourceImpl.class);
     private long cid;
     private ConsultationRepository consultationRepository;
+    private PatientRepository patientRepository;
     private EntityManager em;
 
     @Override
@@ -78,7 +81,7 @@ public class ConsultationResourceImpl extends ServerResource implements Consulta
     @Override
     public ConsultationRepresentation store(ConsultationRepresentation consultationReprIn) throws NotFoundException, BadEntityException {
         LOGGER.finer("Update a consultation.");
-        ResourceUtils.checkRole(this, Shield.patient);
+        ResourceUtils.checkRole(this, Shield.doctor);
         LOGGER.finer("User allowed to update a consultation.");
 
         ResourceValidator.notNull(consultationReprIn);
@@ -92,7 +95,13 @@ public class ConsultationResourceImpl extends ServerResource implements Consulta
             setExisting(oConsultation.isPresent());
             if (isExisting()) {
                 LOGGER.finer("Update consultation.");
+                 Patient patient = oConsultation.get().getPatient();
+
                 consultationOut = consultationRepository.update(consultationIn);
+
+                patient.setModified(true);
+                patientRepository.update(patient);
+
                 if (!consultationOut.isPresent()) {
                     LOGGER.finer("Consultation does not exist.");
                     throw new NotFoundException("Consultation with the following id does not exist: " + cid);

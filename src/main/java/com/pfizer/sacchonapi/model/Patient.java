@@ -17,6 +17,7 @@ public class Patient {
     private boolean hasConsultation;
     private boolean consultationPending;
     private boolean hasDoctor;
+    private boolean modified;
 
     @OneToOne
     @JoinColumn(name= "user_username")

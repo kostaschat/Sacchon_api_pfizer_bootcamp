@@ -89,7 +89,7 @@ public class ApplicationUserListResourceImpl extends ServerResource implements A
                     Patient patient = new Patient();
                     patient.setHasConsultation(false);
                     patient.setHasDoctor(false);
-                    patient.setConsultationPending(true);
+                    patient.setConsultationPending(false);
                     patient.setApplicationUser(userOut);
                     patientRepository.save(patient);
                     userOut.setId(patient.getId());

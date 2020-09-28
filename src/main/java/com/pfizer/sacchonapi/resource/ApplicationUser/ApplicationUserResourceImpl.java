@@ -67,7 +67,6 @@ public class ApplicationUserResourceImpl extends ServerResource implements Appli
     @Override
     public ApplicationUserRepresentation consultPatient() throws NotFoundException, BadEntityException {
 
-
         ResourceUtils.checkRole(this, Shield.doctor);
         Long uid = 0l;
 
@@ -133,7 +132,7 @@ public class ApplicationUserResourceImpl extends ServerResource implements Appli
             if (user.isPresent()) {
                 userOut = user.get();
                 userOut.setActive(false);
-                if(user.get().getRole().equals("doctor"))
+                if(user.get().getRole().getRoleName().equals("doctor"))
                 {
                     did = userOut.getDoctor().getId();
                     //find the patients of this doctor and make their doctor id null

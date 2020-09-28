@@ -31,6 +31,19 @@ public class MediDataRepository {
                 .getResultList();
     }
 
+    public List<MediData> findMediDataWithNoConsultation(long pId) {
+
+        Session s = (Session) entityManager.getDelegate();
+        String sql = "SELECT M.* " +
+                "FROM MediData M " +
+                "INNER JOIN Patient P " +
+                "on M.patient_id = P.id WHERE M.patient_id  = :pId AND M.consultation_id is null";
+        NativeQuery query = s.createSQLQuery(sql);
+        query.setParameter("pId", pId);
+        query.addEntity(MediData.class);
+        return query.getResultList();
+    }
+
     public List<MediData> findMediData(long pid, long d_id) {
 
         Session s = (Session) entityManager.getDelegate();
