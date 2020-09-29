@@ -97,7 +97,7 @@ public class MediDataListResourceImpl extends ServerResource implements MediData
 
                 long d_id = doctorOut.getId();
 
-                mediData = mediDataRepository.findMediData(pid, d_id);
+                mediData = mediDataRepository.findMediDataWithNoConsultation(pid, d_id);
             } else {
                 Role role;
 
@@ -119,7 +119,7 @@ public class MediDataListResourceImpl extends ServerResource implements MediData
                         throw new NotFoundException("No patient with name : " + username);
                     }
                     long id = patientOut.getId();
-                    mediData = mediDataRepository.findMediData(id);
+                    mediData = mediDataRepository.findMediDataWithNoConsultation(id);
                 }
             }
             mediData.forEach(m -> result.add(new MediDataRepresentation(m)));

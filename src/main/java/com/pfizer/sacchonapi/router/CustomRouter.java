@@ -7,6 +7,7 @@ import com.pfizer.sacchonapi.resource.ChiefDoctor.ChiefDoctorListResourceImpl;
 import com.pfizer.sacchonapi.resource.Consultation.ConsultationListResourceImpl;
 import com.pfizer.sacchonapi.resource.Consultation.ConsultationResourceImpl;
 import com.pfizer.sacchonapi.resource.Login.LoginResourceImpl;
+import com.pfizer.sacchonapi.resource.MediData.MediDataConsultationResourceImpl;
 import com.pfizer.sacchonapi.resource.MediData.MediDataListResourceImpl;
 import com.pfizer.sacchonapi.resource.MediData.MediDataResourceImpl;
 import com.pfizer.sacchonapi.resource.Patient.PatientListResourceImpl;
@@ -29,6 +30,9 @@ public class CustomRouter {
         //doctor-patient remove his account
         router.attach("/remove-account", ApplicationUserResourceImpl.class);
         router.attach("/remove-account/", ApplicationUserResourceImpl.class);
+
+        //medidata of a consultation
+        router.attach("/medidata-consultation/{cid}", MediDataConsultationResourceImpl.class);
 
         //patient browse a specific medidata
         router.attach("/medidata/{id}", MediDataResourceImpl.class);
@@ -54,13 +58,13 @@ public class CustomRouter {
         //doctor browse the consultations of a patient
         router.attach("/consultations/{pid}", ConsultationListResourceImpl.class);
 
-        //doctor browse medical data of a patient
+        //doctor browse medical data of a patient(medical data of last month only)
         router.attach("/all-medidata/{pid}", MediDataListResourceImpl.class);
 
         //doctor consults a new patient
         router.attach("/consult-patient/{pid}", ApplicationUserResourceImpl.class);
 
-        //patient browse all his medical data
+        //patient browse all his medical data(medical data of last month only))
         router.attach("/medidata", MediDataListResourceImpl.class);
         router.attach("/medidata/", MediDataListResourceImpl.class);
 

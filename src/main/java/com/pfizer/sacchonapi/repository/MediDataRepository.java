@@ -25,10 +25,20 @@ public class MediDataRepository {
         return mediData != null ? Optional.of(mediData) : Optional.empty();
     }
 
-    public List<MediData> findMediData(long id) {
-        return entityManager.createQuery("FROM MediData WHERE patient_id = :id")
-                .setParameter("id", id)
-                .getResultList();
+//    public List<MediData> findMediData(long id) {
+//        return entityManager.createQuery("FROM MediData WHERE patient_id = :id")
+//                .setParameter("id", id)
+//                .getResultList();
+//    }
+    public List<MediData> findConsultationMedi(long cId){
+        Session s = (Session) entityManager.getDelegate();
+        String sql = "SELECT M.* " +
+                "FROM MediData M " +
+                "WHERE M.consultation_id = :cId";
+        NativeQuery query = s.createSQLQuery(sql);
+        query.setParameter("cId", cId);
+        query.addEntity(MediData.class);
+        return query.getResultList();
     }
 
     public List<MediData> findMediDataWithNoConsultation(long pId) {
@@ -44,19 +54,33 @@ public class MediDataRepository {
         return query.getResultList();
     }
 
-    public List<MediData> findMediData(long pid, long d_id) {
+    public List<MediData> findMediDataWithNoConsultation(long pId, long dId) {
 
         Session s = (Session) entityManager.getDelegate();
         String sql = "SELECT M.* " +
                 "FROM MediData M " +
                 "INNER JOIN Patient P " +
-                "on M.patient_id = P.id WHERE M.patient_id  = :pid AND P.doctor_id =:d_id";
+                "on M.patient_id = P.id WHERE M.patient_id  = :pId AND P.doctor_id =:dId AND M.consultation_id is null";
         NativeQuery query = s.createSQLQuery(sql);
-        query.setParameter("d_id", d_id);
-        query.setParameter("pid", pid);
+        query.setParameter("dId", dId);
+        query.setParameter("pId", pId);
         query.addEntity(MediData.class);
         return query.getResultList();
     }
+
+//    public List<MediData> findMediData(long pid, long d_id) {
+//
+//        Session s = (Session) entityManager.getDelegate();
+//        String sql = "SELECT M.* " +
+//                "FROM MediData M " +
+//                "INNER JOIN Patient P " +
+//                "on M.patient_id = P.id WHERE M.patient_id  = :pid AND P.doctor_id =:d_id";
+//        NativeQuery query = s.createSQLQuery(sql);
+//        query.setParameter("d_id", d_id);
+//        query.setParameter("pid", pid);
+//        query.addEntity(MediData.class);
+//        return query.getResultList();
+//    }
 
     public List<MediData> findMonitoredMediData(long pid, String startDate, String endDate)
     {

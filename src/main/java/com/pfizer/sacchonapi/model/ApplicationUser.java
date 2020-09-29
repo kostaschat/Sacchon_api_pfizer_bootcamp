@@ -53,5 +53,6 @@ public class ApplicationUser{
         this.phoneNumber = applicationUser.getPhoneNumber();
         this.dob = applicationUser.getDob();
         this.creationDate = applicationUser.getCreationDate();
+        this.id = applicationUser.getId();
     }
 }
