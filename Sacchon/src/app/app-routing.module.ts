@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ChiefdoctorModule } from './chiefdoctor/chiefdoctor.module';
 import { DoctorsInactiveComponent } from './chiefdoctor/doctors-inactive/doctors-inactive.component';
+import { PendingListComponent } from './chiefdoctor/pending-list/pending-list.component';
 import { ConsultationsInsertComponent } from './consultations/consultations-insert/consultations-insert.component';
 import { ConsultationsListComponent } from './consultations/consultations-list/consultations-list.component';
 import { ConsultationsModule } from './consultations/consultations.module';
@@ -64,7 +65,12 @@ const routes: Routes = [
   },
   {
     path: 'edit', component: MediUpdateComponent
+  },
+  {
+    path: 'chiefdoctor/pending-list', component: PendingListComponent
   }
+
+
 
 ];
 

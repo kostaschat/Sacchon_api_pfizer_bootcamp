@@ -25,6 +25,5 @@ export class ConsultationsListComponent implements OnInit {
     }
   }
 
-  
 
 }
