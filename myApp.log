@@ -5841,3 +5841,48 @@ Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot drop the tabl
 2020-09-29 12:03:27,702 INFO [main] o.e.j.s.Server [Server.java:374] jetty-9.4.11.v20180605; built: 2018-06-05T18:24:03.829Z; git: d5fc0523cfa96bfebfbda19606cad384d772f04c; jvm 11.0.8+10-LTS
 2020-09-29 12:03:27,741 INFO [main] o.e.j.s.AbstractConnector [AbstractConnector.java:289] Started ServerConnector@3dbd7107{HTTP/1.1,[http/1.1]}{0.0.0.0:9000}
 2020-09-29 12:03:27,742 INFO [main] o.e.j.s.Server [Server.java:411] Started @4169ms
+2020-09-29 13:25:14,996 INFO [main] o.h.j.i.u.LogHelper [LogHelper.java:31] HHH000204: Processing PersistenceUnitInfo [name: PERSISTENCE]
+2020-09-29 13:25:15,246 INFO [main] o.h.Version [Version.java:46] HHH000412: Hibernate Core {5.4.1.Final}
+2020-09-29 13:25:15,748 INFO [main] o.h.a.c.Version [JavaReflectionManager.java:49] HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-09-29 13:25:16,370 WARN [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:72] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-09-29 13:25:16,506 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:115] HHH10001005: using driver [com.microsoft.sqlserver.jdbc.SQLServerDriver] at URL [jdbc:sqlserver://localhost;databaseName=sacchon3]
+2020-09-29 13:25:16,507 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:124] HHH10001001: Connection properties: {password=****, user=sa}
+2020-09-29 13:25:16,508 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:129] HHH10001003: Autocommit mode: false
+2020-09-29 13:25:16,514 INFO [main] o.h.e.j.c.i.DriverManagerConnectionProviderImpl [DriverManagerConnectionProviderImpl.java:239] HHH000115: Hibernate connection pool size: 20 (min=1)
+2020-09-29 13:25:16,862 INFO [main] o.h.d.Dialect [Dialect.java:158] HHH000400: Using dialect: org.hibernate.dialect.SQLServer2012Dialect
+2020-09-29 13:25:18,369 INFO [main] o.h.o.c.access [DdlTransactionIsolatorNonJtaImpl.java:47] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@500051c5] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2020-09-29 13:25:18,656 INFO [main] o.h.e.t.j.p.i.JtaPlatformInitiator [JtaPlatformInitiator.java:52] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-09-29 13:25:18,807 INFO [main] o.e.j.u.log [Log.java:193] Logging initialized @5353ms to org.eclipse.jetty.util.log.Slf4jLog
+2020-09-29 13:25:18,880 INFO [main] o.e.j.s.Server [Server.java:374] jetty-9.4.11.v20180605; built: 2018-06-05T18:24:03.829Z; git: d5fc0523cfa96bfebfbda19606cad384d772f04c; jvm 11.0.8+10-LTS
+2020-09-29 13:25:18,942 INFO [main] o.e.j.s.AbstractConnector [AbstractConnector.java:289] Started ServerConnector@3dbd7107{HTTP/1.1,[http/1.1]}{0.0.0.0:9000}
+2020-09-29 13:25:18,943 INFO [main] o.e.j.s.Server [Server.java:411] Started @5489ms
+2020-09-29 13:28:24,315 INFO [main] o.h.j.i.u.LogHelper [LogHelper.java:31] HHH000204: Processing PersistenceUnitInfo [name: PERSISTENCE]
+2020-09-29 13:28:24,425 INFO [main] o.h.Version [Version.java:46] HHH000412: Hibernate Core {5.4.1.Final}
+2020-09-29 13:28:24,790 INFO [main] o.h.a.c.Version [JavaReflectionManager.java:49] HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-09-29 13:28:25,444 WARN [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:72] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-09-29 13:28:25,590 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:115] HHH10001005: using driver [com.microsoft.sqlserver.jdbc.SQLServerDriver] at URL [jdbc:sqlserver://localhost;databaseName=sacchon3]
+2020-09-29 13:28:25,591 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:124] HHH10001001: Connection properties: {password=****, user=sa}
+2020-09-29 13:28:25,592 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:129] HHH10001003: Autocommit mode: false
+2020-09-29 13:28:25,598 INFO [main] o.h.e.j.c.i.DriverManagerConnectionProviderImpl [DriverManagerConnectionProviderImpl.java:239] HHH000115: Hibernate connection pool size: 20 (min=1)
+2020-09-29 13:28:26,023 INFO [main] o.h.d.Dialect [Dialect.java:158] HHH000400: Using dialect: org.hibernate.dialect.SQLServer2012Dialect
+2020-09-29 13:28:27,640 INFO [main] o.h.o.c.access [DdlTransactionIsolatorNonJtaImpl.java:47] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@3e39baf0] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2020-09-29 13:28:27,911 INFO [main] o.h.e.t.j.p.i.JtaPlatformInitiator [JtaPlatformInitiator.java:52] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-09-29 13:28:28,082 INFO [main] o.e.j.u.log [Log.java:193] Logging initialized @5086ms to org.eclipse.jetty.util.log.Slf4jLog
+2020-09-29 13:28:28,142 INFO [main] o.e.j.s.Server [Server.java:374] jetty-9.4.11.v20180605; built: 2018-06-05T18:24:03.829Z; git: d5fc0523cfa96bfebfbda19606cad384d772f04c; jvm 11.0.8+10-LTS
+2020-09-29 13:28:28,183 INFO [main] o.e.j.s.AbstractConnector [AbstractConnector.java:289] Started ServerConnector@67e0fd6d{HTTP/1.1,[http/1.1]}{0.0.0.0:9000}
+2020-09-29 13:28:28,183 INFO [main] o.e.j.s.Server [Server.java:411] Started @5188ms
+2020-09-29 13:31:39,379 INFO [main] o.h.j.i.u.LogHelper [LogHelper.java:31] HHH000204: Processing PersistenceUnitInfo [name: PERSISTENCE]
+2020-09-29 13:31:39,571 INFO [main] o.h.Version [Version.java:46] HHH000412: Hibernate Core {5.4.1.Final}
+2020-09-29 13:31:39,999 INFO [main] o.h.a.c.Version [JavaReflectionManager.java:49] HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-09-29 13:31:40,649 WARN [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:72] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-09-29 13:31:40,802 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:115] HHH10001005: using driver [com.microsoft.sqlserver.jdbc.SQLServerDriver] at URL [jdbc:sqlserver://localhost;databaseName=sacchon3]
+2020-09-29 13:31:40,802 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:124] HHH10001001: Connection properties: {password=****, user=sa}
+2020-09-29 13:31:40,803 INFO [main] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:129] HHH10001003: Autocommit mode: false
+2020-09-29 13:31:40,807 INFO [main] o.h.e.j.c.i.DriverManagerConnectionProviderImpl [DriverManagerConnectionProviderImpl.java:239] HHH000115: Hibernate connection pool size: 20 (min=1)
+2020-09-29 13:31:41,247 INFO [main] o.h.d.Dialect [Dialect.java:158] HHH000400: Using dialect: org.hibernate.dialect.SQLServer2012Dialect
+2020-09-29 13:31:42,728 INFO [main] o.h.o.c.access [DdlTransactionIsolatorNonJtaImpl.java:47] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@306c7bf6] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2020-09-29 13:31:43,007 INFO [main] o.h.e.t.j.p.i.JtaPlatformInitiator [JtaPlatformInitiator.java:52] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-09-29 13:31:43,200 INFO [main] o.e.j.u.log [Log.java:193] Logging initialized @5188ms to org.eclipse.jetty.util.log.Slf4jLog
+2020-09-29 13:31:43,259 INFO [main] o.e.j.s.Server [Server.java:374] jetty-9.4.11.v20180605; built: 2018-06-05T18:24:03.829Z; git: d5fc0523cfa96bfebfbda19606cad384d772f04c; jvm 11.0.8+10-LTS
+2020-09-29 13:31:43,326 INFO [main] o.e.j.s.AbstractConnector [AbstractConnector.java:289] Started ServerConnector@e91af20{HTTP/1.1,[http/1.1]}{0.0.0.0:9000}
+2020-09-29 13:31:43,326 INFO [main] o.e.j.s.Server [Server.java:411] Started @5314ms

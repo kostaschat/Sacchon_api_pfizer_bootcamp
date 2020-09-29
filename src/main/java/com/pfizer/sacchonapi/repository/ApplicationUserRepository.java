@@ -154,9 +154,9 @@ public class ApplicationUserRepository {
 //    }
 
     public String findByDetails(String username, String password) {
-
+    try {
         Session s = (Session) entityManager.getDelegate();
-        String sql = "SELECT A.role FROM ApplicationUser A where A.username = :username and A.password = :password";
+        String sql = "SELECT A.role FROM ApplicationUser A where A.username = :username and A.password = :password and A.active = 1";
         NativeQuery query = s.createSQLQuery(sql);
         query.setParameter("username", username);
         query.setParameter("password", password);
@@ -174,6 +174,9 @@ public class ApplicationUserRepository {
         } catch (Exception e) {
             return (String) query.getSingleResult();
         }
+    }catch (Exception e) {
+        return null;
+    }
     }
 
 
