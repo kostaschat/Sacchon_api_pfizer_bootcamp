@@ -24,14 +24,14 @@ public class ConsultationRepository {
 
     public List<Consultation> findPatientCons(long id) {
 
-        return entityManager.createQuery("FROM Consultation WHERE patient_id = :id")
+        return entityManager.createQuery("FROM Consultation WHERE patient_id = :id ORDER BY ConsultationDate DESC")
                 .setParameter("id", id)
                 .getResultList();
     }
 
     public List<Consultation> findPatientCons(long p_id, long d_id) {
 
-        return entityManager.createQuery("FROM Consultation WHERE patient_id = :p_id AND doctor_id = :d_id")
+        return entityManager.createQuery("FROM Consultation WHERE patient_id = :p_id AND doctor_id = :d_id ORDER BY ConsultationDate DESC")
                 .setParameter("p_id", p_id)
                 .setParameter("d_id", d_id)
                 .getResultList();

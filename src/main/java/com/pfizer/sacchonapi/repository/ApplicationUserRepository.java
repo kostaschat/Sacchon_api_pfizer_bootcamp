@@ -25,8 +25,12 @@ public class ApplicationUserRepository {
         return userTable != null ? Optional.of(userTable) : Optional.empty();
     }
 
-    public List<ApplicationUser> findAll() {
-        return entityManager.createQuery("from ApplicationUser").getResultList();
+    public List<ApplicationUser> findAllPatients() {
+        return entityManager.createQuery("from ApplicationUser WHERE role = 'patient'").getResultList();
+    }
+
+    public List<ApplicationUser> findAllDoctors() {
+        return entityManager.createQuery("from ApplicationUser WHERE role = 'doctor'").getResultList();
     }
 
     public List<ApplicationUser> findAvailablePatients() {

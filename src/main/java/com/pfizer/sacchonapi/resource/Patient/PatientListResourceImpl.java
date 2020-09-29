@@ -54,7 +54,7 @@ public class PatientListResourceImpl extends ServerResource implements PatientLi
 
     @Override
     public List<ApplicationUserRepresentation> getPatients() throws NotFoundException {
-        ResourceUtils.checkRole(this, Shield.doctor);
+        ResourceUtils.checkRoles(this, Shield.doctor, Shield.chiefDoctor);
 
         List<Patient> patients;
         long did;
@@ -65,19 +65,23 @@ public class PatientListResourceImpl extends ServerResource implements PatientLi
             String currentUser = request.getClientInfo().getUser().getName();
             Optional<ApplicationUser> user = applicationUserRepository.findByUsername(currentUser);
 
-            if (user.isPresent()) {
-                did = user.get().getDoctor().getId();
-            } else {
-                LOGGER.config("This doctor cannon be found in the database:" + currentUser);
-                throw new NotFoundException("No doctor with name: " + currentUser);
-            }
-
-            //return the patients a doctor consults
-            List<ApplicationUser> users = applicationUserRepository.findMyPatients(did);
             List<ApplicationUserRepresentation> result = new ArrayList<>();
 
-            users.forEach(p -> result.add(new ApplicationUserRepresentation(p)));
+            if (user.get().getRole().getRoleName() == "doctor") {
+                if (user.isPresent()) {
+                    did = user.get().getDoctor().getId();
+                } else {
+                    LOGGER.config("This doctor cannon be found in the database:" + currentUser);
+                    throw new NotFoundException("No doctor with name: " + currentUser);
+                }
 
+                //return the patients a doctor consults
+                List<ApplicationUser> users = applicationUserRepository.findMyPatients(did);
+                users.forEach(p -> result.add(new ApplicationUserRepresentation(p)));
+            }else {
+                List<ApplicationUser> users = applicationUserRepository.findAllPatients();
+                users.forEach(p -> result.add(new ApplicationUserRepresentation(p)));
+            }
             return result;
         } catch (Exception e) {
             throw new NotFoundException("Users not found");

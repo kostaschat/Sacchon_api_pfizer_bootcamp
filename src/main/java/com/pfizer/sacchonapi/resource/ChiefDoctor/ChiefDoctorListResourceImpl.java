@@ -55,10 +55,15 @@ public class ChiefDoctorListResourceImpl extends ServerResource implements Chief
         ResourceUtils.checkRole(this, Shield.chiefDoctor);
 
         try {
-            List<ApplicationUser> applicationUsers = applicationUserRepository.findInactiveDoctors(fromDate,toDate);
             List<ApplicationUserRepresentation> result = new ArrayList<>();
 
-            applicationUsers.forEach(user -> result.add(new ApplicationUserRepresentation(user)));
+            if (fromDate != null) {
+                List<ApplicationUser> applicationUsers = applicationUserRepository.findInactiveDoctors(fromDate, toDate);
+                applicationUsers.forEach(user -> result.add(new ApplicationUserRepresentation(user)));
+            } else {
+                List<ApplicationUser> applicationUsers = applicationUserRepository.findAllDoctors();
+                applicationUsers.forEach(user -> result.add(new ApplicationUserRepresentation(user)));
+            }
             return result;
         } catch (Exception e) {
             throw new NotFoundException("doctors not found");

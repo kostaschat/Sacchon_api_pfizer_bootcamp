@@ -44,9 +44,11 @@ public class CustomRouter {
         router.attach("/patients", ApplicationUserListResourceImpl.class);
         router.attach("/patients/", ApplicationUserListResourceImpl.class);
 
-        //doctor browse his patients
+        //doctor browse his patients or chief browse all patients
         router.attach("/my-patients", PatientListResourceImpl.class);
         router.attach("/my-patients/", PatientListResourceImpl.class);
+
+
 
         //patient remove the modification mesagge
         router.attach("/error-modify", PatientListResourceImpl.class);
@@ -89,6 +91,8 @@ public class CustomRouter {
         router.attach("/patients/consultation-pending", PatientUserListResourceImpl.class);
 
         //chiefDoctor browse a list of the doctors with no activity over a time range
+        //or all doctors
+        router.attach("/inactive-doctors", ChiefDoctorListResourceImpl.class);
         router.attach("/inactive-doctors/{fromdate}/{todate}", ChiefDoctorListResourceImpl.class);
 
         //chiefDoctor browse a list of the patients with no activity over a time range
