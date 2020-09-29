@@ -12,9 +12,10 @@ import { MatSortModule } from '@angular/material/sort';
 import { NavComponent } from './nav/nav.component';
 import { MediDataModule } from './medi-data/medi-data.module';
 import { ConsultationsModule } from './consultations/consultations.module';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { ChartsModule, MDBBootstrapModule, WavesModule } from 'angular-bootstrap-md';
 import { PatientModule } from './patient/patient.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 
 
