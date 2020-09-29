@@ -10,9 +10,9 @@ import { Observable } from 'rxjs';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  res: any;
+  res: string;
   form :FormGroup;
-  
+ 
   constructor(private router: Router, private http: HttpClient) { }
  
 
@@ -34,15 +34,21 @@ export class LoginComponent implements OnInit {
     this.http.post(this.url, data,{ responseType:'text'}).subscribe(
         (response) => {
           this.res = response;
-          console.log(this.res)
+          
+         var splitter = this.res.split("-")
 
-          if (this.res != null){
+          if (splitter[0] == "patient"){
             sessionStorage.setItem("credentials", data.username + ":" + data.password)
-            sessionStorage.setItem("role", this.res)
+            sessionStorage.setItem("role", splitter[0])
+            sessionStorage.setItem("username", data.username)
+            sessionStorage.setItem("modified", splitter[1])
+            this.router.navigate(['dashboard'])
+           }else if (splitter[0] != "patient"){
+            sessionStorage.setItem("credentials", data.username + ":" + data.password)
+            sessionStorage.setItem("role", splitter[0])
             sessionStorage.setItem("username", data.username)
             this.router.navigate(['dashboard'])
-           }
-           else {
+           }else {
             alert("Wrong login or password");
           }
         }

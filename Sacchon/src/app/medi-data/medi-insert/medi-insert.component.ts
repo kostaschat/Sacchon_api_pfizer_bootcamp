@@ -8,6 +8,7 @@ import { MediDataService } from '../medi-data.service';
   styleUrls: ['./medi-insert.component.scss']
 })
 export class MediInsertComponent implements OnInit {
+  res: any;
   form: FormGroup;
 
   constructor(private mediDataService: MediDataService) { }
@@ -21,10 +22,19 @@ export class MediInsertComponent implements OnInit {
   }
 
   formSumbit(){
-    this.mediDataService.addMedi(this.form).subscribe(data => {
-      alert(JSON.stringify(data));
-      this.ngOnInit();
-    })
+    this.mediDataService.addMedi(this.form).subscribe(
+      (response) => {
+        this.res = response;
+        console.log(this.res)
+
+        if (this.res != null){
+          alert("Medical Data entered successfully ")
+         }
+         else {
+          alert("Please wait a doctor to consult your previous Medical Data, before adding a new one");
+        }
+      } 
+    )
     
   }
 }

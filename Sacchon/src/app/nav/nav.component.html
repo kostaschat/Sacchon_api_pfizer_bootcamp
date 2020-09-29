@@ -1,26 +1,26 @@
 <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
-    <a class="navbar-brand" [routerLink]="['dashboard']">Sacchon</a>
+    <a class="navbar-brand" [routerLink]="['dashboard']"><img src="assets\images\logo.png" style="width: 80px; "></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="navbar-collapse collapse">
+    <div class="navbar-collapse collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link"[routerLink]="['dashboard']">Home <span class="sr-only">(current)</span></a>
+        <li class="nav-item">
+          <a class="nav-link"[routerLink]="['dashboard']">Home </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['consultations']">Consultation</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Data
+            Medical Data
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" [routerLink]="['medi/list-data']">View</a>
+            <a class="dropdown-item" [routerLink]="['medi/list-data']">View Charts</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" [routerLink]="['medi/insert']">Insert</a>
+            <a class="dropdown-item" [routerLink]="['medi/insert']">Insert Data</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" [routerLink]="['dashboard']">Edit</a>
+            <a class="dropdown-item" [routerLink]="['dashboard']">Edit Data</a>
           </div>
           
         </li>
@@ -38,12 +38,13 @@
         </li>
 
       </ul>
-      <ul class="navbar-nav ml-auto">
-        <div *ngIf="sessionStorage.getItem('credentials') == null" style="display:inline-flex;">    
+      <ul class="navbar-nav ml-auto pr-5">
+        <div *ngIf="sessionStorage.getItem('credentials') == null">    
           <li class="nav-item">  
            <a class="nav-link" [routerLink]="['login']">Login</a> 
           </li>
-       
+        </div>
+        <div *ngIf="sessionStorage.getItem('credentials') == null"> 
           <li class="nav-item">           
            <a class="nav-link" [routerLink]="['register']" > Register</a> 
           </li>         
@@ -52,7 +53,7 @@
         <div *ngIf="sessionStorage.getItem('credentials') != null">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="account" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-user"></i> Hello {{sessionStorage.getItem('username')}}!</a>
+            <i class="fa fa-user-o"></i> Hello {{sessionStorage.getItem('username')}}!</a>
             <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="account">           
                 <a class="nav-link" [routerLink]="['logout']" > Log out</a>     
             </div>

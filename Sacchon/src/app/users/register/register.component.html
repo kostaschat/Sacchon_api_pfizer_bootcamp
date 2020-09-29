@@ -1,74 +1,147 @@
-
-<form [formGroup]="form"  style=" width: 50%; margin: auto;">
-  
-    <div class="form-group">
-      <label  for="email">Email</label>
-      <input  type="text"
-              class="form-control"
-              id="email"
-              placeholder="Enter email"
-              formControlName="email">
-  
-      <div *ngIf="form.get('email').errors?.required && form.get('email').dirty" class="text-danger">
-        Field is required
-      </div>
+<div class="container">
+  <div class="card" style="border:none;margin-top:50px;">
+  <article class="card-body" style="margin:auto; width: 80%;">
+    <h4 class="card-title mt-3 text-center">Create Account</h4>
+    <p class="text-center">Get started with your free account</p>
+    <p class="divider-text">
+      <span></span>
+    </p>
+    <form [formGroup]="form">
+    <div class="row">
+    <div class="col-md-6">
+      <div class="form-group input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+        </div>
+        <input  type="text"
+        class="form-control"
+        id="username"
+        placeholder="Username"
+        formControlName="username"> 
+      </div> <!-- form-group// -->
     </div>
+    <div class="col-md-6">
+      <div class="form-group input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+       </div>
+       <input  type="text"
+       class="form-control"
+       id="email"
+       placeholder="Email address "
+       formControlName="email">
 
-    <div class="form-group">
-      <label  for="username">Username</label>
-      <input  type="text"
-              class="form-control"
-              id="username"
-              placeholder="Enter username"
-              formControlName="username">
-  
-      <div *ngIf="form.get('username').errors?.required && form.get('username').dirty" class="text-danger">
+        <div *ngIf="form.get('email').errors?.required && form.get('email').dirty" class="text-danger">
         Field is required
-      </div>
+        </div>
+      </div> <!-- form-group// -->
     </div>
-  
-    <div class="form-group">
-      <label  for="password">Password</label>
-      <input  type="text"
-              class="form-control"
-              id="password"
-              placeholder="Enter password"
-              formControlName="password">
-  
-      <div *ngIf="form.get('password').errors?.required && form.get('password').dirty" class="text-danger">
-        Field is required
-      </div>
-    </div>
- 
-
-    <div class="form-group">
-      <label  for="firstName">First Name</label>
-      <input  type="text"
+    <div class="col-md-6">
+      <div class="form-group input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"> <i class="fa fa-pencil"></i> </span>
+       </div>
+       <input  type="text"
               class="form-control"
               id="firstName"
-              placeholder="Enter first name"
+              placeholder="First name"
               formControlName="firstName">
   
       <div *ngIf="form.get('firstName').errors?.required && form.get('firstName').dirty" class="text-danger">
         Field is required
       </div>
+      </div> <!-- form-group// -->
     </div>
-
-    <div class="form-group">
-      <label  for="lastName">Last Name</label>
-      <input  type="text"
+    <div class="col-md-6">
+      <div class="form-group input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"> <i class="fa fa-pencil"></i> </span>
+       </div>
+       <input  type="text"
               class="form-control"
               id="lastName"
-              placeholder="Enter last name"
+              placeholder="Last name"
               formControlName="lastName">
   
       <div *ngIf="form.get('lastName').errors?.required && form.get('lastName').dirty" class="text-danger">
         Field is required
       </div>
+      </div> <!-- form-group// -->
     </div>
-      
-      {{form.value | json}}  
-        <!-- //[disabled]="!form.valid" -->
-    <button type="submit" (click)="formRegisterSumbit()" class="btn btn-primary">Submit</button>
+    <div class="col-md-6">
+      <div class="form-group input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+      </div>
+          <input  type="text"
+          class="form-control"
+          id="phoneNumber"
+          placeholder="Phone number"
+          formControlName="phoneNumber">
+
+          <div *ngIf="form.get('phoneNumber').errors?.required && form.get('phoneNumber').dirty" class="text-danger">
+          Field is required
+          </div>
+      </div> <!-- form-group// -->
+    </div>
+    <div class="col-md-6">
+      <div class="form-group input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"> <i class="fa fa-map-marker"></i> </span>
+      </div>
+          <input  type="text"
+          class="form-control"
+          id="address"
+          placeholder="Address"
+          formControlName="address">
+
+          <div *ngIf="form.get('address').errors?.required && form.get('address').dirty" class="text-danger">
+          Field is required
+          </div>
+      </div> <!-- form-group// -->
+    </div>
+    <div class="col-md-6">
+      <div class="form-group input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"> <i class="fa fa-calendar-o"></i> </span>
+        </div>
+          <input  type="date"
+          class="form-control"
+          id="dob"
+          placeholder="Date of birth"
+          formControlName="dob">
+
+          <div *ngIf="form.get('dob').errors?.required && form.get('dob').dirty" class="text-danger">
+          Field is required
+          </div>
+      </div> <!-- form-group// -->
+    </div>
+    <div class="col-md-6">
+      <div class="form-group input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+        </div>
+            <input  type="password"
+            class="form-control"
+            id="password"
+            placeholder="Enter password"
+            formControlName="password">
+
+        <div *ngIf="form.get('password').errors?.required && form.get('password').dirty" class="text-danger">
+        Field is required
+        </div>
+      </div> <!-- form-group// -->
+    </div>
+    <div class="col-md-6 mx-auto">
+      <div class="form-group">
+          <button type="submit" (click)="formRegisterSumbit()" class="btn btn-primary btn-block">Create Account</button>
+      </div> <!-- form-group// -->      
+    </div>
+    <div class="col-md-12 mx-auto">
+      <p class="text-center">Have an account? <a [routerLink] = "'/login'">Log In</a> </p> 
+    </div>
+  </div>                                                                
   </form>
- 
+  </article>
+  </div> 
+</div> 
