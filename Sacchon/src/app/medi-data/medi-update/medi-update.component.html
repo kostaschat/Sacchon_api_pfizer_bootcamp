@@ -1,0 +1,35 @@
+ <!-- /carb -->
+ <form [formGroup]="formUpdate" (submit)="formSubmit()" style=" width: 50%; margin: auto;">
+    <!-- carb  -->
+    <div class="form-group">
+      <label  for="carb">Carbs (grams) </label>
+      <input  type="number"
+              class="form-control"
+              id="carb"
+              placeholder="carb"
+              formControlName="carb">
+  
+      <div *ngIf="formUpdate.get('carb').errors?.required && formUpdate.get('carb').dirty" class="text-danger">
+        Field is required
+      </div>
+    </div>
+    <!-- /carb -->
+    <!-- glucose  -->
+    <div class="form-group">
+        <label  for="glucose">Glucose ( mg/dL) </label>
+        <input  type="number"
+                class="form-control"
+                id="glucose"
+                placeholder="Enter the glucose"
+                formControlName="glucose">
+    
+        <div *ngIf="formUpdate.get('glucose').errors?.required && formUpdate.get('glucose').dirty" class="text-danger">
+          Field is required
+        </div>
+      </div>
+      <!-- /carb -->
+      
+      {{formUpdate.value | json}}  
+        //[disabled]="!form.valid"
+    <button type="submit" class="btn btn-primary"   >Submit</button>
+  </form> 

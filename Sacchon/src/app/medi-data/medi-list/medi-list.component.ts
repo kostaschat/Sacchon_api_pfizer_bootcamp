@@ -29,7 +29,13 @@ export class MediListComponent implements OnInit {
     }
   }
 
-  onClickUpdate(event, medi){
-      console.log(medi);
+  onClickUpdate(url, uri){
+    this.router.navigate([url], {queryParams:{uri : uri}}).then( (e) => {
+      if (e) {
+        console.log("Navigation is successful!");
+      } else {
+        console.log("Navigation has failed!");
+      }
+    }); 
   }
 }

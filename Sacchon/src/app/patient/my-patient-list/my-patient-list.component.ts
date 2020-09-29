@@ -32,7 +32,7 @@ export class MyPatientListComponent implements OnInit {
       console.log("is it checked" + values.currentTarget.checked)
       this.patientService.getMyUnconsultedPatients().subscribe(p => {this.patients = p; this.checkedTheUnconsulted = true; console.log(this.patients)});
     }else {
-      this.patientService.getMyPatients().subscribe(p => this.patients = p);
+      this.patientService.getMyPatients().subscribe(p => {this.patients = p; this.checkedTheUnconsulted = false});
     }
   }
 

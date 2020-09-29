@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
         (response) => {
           this.res = response;
           
+        if (this.res != null){
          var splitter = this.res.split("-")
 
           if (splitter[0] == "patient"){
@@ -48,10 +49,11 @@ export class LoginComponent implements OnInit {
             sessionStorage.setItem("role", splitter[0])
             sessionStorage.setItem("username", data.username)
             this.router.navigate(['dashboard'])
-           }else {
+           }
+        }else {
             alert("Wrong login or password");
-          }
         }
+     }
     )
     return this.http.get<any>(this.url+'/auth',{ params:data});
   }

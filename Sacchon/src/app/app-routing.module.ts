@@ -1,6 +1,8 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ChiefdoctorModule } from './chiefdoctor/chiefdoctor.module';
+import { DoctorsInactiveComponent } from './chiefdoctor/doctors-inactive/doctors-inactive.component';
 import { ConsultationsInsertComponent } from './consultations/consultations-insert/consultations-insert.component';
 import { ConsultationsListComponent } from './consultations/consultations-list/consultations-list.component';
 import { ConsultationsModule } from './consultations/consultations.module';
@@ -8,6 +10,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 import { MediInsertComponent } from './medi-data/medi-insert/medi-insert.component';
 import { MediListComponent } from './medi-data/medi-list/medi-list.component';
+import { MediUpdateComponent } from './medi-data/medi-update/medi-update.component';
 import { AvailablePatientListComponent } from './patient/available-patient-list/available-patient-list.component';
 import { MyPatientListComponent } from './patient/my-patient-list/my-patient-list.component';
 import { PatientModule } from './patient/patient.module';
@@ -55,12 +58,19 @@ const routes: Routes = [
   },
   {
     path: 'settings', component: SettingsComponent
+  },
+  {
+    path: 'chiefdoctor/inactive-doctors', component: DoctorsInactiveComponent
+  },
+  {
+    path: 'edit', component: MediUpdateComponent
   }
+
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes),
-  HttpClientModule, PatientModule, DashboardModule,UsersModule, ConsultationsModule],
+  HttpClientModule, PatientModule, DashboardModule,UsersModule, ConsultationsModule,ChiefdoctorModule ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

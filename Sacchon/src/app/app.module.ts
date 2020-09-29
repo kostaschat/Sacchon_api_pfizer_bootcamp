@@ -37,7 +37,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ConsultationsModule,
     PatientModule,
     ReactiveFormsModule,
-    FormsModule,
+    FormsModule,  
     MDBBootstrapModule.forRoot()
   ],
   providers: [],
