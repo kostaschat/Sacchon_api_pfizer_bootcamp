@@ -1,15 +1,26 @@
 <div class="container">
-    <h2 class="title" style="padding-top:30px;">My Medical Data</h2>
-    <div class="row">
-        <div class="card col-sm-4 col-md-3 col-lg-2 my-5 mx-3" *ngFor="let medi of mediData" style="width: 18rem;">
-          <div class="card-body">
-            <p class="card-text">Uri: {{medi.uri}}</p>
-            <p class="card-text">Carb: {{medi.carb}}</p>
-            <p class="card-text">Glucose: {{medi.glucose}}</p>
-            <p class="card-text">MeasuredDate: {{medi.measuredDate | date}}</p>
-            <button class="btn btn-primary" type="submit" (click)="onClickUpdate('edit', medi.uri)"  >Update</button>
-          </div>
-        </div>
-    </div>
-</div>
+  <h2 class="title text-center" style="padding:30px 0 30px;">Medical Data</h2>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Carb Intake</th>
+        <th scope="col">Blood Glucose Level</th>
+        <th scope="col">Date & Time</th>
+        <th scope="col">Update</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let medi of mediData;let i = index">
+          <th scope="row">{{i+1}}</th>
+          <td>{{medi.carb}}</td>
+          <td>{{medi.glucose}}</td>
+          <td>{{medi.measuredDate | date:'medium' }}</td>
+          <td><button class="btn" type="submit" (click)="onClickUpdate('edit', medi.uri)"><i class="fa fa-refresh fa-lg" aria-hidden="true"></i></button></td>
+          <td><button class="btn" type="submit" (click)="onClickUpdate('edit', medi.uri)"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></button></td>
+        </tr>
 
+    </tbody>
+  </table>
+</div>

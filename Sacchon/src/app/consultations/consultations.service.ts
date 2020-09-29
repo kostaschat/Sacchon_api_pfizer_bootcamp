@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Consultations } from './consultations';
+import { Medi } from './medi';
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +11,9 @@ export class ConsultationsService {
 
   readonly baseUrl = 'http://localhost:9000/v1/consultations';
   readonly url = 'http://localhost:9000/v1/add-consultation/';
+  readonly mediUrl = 'http://localhost:9000/v1/medidata';
  
-  constructor(private http: HttpClient)
-   {
-
-   }
+  constructor(private http: HttpClient){}
 
 
   getConsultations(): Observable<Consultations[]>{
@@ -42,7 +41,21 @@ export class ConsultationsService {
     }
 
 
+  // consultationMedi(id): Observable<Medi[]>{
+  //   return this.http.get<Medi[]>(
+  //     this.mediUrl+id, {
+  //     headers: new HttpHeaders({ 'Authorization': 'Basic ' + btoa(sessionStorage.getItem("credentials")) }
+  //     )
+  //   }
+  //   );
+  // }
 
-
-
+  getConsultationMedi(): Observable<Medi[]>{
+    return this.http.get<Medi[]>(
+      this.mediUrl, {
+      headers: new HttpHeaders({ 'Authorization': 'Basic ' + btoa(sessionStorage.getItem("credentials")) }
+      )
+    }
+    );
+  }
 }

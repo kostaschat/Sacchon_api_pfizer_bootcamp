@@ -2,3 +2,13 @@
     width: 50%; 
     margin: auto;
 }
+
+.btn{
+    width: 100%;
+}
+
+@media only screen and (max-width: 768px) {
+    .title{
+        font-size: 23px;
+    }
+}
