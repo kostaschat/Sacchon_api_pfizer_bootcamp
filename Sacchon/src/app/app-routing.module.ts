@@ -1,6 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ConsultationsInsertComponent } from './consultations/consultations-insert/consultations-insert.component';
 import { ConsultationsListComponent } from './consultations/consultations-list/consultations-list.component';
 import { ConsultationsModule } from './consultations/consultations.module';
 import { DashboardModule } from './dashboard/dashboard.module';
@@ -13,6 +14,7 @@ import { PatientModule } from './patient/patient.module';
 import { LoginComponent } from './users/login/login.component';
 import { LogoutComponent } from './users/logout/logout.component';
 import { RegisterComponent } from './users/register/register.component';
+import { SettingsComponent } from './users/settings/settings.component';
 import { UsersModule } from './users/users.module';
 
 const routes: Routes = [
@@ -37,6 +39,9 @@ const routes: Routes = [
     path: 'medi/list-data/:pid', component: MediListComponent
   },
   {
+    path: 'doctor/mypatients/insert-consultation', component: ConsultationsInsertComponent
+  },
+  {
     path: 'login', component: LoginComponent
   },
   {
@@ -47,6 +52,9 @@ const routes: Routes = [
   },
   {
     path: 'register', component: RegisterComponent
+  },
+  {
+    path: 'settings', component: SettingsComponent
   }
 ];
 
