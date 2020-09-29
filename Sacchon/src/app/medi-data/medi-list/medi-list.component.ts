@@ -6,7 +6,7 @@ import { MediDataService } from '../medi-data.service';
 @Component({
   selector: 'app-medi-list',
   templateUrl: './medi-list.component.html',
-  styleUrls: ['./medi-list.component.css']
+  styleUrls: ['./medi-list.component.scss']
 })
 export class MediListComponent implements OnInit {
 

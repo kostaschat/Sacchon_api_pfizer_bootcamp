@@ -12,7 +12,10 @@ import { PatientService } from '../patient.service';
 })
 
 export class MyPatientListComponent implements OnInit {
+
   patients: Patient[];
+  checkedTheUnconsulted: boolean;
+
   constructor(private patientService: PatientService, private router: Router) { }
   ngOnInit(): void {
 
@@ -27,7 +30,7 @@ export class MyPatientListComponent implements OnInit {
   showUncolsutedPatients(values:any){
     if(values.currentTarget.checked){
       console.log("is it checked" + values.currentTarget.checked)
-      this.patientService.getMyUnconsultedPatients().subscribe(p => this.patients = p);
+      this.patientService.getMyUnconsultedPatients().subscribe(p => {this.patients = p; this.checkedTheUnconsulted = true; console.log(this.patients)});
     }else {
       this.patientService.getMyPatients().subscribe(p => this.patients = p);
     }
@@ -42,7 +45,17 @@ export class MyPatientListComponent implements OnInit {
         console.log("Navigation has failed!");
       }
     });
+  }
 
+  addConsultation(url, pid){
+    console.log(pid);
+    this.router.navigate([url], {queryParams:{id : pid}}).then( (e) => {
+      if (e) {
+        console.log("Navigation is successful!");
+      } else {
+        console.log("Navigation has failed!");
+      }
+    });
   }
 
 

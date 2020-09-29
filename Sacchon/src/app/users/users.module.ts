@@ -6,10 +6,11 @@ import { UsersRoutingModule } from './users-routing.module';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
+import { SettingsComponent } from './settings/settings.component';
 
 
 @NgModule({
-  declarations: [RegisterComponent, LoginComponent, LogoutComponent],
+  declarations: [RegisterComponent, LoginComponent, LogoutComponent, SettingsComponent],
   imports: [
     CommonModule,
     UsersRoutingModule,

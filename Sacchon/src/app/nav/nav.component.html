@@ -53,8 +53,9 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="account" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-user"></i> Hello {{sessionStorage.getItem('username')}}!</a>
-            <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="account">           
-                <a class="nav-link" [routerLink]="['logout']" > Log out</a>     
+            <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="account">
+                <a class="nav-link" [routerLink]="['settings']" >Settings</a>           
+                <a class="nav-link" [routerLink]="['logout']" >Log out</a>     
             </div>
           </li>
       </div>  

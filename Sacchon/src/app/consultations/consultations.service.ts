@@ -8,7 +8,8 @@ import { Consultations } from './consultations';
 })
 export class ConsultationsService {
 
-  readonly baseUrl = "http://localhost:9000/v1/consultations";
+  readonly baseUrl = 'http://localhost:9000/v1/consultations';
+  readonly url = 'http://localhost:9000/v1/add-consultation/';
  
   constructor(private http: HttpClient)
    {
@@ -25,6 +26,22 @@ export class ConsultationsService {
       }
       );
   }
+
+  addConsultation(values, id):Observable<any>{
+    //location.reload();
+    console.log(values.get('medicationName').value, values.get('dosage').value);
+    return this.http.post(this.url+id,
+      {
+        "medicationName": values.get('medicationName').value,
+        "dosage": values.get('dosage').value
+      },
+      {headers:new HttpHeaders(
+        {'Authorization': 'Basic ' + btoa(sessionStorage.getItem("credentials"))}
+        )
+      })
+    }
+
+
 
 
 
