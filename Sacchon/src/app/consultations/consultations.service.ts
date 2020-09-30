@@ -19,6 +19,7 @@ export class ConsultationsService {
       }
       );
   }
+  
 
   getDoctrorConsultations(id, fromDate, untilDate): Observable<Consultations[]>{
    

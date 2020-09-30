@@ -38,7 +38,7 @@ export class ConsultationsListComponent implements OnInit {
         });      
 
       }else{
-       // this.consultationsService.getConsultations().subscribe(consultations => this.consultations = consultations); 
+        this.consultationsService.getConsultations().subscribe(consultations => this.consultations = consultations); 
       }
       
     }
