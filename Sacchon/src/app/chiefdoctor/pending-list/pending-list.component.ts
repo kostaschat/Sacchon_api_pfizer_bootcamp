@@ -18,9 +18,7 @@ export class PendingListComponent implements OnInit {
   constructor(private chiefdoctorService: ChiefdoctorService, private router: Router) { }
    pendingList: PatientsPendingList[];
   
-  // pendingList: PatientsPendingList[]= [{
-  //   username : 'kostas', pendignDays: 3
-  // }];
+ 
   
 
   ngOnInit(): void {

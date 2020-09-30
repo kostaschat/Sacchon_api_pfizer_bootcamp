@@ -1,3 +1,23 @@
+<div class="container" style="align-items: center; " *ngIf="sessionStorage.getItem('role')=== 'chiefDoctor'">
+    <form [formGroup]="form" (submit)="formSumbit()">
+        <div class="form-group row">
+          <label for="example-date-input" class="col-form-label">From:</label>
+          <div class="col-sm-3 col-sm-push-4">
+            <input class="form-control" type="date" value="2019-08-19" id="fromDate " formControlName="fromDate">
+          </div>
+          <label for="example-date-input" class=" col-form-label">Until:</label>
+          <div class="col-sm-3 col-sm-push-4">
+            <input class="form-control" type="date" value="2020-08-19" id="untilDate" formControlName="untilDate" >
+          </div>
+          
+          <div class="col-sm-2 col-sm-push-4">
+            <button type="submit" class="btn btn-primary" >Search</button>   
+        </div>
+        </div>      
+    </form>
+  
+  </div> 
+
 <div class="container">
     <h2 class="title" style="padding-top:30px;">My Medical Data</h2>
     <div class="row">
@@ -7,7 +27,7 @@
             <p class="card-text">Carb: {{medi.carb}}</p>
             <p class="card-text">Glucose: {{medi.glucose}}</p>
             <p class="card-text">MeasuredDate: {{medi.measuredDate | date}}</p>
-            <button class="btn btn-primary" type="submit" (click)="onClickUpdate('edit', medi.uri)"  >Update</button>
+            <button class="btn btn-primary" type="submit" (click)="onClickUpdate('edit', medi.uri)"  *ngIf="sessionStorage.getItem('role')=== 'patient'" >Update</button>
           </div>
         </div>
     </div>

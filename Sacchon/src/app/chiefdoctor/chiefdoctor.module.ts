@@ -5,10 +5,11 @@ import { DoctorsInactiveComponent } from './doctors-inactive/doctors-inactive.co
 import { ReactiveFormsModule } from '@angular/forms';
 import { PendingListComponent } from './pending-list/pending-list.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { InformationOfSubComponent } from './information-of-sub/information-of-sub.component';
 
 
 @NgModule({
-  declarations: [DoctorsInactiveComponent, PendingListComponent],
+  declarations: [DoctorsInactiveComponent, PendingListComponent, InformationOfSubComponent, InformationOfSubComponent],
   imports: [
     CommonModule,
     MDBBootstrapModule,

@@ -11,37 +11,30 @@ import { UsersList } from '../users-list';
 export class DoctorsInactiveComponent implements OnInit {
   form: FormGroup;
   usersList: UsersList[];
-  UserOptions = ['Doctor'];
+  UserOptions = ['Doctor','Patient'];
   
-
-
-
   constructor(private chiefdoctorService : ChiefdoctorService) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
       fromDate: new FormControl(null, [Validators.required]),
       untilDate: new FormControl(null, [Validators.required]),
-      Users :new FormControl(null, [Validators.required])
-      
-      
+      Users :new FormControl(null, [Validators.required])  
     });
+
 
   }
   formSumbit(){
-
-    console.log(this.form.value)
     const data ={
       "fromDate": this.form.get('fromDate').value,
       "untilDate":this.form.get('untilDate').value,
       "Users":this.form.get('Users').value
       }
-
-   
+  
     if(data.Users==='Doctor'){
       this.chiefdoctorService.getDoctorList(data.fromDate, data.untilDate).subscribe(medi => this.usersList = medi);
     }
-    else{
+    else{  
       this.chiefdoctorService.getPatientList(data.fromDate, data.untilDate).subscribe(medi => this.usersList = medi);
     }
   }

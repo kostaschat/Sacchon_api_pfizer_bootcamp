@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable, Query } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PatientsPendingList } from './pending-list/pending-list.component';
 import { UsersList } from './users-list';
@@ -9,30 +9,23 @@ import { UsersList } from './users-list';
   providedIn: 'root'
 })
 export class ChiefdoctorService {
-  
   constructor(private http: HttpClient) { }
-
-  readonly UrlDoctro = 'http://localhost:9000/v1/inactive-doctors/';
-  readonly UrlPatient = 'http://localhost:9000/v1/patients/';
-  readonly UrlPatientPending = 'http://localhost:9000/v1/patients/consultation-pending';
-
+  readonly Url = 'http://localhost:9000/v1/';
 
   getDoctorList(fromDate,untilDate): Observable<UsersList[]> {
+
+    this.Url + 'inactive-doctors/'
     return this.http.get<UsersList[]>(
-      this.UrlDoctro + fromDate + '/' +  untilDate,
+      this.Url + 'inactive-doctors/' + fromDate + '/' +  untilDate,
       {headers:new HttpHeaders(
         {'Authorization': 'Basic ' + btoa(sessionStorage.getItem("credentials"))}
         )
       }
       );
   }
-
-  getPatientList(fromDate,untilDate): Observable<UsersList[]> {
-      
-    console.log(this.UrlPatient + 'from?'+ fromDate + '/to?' +  untilDate)
-  
+  getPatientList(fromDate,untilDate): Observable<UsersList[]> { 
   return this.http.get<UsersList[]>(
-    this.UrlPatient + fromDate + '/' +  untilDate,
+    this.Url + 'patients/'+ fromDate + '/' +  untilDate,
     {headers:new HttpHeaders(
       {'Authorization': 'Basic ' + btoa(sessionStorage.getItem("credentials"))}
       )
@@ -40,10 +33,9 @@ export class ChiefdoctorService {
     );
 }
 
-getPendingList(){
-  console.log("2 ok")
+getPendingList() : Observable <PatientsPendingList[]> {
   return this.http.get<PatientsPendingList[]>(
-    this.UrlPatientPending,
+    this.Url + 'patients/consultation-pending/',
     {headers:new HttpHeaders(
       {'Authorization': 'Basic ' + btoa(sessionStorage.getItem("credentials"))}
       )
@@ -51,6 +43,24 @@ getPendingList(){
     );
 
 }
+getDoctors() : Observable <UsersList[]> {
+  return this.http.get<UsersList[]>(
+    this.Url + 'inactive-doctors',
+    {headers:new HttpHeaders(
+      {'Authorization': 'Basic ' + btoa(sessionStorage.getItem("credentials"))}
+      )
+    }
+    );
 
+}
+getPatients(): Observable <UsersList[]> { 
+  return this.http.get<UsersList[]>(
+    this.Url + 'my-patients/',
+    {headers:new HttpHeaders(
+      {'Authorization': 'Basic ' + btoa(sessionStorage.getItem("credentials"))}
+      )
+    }
+    );
+}
 }
 

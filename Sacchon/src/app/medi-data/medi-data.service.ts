@@ -12,6 +12,7 @@ export class MediDataService {
 
   readonly baseUrl = 'http://localhost:9000/v1/medidata';
   readonly url = 'http://localhost:9000/v1/all-medidata';
+  readonly urlto = 'http://localhost:9000/v1/';
 
 
   getMedi(): Observable<MediData[]> {
@@ -24,10 +25,21 @@ export class MediDataService {
       );
   }
 
-  
-  getMediOfPatient(id): Observable<MediData[]> {
+    
+  getMediOfPatient(id,): Observable<MediData[]> {
     return this.http.get<MediData[]>(
       this.url +'/' + id,
+      {headers:new HttpHeaders(
+        {'Authorization': 'Basic ' + btoa(sessionStorage.getItem("credentials"))}
+        )
+      }
+      );
+  }
+
+
+  getMediOfPatientSub(id,fromDate,untilDate): Observable<MediData[]> {
+    return this.http.get<MediData[]>(
+      this.urlto + 'patient/' + id + '/medidata/' +fromDate  +'/' + untilDate,
       {headers:new HttpHeaders(
         {'Authorization': 'Basic ' + btoa(sessionStorage.getItem("credentials"))}
         )

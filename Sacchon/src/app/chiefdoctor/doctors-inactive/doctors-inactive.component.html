@@ -12,7 +12,6 @@
             </div>
             <div class="col-sm-2 col-sm-push-4">
                 <select class="form-control" formControlName="Users">
-                  <option [ngValue]="null">Patient</option>
                   <option *ngFor="let user of UserOptions" [ngValue]="user">
                     {{user}}
                   </option>

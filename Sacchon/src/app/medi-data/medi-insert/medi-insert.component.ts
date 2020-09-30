@@ -10,7 +10,7 @@ import { MediDataService } from '../medi-data.service';
 export class MediInsertComponent implements OnInit {
   res: any;
   form: FormGroup;
-
+  
   constructor(private mediDataService: MediDataService) { }
 
   ngOnInit(): void {

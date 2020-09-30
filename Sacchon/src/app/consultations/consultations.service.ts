@@ -10,6 +10,7 @@ export class ConsultationsService {
 
   readonly baseUrl = 'http://localhost:9000/v1/consultations';
   readonly url = 'http://localhost:9000/v1/add-consultation/';
+  readonly urlDoctor = 'http://localhost:9000/v1/doctor/';
  
   constructor(private http: HttpClient)
    {
@@ -20,6 +21,18 @@ export class ConsultationsService {
   getConsultations(): Observable<Consultations[]>{
     return this.http.get<Consultations[]>(
       this.baseUrl,
+      {headers:new HttpHeaders(
+        {'Authorization': 'Basic ' + btoa(sessionStorage.getItem("credentials"))}
+        )
+      }
+      );
+  }
+ 
+  getDoctrorConsultations(id, fromDate, untilDate): Observable<Consultations[]>{
+   
+
+    return this.http.get<Consultations[]>(
+      this.urlDoctor  + id +  '/consultation/' + fromDate +'/' + untilDate,                
       {headers:new HttpHeaders(
         {'Authorization': 'Basic ' + btoa(sessionStorage.getItem("credentials"))}
         )
