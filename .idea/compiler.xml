@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="SacchonApi" />
+        <module name="pfizer-se-team4" />
       </profile>
     </annotationProcessing>
   </component>

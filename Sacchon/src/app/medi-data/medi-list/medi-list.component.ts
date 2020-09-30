@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MediData } from '../medi-data';
@@ -30,9 +31,9 @@ export class MediListComponent implements OnInit {
       this.router.navigate(['login'])
     }else if(this.id){
       console.log("exw id");
-      this.mediService.getMediOfPatient(this.id).subscribe(medi => this.mediData = medi);
+      this.mediService.getMediOfPatient(this.id).subscribe(medi => {this.mediData = medi, this.fillData(this.mediData)});
     }else{
-      this.mediService.getMedi().subscribe(medi => this.mediData = medi);
+      this.mediService.getMedi().subscribe(medi => {this.mediData = medi, this.fillData(this.mediData)});
     }
   }
 

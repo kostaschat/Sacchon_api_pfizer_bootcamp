@@ -10,7 +10,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 
 @NgModule({
-  declarations: [MediInsertComponent, MediListComponent, MediUpdateComponent, MedidataChartsComponent, MediDeleteComponent],
+  declarations: [MediInsertComponent, MediListComponent, MediUpdateComponent, MedidataChartsComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

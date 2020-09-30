@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MediData } from 'src/app/medi-data/medi-data';
 import { Consultations } from '../consultations';
 import { ConsultationsService } from '../consultations.service';
-import { Medi } from '../medi';
+
 
 
 @Component({
@@ -15,7 +16,7 @@ export class ConsultationsListComponent implements OnInit {
   labelsTable = ['#','Medication Name', 'Dosage', 'Consultation Date'];
 
   consultations: Consultations[];
-  medidata: Medi[];
+  medidata: MediData[];
   id: string;
   constructor(private consultationsService: ConsultationsService, private router: Router) { }
 

@@ -1,8 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { MediData } from '../medi-data/medi-data';
 import { Consultations } from './consultations';
-import { Medi } from './medi';
+
 
 @Injectable({
   providedIn: 'root'
@@ -41,8 +42,8 @@ export class ConsultationsService {
       })
     }
 
-  getConsultationMedi(): Observable<Medi[]>{
-    return this.http.get<Medi[]>(
+  getConsultationMedi(): Observable<MediData[]>{
+    return this.http.get<MediData[]>(
       this.mediUrl, {
       headers: new HttpHeaders({ 'Authorization': 'Basic ' + btoa(sessionStorage.getItem("credentials")) }
       )
