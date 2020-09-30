@@ -3,7 +3,7 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="navbar-collapse collapse">
+    <div class="navbar-collapse collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
           
@@ -45,7 +45,7 @@
           <li class="nav-item">
            <a class="nav-link" [routerLink]="['login']">Login</a>
           </li>
-
+         
           <li class="nav-item">
            <a class="nav-link" [routerLink]="['register']" > Register</a>
           </li>
@@ -54,9 +54,9 @@
         <div *ngIf="sessionStorage.getItem('credentials') != null">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="account" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i *ngIf="sessionStorage.getItem('role') == 'patient'" class="fa fa-user-o" aria-hidden="true"></i> 
-            <i *ngIf="sessionStorage.getItem('role') == 'doctor'" class="fa fa-user-md" aria-hidden="true"></i>
-            <i *ngIf="sessionStorage.getItem('role') == 'chiefDoctor'" class="fa fa-lock" aria-hidden="true"></i>
+            <i *ngIf="sessionStorage.getItem('role') == 'patient'" class="fa fa-user-o fa-lg" aria-hidden="true"></i> 
+            <i *ngIf="sessionStorage.getItem('role') == 'doctor'" class="fa fa-user-md fa-lg" aria-hidden="true"></i>
+            <i *ngIf="sessionStorage.getItem('role') == 'chiefDoctor'" class="fa fa-lock fa-lg" aria-hidden="true"></i>
             Hello {{sessionStorage.getItem('username')}}!</a>
             <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="account">
                 <a class="nav-link" [routerLink]="['settings']" ><i class="fa fa-cog fa-fw" aria-hidden="true"></i>&nbsp; Settings</a>

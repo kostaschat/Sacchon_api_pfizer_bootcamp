@@ -12,7 +12,8 @@ export class MediListComponent implements OnInit {
 
   mediData: MediData[];
   id: any;
-
+  public sessionStorage = sessionStorage;
+  
   constructor(private mediService: MediDataService,private router:Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {

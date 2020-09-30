@@ -7,12 +7,12 @@
         <th scope="col">Carb Intake</th>
         <th scope="col">Blood Glucose Level</th>
         <th scope="col">Date & Time</th>
-        <th scope="col">Update</th>
-        <th scope="col">Delete</th>
+        <th *ngIf="sessionStorage.getItem('role') == 'patient'" scope="col">Update</th>
+        <th *ngIf="sessionStorage.getItem('role') == 'patient'" scope="col">Delete</th>
       </tr>
     </thead>
-    <tbody>
-        <tr *ngFor="let medi of mediData;let i = index">
+    <tbody *ngFor="let medi of mediData;let i = index">
+        <tr *ngIf="sessionStorage.getItem('role') == 'patient' && medi.consultation_id == 0">
           <th scope="row">{{i+1}}</th>
           <td>{{medi.carb}}</td>
           <td>{{medi.glucose}}</td>
@@ -20,7 +20,12 @@
           <td><button class="btn" type="submit" (click)="onClickUpdate('edit', medi.uri)"><i class="fa fa-refresh fa-lg" aria-hidden="true"></i></button></td>
           <td><button class="btn" type="submit" (click)="onClickUpdate('edit', medi.uri)"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></button></td>
         </tr>
-
+        <tr *ngIf="sessionStorage.getItem('role') == 'doctor'">
+          <th scope="row">{{i+1}}</th>
+          <td>{{medi.carb}}</td>
+          <td>{{medi.glucose}}</td>
+          <td>{{medi.measuredDate | date:'medium' }}</td>
+        </tr>
     </tbody>
   </table>
 </div>

@@ -4,16 +4,16 @@ a.navbar-brand {
   word-break: break-all;
 }
 
-a {
-  color: #0366d6;
-}
 
+
+nav .navbar-nav li a{
+  color: #00B5E2 !important;
+}
 
 /* Provide sufficient contrast against white background */
 .nav-link:hover{
   font-weight: 500;
 }
-
 
 
 .nav-pills .nav-link.active,.nav-link .nav-pills .show > .nav-link {

@@ -3,4 +3,5 @@ export interface MediData {
     carb: number;
     glucose: number;
     measuredDate: Date;
+    consultation_id: number;
   }

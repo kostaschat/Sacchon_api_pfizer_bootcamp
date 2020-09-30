@@ -32,23 +32,14 @@ export class ConsultationsService {
     return this.http.post(this.url+id,
       {
         "medicationName": values.get('medicationName').value,
-        "dosage": values.get('dosage').value
+        "dosage": values.get('dosage').value,
+        "advice": values.get('advice').value
       },
       {headers:new HttpHeaders(
         {'Authorization': 'Basic ' + btoa(sessionStorage.getItem("credentials"))}
         )
       })
     }
-
-
-  // consultationMedi(id): Observable<Medi[]>{
-  //   return this.http.get<Medi[]>(
-  //     this.mediUrl+id, {
-  //     headers: new HttpHeaders({ 'Authorization': 'Basic ' + btoa(sessionStorage.getItem("credentials")) }
-  //     )
-  //   }
-  //   );
-  // }
 
   getConsultationMedi(): Observable<Medi[]>{
     return this.http.get<Medi[]>(

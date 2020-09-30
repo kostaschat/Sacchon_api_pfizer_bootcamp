@@ -27,23 +27,4 @@ export class ConsultationsListComponent implements OnInit {
       this.consultationsService.getConsultationMedi().subscribe(medidata => this.medidata = medidata);
     }
   }
-
-  // onClickConsultation(event,uri,i){
-    
-  //   this.id = uri;
-  //   var splitter = this.id.split("/consultation/")
-  //   this.consultationsService.consultationMedi(splitter[1]).subscribe
-  //   (medidata => this.medidata = medidata);
-
-    // let row = document.createElement('div');   
-    // row.className = 'row'; 
-    // row.innerHTML = ` 
-    // <div *ngFor="let medi of medidata">
-    // {{medi.carb}}
-    // </div>`; 
-    // document.querySelector('.showInputField'+i).appendChild(row); 
-
-  // }
-  
-
 }

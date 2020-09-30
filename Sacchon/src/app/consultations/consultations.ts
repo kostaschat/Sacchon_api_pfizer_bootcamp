@@ -3,6 +3,7 @@ export interface Consultations {
     medicationName: string;
     dosage: number;
     consultationDate: Date;
+    advice: string;
     doctor_id: number;
     patient_id: number;
 }

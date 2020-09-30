@@ -20,7 +20,8 @@ export class ConsultationsInsertComponent implements OnInit {
     
     this.form = new FormGroup({
       medicationName: new FormControl(null, [Validators.required]),
-      dosage: new FormControl(null, Validators.required)
+      dosage: new FormControl(null, Validators.required),
+      advice: new FormControl(null, Validators.required)
     });
 
     this.id = this.route.snapshot.queryParamMap.get("id");

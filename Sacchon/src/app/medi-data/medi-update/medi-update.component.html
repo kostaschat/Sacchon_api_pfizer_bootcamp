@@ -1,6 +1,10 @@
- <!-- /carb -->
- <form [formGroup]="formUpdate" (submit)="formSubmit()" style=" width: 50%; margin: auto;">
-    <!-- carb  -->
+<div class="container">
+  <div class="addmedidata-content">
+  <form [formGroup]="formUpdate" (submit)="formSubmit()">
+    <div class="form-group">
+      <h2 class="title" style="margin-top: 60px;">Let’s update your medical data!</h2>
+      <h3 class="title">Please fill out the information below.</h3>
+    </div>
     <div class="form-group">
       <label  for="carb">Carbs (grams) </label>
       <input  type="number"
@@ -13,8 +17,6 @@
         Field is required
       </div>
     </div>
-    <!-- /carb -->
-    <!-- glucose  -->
     <div class="form-group">
         <label  for="glucose">Glucose ( mg/dL) </label>
         <input  type="number"
@@ -26,10 +28,8 @@
         <div *ngIf="formUpdate.get('glucose').errors?.required && formUpdate.get('glucose').dirty" class="text-danger">
           Field is required
         </div>
-      </div>
-      <!-- /carb -->
-      
-      {{formUpdate.value | json}}  
-        //[disabled]="!form.valid"
-    <button type="submit" class="btn btn-primary"   >Submit</button>
+      </div>  
+    <button type="submit" class="btn btn-primary">Update</button>
   </form> 
+ </div>
+</div>

@@ -7,10 +7,12 @@
           <button class="btn btn-link" data-toggle="collapse"  id="btn-link" [attr.data-target]="'#'+value.medicationName" aria-expanded="true" [attr.aria-controls]="value.medicationName">
            <p class="text-left"> 
              <b>Medication Name:</b> {{value.medicationName}}<br>
-            <b>Dosage: </b>{{value.dosage}}<br>       
-            <small class="text-muted">{{value.consultationDate | date}}</small>
-          </p>
-         
+            <b>Dosage: </b>{{value.dosage}}<br>     
+           </p>  
+           <p class="text-left">
+             {{value.advice}}<br>
+             <small class="text-muted">{{value.consultationDate | date}}</small>
+           </p>
           </button>
         
       </div>
