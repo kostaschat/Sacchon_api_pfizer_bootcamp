@@ -4,12 +4,13 @@ import { Router } from '@angular/router';
 import { ChiefdoctorService } from '../chiefdoctor.service';
 import { UsersList } from '../users-list';
 
+
 @Component({
-  selector: 'app-information-of-sub',
-  templateUrl: './information-of-sub.component.html',
-  styleUrls: ['./information-of-sub.component.css']
+  selector: 'app-users-monitor',
+  templateUrl: './users-monitor.component.html',
+  styleUrls: ['./users-monitor.component.css']
 })
-export class InformationOfSubComponent implements OnInit {
+export class MonitorUsersComponent implements OnInit {
   uri:any;
   data :string;
   usersList: UsersList[];

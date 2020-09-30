@@ -1,20 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MonitorUsersComponent } from './users-monitor.component';
 
-import { InformationOfSubComponent } from './information-of-sub.component';
 
-describe('InformationOfSubComponent', () => {
-  let component: InformationOfSubComponent;
-  let fixture: ComponentFixture<InformationOfSubComponent>;
+
+describe('MonitorUsersComponent', () => {
+  let component: MonitorUsersComponent;
+  let fixture: ComponentFixture<MonitorUsersComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ InformationOfSubComponent ]
+      declarations: [ MonitorUsersComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(InformationOfSubComponent);
+    fixture = TestBed.createComponent(MonitorUsersComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

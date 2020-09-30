@@ -4,11 +4,11 @@ import { ChiefdoctorService } from '../chiefdoctor.service';
 import { UsersList } from '../users-list';
 
 @Component({
-  selector: 'app-doctors-inactive',
-  templateUrl: './doctors-inactive.component.html',
-  styleUrls: ['./doctors-inactive.component.scss']
+  selector: 'app-users-inactive',
+  templateUrl: './users-inactive.component.html',
+  styleUrls: ['.//users-inactive.component.scss']
 })
-export class DoctorsInactiveComponent implements OnInit {
+export class UsersInactiveComponent implements OnInit {
   form: FormGroup;
   usersList: UsersList[];
   UserOptions = ['Doctor','Patient'];
