@@ -6,4 +6,5 @@ export interface Consultations {
     advice: string;
     doctor_id: number;
     patient_id: number;
+    uri: string;
 }

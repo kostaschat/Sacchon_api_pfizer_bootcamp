@@ -17,7 +17,7 @@ export class MediUpdateComponent implements OnInit {
   constructor(private mediService: MediDataService, private router : Router, private route: ActivatedRoute) { }
 
   mediData: MediData;
-  uri :any;
+  id :any;
   
   ngOnInit(): void {
 
@@ -26,15 +26,15 @@ export class MediUpdateComponent implements OnInit {
       glucose: new FormControl(null, Validators.required)      
     }); 
 
-    this.uri = this.route.snapshot.queryParamMap.get("uri")
+    this.id = this.route.snapshot.queryParamMap.get("id")
 
-    console.log("to uri einai " +this.uri)
+    console.log("to id einai " +this.id)
 
 
     if(sessionStorage.getItem("credentials") == null){
       this.router.navigate(['login'])
     }else{
-     this.mediService.getMediToUpdate(this.uri).subscribe(medi => { this.mediData = medi 
+     this.mediService.getMediToUpdate(this.id).subscribe(medi => { this.mediData = medi 
       this.fillData() } );
     }
   }
@@ -50,7 +50,7 @@ export class MediUpdateComponent implements OnInit {
     "glucose":this.formUpdate.get('glucose').value
     }
     console.log(data)
-    this.mediService.updateMediData(this.uri,data).subscribe(data => { alert(JSON.stringify(data)); this.ngOnInit();    });
+    this.mediService.updateMediData(this.id,data).subscribe(data => { alert(JSON.stringify(data)); this.ngOnInit();    });
   }
 
 }

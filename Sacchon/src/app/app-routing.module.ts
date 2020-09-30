@@ -2,9 +2,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ChiefdoctorModule } from './chiefdoctor/chiefdoctor.module';
-import { DoctorsInactiveComponent } from './chiefdoctor/doctors-inactive/doctors-inactive.component';
+import { PendingListComponent } from './chiefdoctor/pending-list/pending-list.component';
+import { UsersInactiveComponent } from './chiefdoctor/Users-inactive/users-inactive.component';
+import { MonitorUsersComponent } from './chiefdoctor/users-monitor/users-monitor.component';
 import { ConsultationsInsertComponent } from './consultations/consultations-insert/consultations-insert.component';
 import { ConsultationsListComponent } from './consultations/consultations-list/consultations-list.component';
+import { ConsultationsUpdateComponent } from './consultations/consultations-update/consultations-update.component';
 import { ConsultationsModule } from './consultations/consultations.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
@@ -60,10 +63,19 @@ const routes: Routes = [
     path: 'settings', component: SettingsComponent
   },
   {
-    path: 'chiefdoctor/inactive-doctors', component: DoctorsInactiveComponent
+    path: 'chiefdoctor/inactive-doctors', component: UsersInactiveComponent
   },
   {
     path: 'edit', component: MediUpdateComponent
+  },
+  {
+    path: 'chiefdoctor/pending-list', component: PendingListComponent
+  },
+  {
+    path: 'chiefdoctor/submissions-list', component: MonitorUsersComponent
+  },
+  {
+    path: 'doctor/consultation/edit', component: ConsultationsUpdateComponent
   }
 
 ];

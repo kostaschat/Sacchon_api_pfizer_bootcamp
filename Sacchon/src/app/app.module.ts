@@ -15,6 +15,7 @@ import { ConsultationsModule } from './consultations/consultations.module';
 import { ChartsModule, MDBBootstrapModule, WavesModule } from 'angular-bootstrap-md';
 import { PatientModule } from './patient/patient.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ChiefdoctorModule } from './chiefdoctor/chiefdoctor.module';
 
 
 
@@ -38,7 +39,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ConsultationsModule,
     PatientModule,
     ReactiveFormsModule,
-    FormsModule,  
+    FormsModule, 
+    ChiefdoctorModule, 
     MDBBootstrapModule.forRoot()
   ],
   providers: [],

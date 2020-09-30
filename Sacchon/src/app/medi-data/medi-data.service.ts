@@ -12,6 +12,7 @@ export class MediDataService {
 
   readonly baseUrl = 'http://localhost:9000/v1/medidata';
   readonly url = 'http://localhost:9000/v1/all-medidata';
+  readonly urlto = 'http://localhost:9000/v1/';
 
 
   getMedi(): Observable<MediData[]> {
@@ -24,10 +25,21 @@ export class MediDataService {
       );
   }
 
-  
+
   getMediOfPatient(id): Observable<MediData[]> {
     return this.http.get<MediData[]>(
       this.url +'/' + id,
+      {headers:new HttpHeaders(
+        {'Authorization': 'Basic ' + btoa(sessionStorage.getItem("credentials"))}
+        )
+      }
+      );
+  }
+
+
+  getMediOfPatientSub(id,fromDate,untilDate): Observable<MediData[]> {
+    return this.http.get<MediData[]>(
+      this.urlto + 'patient/' + id + '/medidata/' +fromDate  +'/' + untilDate,
       {headers:new HttpHeaders(
         {'Authorization': 'Basic ' + btoa(sessionStorage.getItem("credentials"))}
         )
@@ -42,28 +54,25 @@ export class MediDataService {
       'glucose':values.get('glucose').value,
       'measuredDate':values.get('measuredDate').value
     },{headers:new HttpHeaders({'Authorization': 'Basic ' + btoa(sessionStorage.getItem("credentials"))})});
-  } 
-
-  
-  removeMedi(medi_id){
-    return this.http.delete(this.baseUrl + "/" + medi_id,
-      {headers:new HttpHeaders(
-        {'Authorization': 'Basic ' + btoa(sessionStorage.getItem("credentials"))}
-        )
-      })
   }
 
-  updateMediData(uri,data): Observable<any>{
-  
-    return this.http.put(uri, data,{headers : new  HttpHeaders(
+  updateMediData(id,data): Observable<any>{
+    return this.http.put(this.urlto +  'medidata/'+id, data,{headers : new  HttpHeaders(
       {'Authorization': 'Basic ' +  btoa(sessionStorage.getItem("credentials"))}
       )});
-
   }
 
-  getMediToUpdate(uri):Observable <MediData> {
+    removeMedi(medi_id){
+      return this.http.delete(this.baseUrl + "/" + medi_id,
+        {headers:new HttpHeaders(
+          {'Authorization': 'Basic ' + btoa(sessionStorage.getItem("credentials"))}
+          )
+        })
+    }
+
+  getMediToUpdate(id):Observable <MediData> {
     return this.http.get<MediData>(
-      uri,
+      this.urlto +  'medidata/'+id,
       {headers:new HttpHeaders(
         {'Authorization': 'Basic ' + btoa(sessionStorage.getItem("credentials"))}
         )

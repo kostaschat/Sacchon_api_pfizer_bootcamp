@@ -23,7 +23,7 @@
         </div>
         
         <div class="form-group">
-            <label  for="measuredDate">Glucose ( mg/dL) </label>
+            <label  for="measuredDate">Measured Date </label>
             <input  type="date" class="form-control" id="measuredDate" placeholder="Enter the glucose" formControlName="measuredDate">
             <div *ngIf="form.get('measuredDate').errors?.required && form.get('measuredDate').dirty" class="text-danger">
               Field is required

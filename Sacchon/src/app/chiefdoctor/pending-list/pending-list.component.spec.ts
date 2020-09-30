@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DoctorsInactiveComponent } from './doctors-inactive.component';
+import { PendingListComponent } from './pending-list.component';
 
-describe('DoctorsInactiveComponent', () => {
-  let component: DoctorsInactiveComponent;
-  let fixture: ComponentFixture<DoctorsInactiveComponent>;
+describe('PendingListComponent', () => {
+  let component: PendingListComponent;
+  let fixture: ComponentFixture<PendingListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DoctorsInactiveComponent ]
+      declarations: [ PendingListComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DoctorsInactiveComponent);
+    fixture = TestBed.createComponent(PendingListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
