@@ -56,17 +56,17 @@ export class MediDataService {
     },{headers:new HttpHeaders({'Authorization': 'Basic ' + btoa(sessionStorage.getItem("credentials"))})});
   } 
 
-  updateMediData(uri,data): Observable<any>{
+  updateMediData(id,data): Observable<any>{
   
-    return this.http.put(uri, data,{headers : new  HttpHeaders(
+    return this.http.put(this.urlto +  'medidata/'+id, data,{headers : new  HttpHeaders(
       {'Authorization': 'Basic ' +  btoa(sessionStorage.getItem("credentials"))}
       )});
 
   }
 
-  getMediToUpdate(uri):Observable <MediData> {
+  getMediToUpdate(id):Observable <MediData> {
     return this.http.get<MediData>(
-      uri,
+      this.urlto +  'medidata/'+id,
       {headers:new HttpHeaders(
         {'Authorization': 'Basic ' + btoa(sessionStorage.getItem("credentials"))}
         )

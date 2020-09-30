@@ -7,6 +7,7 @@ import { UsersInactiveComponent } from './chiefdoctor/Users-inactive/users-inact
 import { MonitorUsersComponent } from './chiefdoctor/users-monitor/users-monitor.component';
 import { ConsultationsInsertComponent } from './consultations/consultations-insert/consultations-insert.component';
 import { ConsultationsListComponent } from './consultations/consultations-list/consultations-list.component';
+import { ConsultationsUpdateComponent } from './consultations/consultations-update/consultations-update.component';
 import { ConsultationsModule } from './consultations/consultations.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
@@ -72,7 +73,11 @@ const routes: Routes = [
   },
   {
     path: 'chiefdoctor/submissions-list', component: MonitorUsersComponent
+  },
+  {
+    path: 'doctor/consultation/edit', component: ConsultationsUpdateComponent
   }
+  
   
    
 

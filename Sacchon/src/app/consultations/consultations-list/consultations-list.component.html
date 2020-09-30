@@ -30,7 +30,7 @@
         <td>{{value.medicationName}}</td>
         <td>{{value.dosage}}</td>
         <td>{{value.consultationDate | date}}</td>
-        <td> </td>
+        <td > <button type="button " class="btn btn-primary" (click)="onClickEdit(value.uri)" *ngIf="sessionStorage.getItem('role')=== 'doctor'">Edit</button></td>
     
       </tr>
     </tbody>

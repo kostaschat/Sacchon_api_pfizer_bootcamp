@@ -14,7 +14,7 @@ export class MediListComponent implements OnInit {
   mediData: MediData[];
   id: any;
   form: FormGroup;
-
+  mediDataId:any;
   constructor(private mediService: MediDataService,private router:Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -52,7 +52,8 @@ export class MediListComponent implements OnInit {
 }
 
   onClickUpdate(url, uri){
-    this.router.navigate([url], {queryParams:{uri : uri}}).then( (e) => {
+    this.mediDataId = uri.split(['/']).pop()
+    this.router.navigate([url], {queryParams:{id : this.mediDataId}}).then( (e) => {
       if (e) {
         console.log("Navigation is successful!");
       } else {

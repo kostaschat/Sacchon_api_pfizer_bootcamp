@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="addconsultations-content">
+    <form [formGroup]="formUpdate" (submit)="formSubmit()">
+        <div class="form-group">
+          <h1>Let’s add a consultation!</h1>
+          <h2>Please fill out the information below.</h2>
+        </div>
+        <div class="form-group">
+          <label for="medicationName">Medication name </label>
+          <input type="text" class="form-control" id="medicationName" placeholder="Enter the medication name" formControlName="medicationName">
+          <div *ngIf="formUpdate.get('medicationName').errors?.required && formUpdate.get('medicationName').dirty" class="text-danger">
+            Field is required
+          </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="dosage">Dosage </label>
+            <input type="number" class="form-control" id="dosage" placeholder="Enter the dosage" formControlName="dosage">
+            <div *ngIf="formUpdate.get('dosage').errors?.required && formUpdate.get('dosage').dirty" class="text-danger">
+              Field is required
+            </div>
+        </div>
+        
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary" [disabled]="!formUpdate.valid">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
