@@ -11,14 +11,12 @@
               <input class="form-control" type="date" value="2020-08-19" id="untilDate" formControlName="untilDate" >
             </div>
             <div class="col-sm-2 col-sm-push-4">
-                <select class="form-control" formControlName="Users">
-                  <option *ngFor="let user of UserOptions" [ngValue]="user">
-                    {{user}}
-                  </option>
-                </select>
-                <div *ngIf="form.get('Users').invalid && form.get('Users').dirty" class="text-danger">
-                  Field is required
-                </div>
+              <select class="form-control" formControlName="Users">
+                <option >Patient</option>
+                <option *ngFor="let user of UserOptions" [ngValue]="user">
+                  {{user}}
+                </option>
+              </select>
             </div>
             <div class="col-sm-2 col-sm-push-4">
               <button type="submit" class="btn btn-primary" >Search</button>   

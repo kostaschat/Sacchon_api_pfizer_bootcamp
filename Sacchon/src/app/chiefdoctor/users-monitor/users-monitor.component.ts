@@ -21,7 +21,7 @@ export class MonitorUsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      Users :new FormControl(null)  
+      Users :new FormControl('Patient')  
     });
 
   }
@@ -35,10 +35,12 @@ export class MonitorUsersComponent implements OnInit {
       }else{
         this.chiefdoctorService.getPatients().subscribe(usersList => this.usersList = usersList); 
       }
-    }   
+    }
+    console.log("o user einai " +this.form.get('Users').value);
     }
 
   onClick(id){
+
     if(this.data ==="Doctor")
     {
       this.uri='consultations'

@@ -11,7 +11,7 @@ import { UsersList } from '../users-list';
 export class UsersInactiveComponent implements OnInit {
   form: FormGroup;
   usersList: UsersList[];
-  UserOptions = ['Doctor','Patient'];
+  UserOptions = ['Doctor'];
   
   constructor(private chiefdoctorService : ChiefdoctorService) { }
 
@@ -19,7 +19,7 @@ export class UsersInactiveComponent implements OnInit {
     this.form = new FormGroup({
       fromDate: new FormControl(null, [Validators.required]),
       untilDate: new FormControl(null, [Validators.required]),
-      Users :new FormControl(null, [Validators.required])  
+      Users :new FormControl('Patient')  
     });
 
 
@@ -29,12 +29,16 @@ export class UsersInactiveComponent implements OnInit {
       "fromDate": this.form.get('fromDate').value,
       "untilDate":this.form.get('untilDate').value,
       "Users":this.form.get('Users').value
+      
+      
       }
+      console.log("o user einai " +data.Users);
+      
   
     if(data.Users==='Doctor'){
       this.chiefdoctorService.getDoctorList(data.fromDate, data.untilDate).subscribe(medi => this.usersList = medi);
     }
-    else{  
+    else if(data.Users==='Patient'){  
       this.chiefdoctorService.getPatientList(data.fromDate, data.untilDate).subscribe(medi => this.usersList = medi);
     }
   }
