@@ -77,6 +77,9 @@ const routes: Routes = [
   {
     path: 'doctor/consultation/edit', component: ConsultationsUpdateComponent
   }
+  
+  
+   
 
 ];
 
