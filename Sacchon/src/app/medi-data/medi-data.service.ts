@@ -44,6 +44,15 @@ export class MediDataService {
     },{headers:new HttpHeaders({'Authorization': 'Basic ' + btoa(sessionStorage.getItem("credentials"))})});
   } 
 
+  
+  removeMedi(medi_id){
+    return this.http.delete(this.baseUrl + "/" + medi_id,
+      {headers:new HttpHeaders(
+        {'Authorization': 'Basic ' + btoa(sessionStorage.getItem("credentials"))}
+        )
+      })
+  }
+
   updateMediData(uri,data): Observable<any>{
   
     return this.http.put(uri, data,{headers : new  HttpHeaders(

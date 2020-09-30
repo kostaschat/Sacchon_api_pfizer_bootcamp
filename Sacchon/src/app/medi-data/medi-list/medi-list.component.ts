@@ -43,9 +43,11 @@ export class MediListComponent implements OnInit {
       this.glucose.push(value.glucose),
       this.dates.push(datePipe.transform(value.measuredDate, 'EEEE, MMMM d'));
       })
+  }
 
+  deleteMedidata(medi_id){
 
-
+    this.mediService.removeMedi(medi_id).subscribe();
   }
 
   onClickUpdate(url, uri){
