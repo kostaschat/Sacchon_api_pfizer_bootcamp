@@ -15,13 +15,11 @@ import com.pfizer.sacchonapi.resource.util.ResourceValidator;
 import com.pfizer.sacchonapi.security.ResourceUtils;
 import com.pfizer.sacchonapi.security.Role;
 import com.pfizer.sacchonapi.security.Shield;
-import org.restlet.Request;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
 import javax.persistence.EntityManager;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -103,11 +101,11 @@ public class ApplicationUserListResourceImpl extends ServerResource implements A
                 throw new BadEntityException("User has not been created");
 
             applicationUserRepository.save(userOut);
-            ApplicationUserRepresentation result = new ApplicationUserRepresentation(userOut);
+            ApplicationUserRepresentation result;
+            result = new ApplicationUserRepresentation(userOut);
 
             return result;
         } catch (Exception ex) {
-
             throw new ResourceException(ex);
         }
     }
@@ -125,30 +123,24 @@ public class ApplicationUserListResourceImpl extends ServerResource implements A
             List<ApplicationUser> users = new ArrayList<>();
             List<ApplicationUserRepresentation> result = new ArrayList<>();
 
+            Optional<ApplicationUser> user = applicationUserRepository.getCurrent();
+
             if (fromDate != null && toDate != null) {
-                Request request = Request.getCurrent();
-                String username = request.getClientInfo().getUser().getName();
-                Optional<ApplicationUser> user = applicationUserRepository.findByUsername(username);
-
-
                 if (user.isPresent()) {
-                    if (user.get().getRole().getRoleName() == "chiefDoctor")
+                    if (user.get().getRole().getRoleName().equals("chiefDoctor"))
                         users = applicationUserRepository.findInactivePatients(fromDate, toDate);
                 } else {
-                    LOGGER.config("This user cannot be found in the database:" + username);
-                    throw new NotFoundException("No user with name : " + username);
+                    LOGGER.config("This user cannot be found in the database.");
+                    throw new NotFoundException("No user with this name.");
                 }
             } else {
-                Request request = Request.getCurrent();
-                String username = request.getClientInfo().getUser().getName();
-                Optional<ApplicationUser> user = applicationUserRepository.findByUsername(username);
 
                 if (user.isPresent()) {
-                    if (user.get().getRole().getRoleName() == "doctor")
+                    if (user.get().getRole().getRoleName().equals("doctor"))
                         users = applicationUserRepository.findAvailablePatients();
                 } else {
-                    LOGGER.config("This user cannot be found in the database:" + username);
-                    throw new NotFoundException("No user with name : " + username);
+                    LOGGER.config("This user cannot be found in the database.");
+                    throw new NotFoundException("No user with this name.");
                 }
             }
 

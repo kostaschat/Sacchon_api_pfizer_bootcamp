@@ -10,8 +10,8 @@ import java.util.List;
 
 public interface ConsultationListResource {
     @Post("json")
-    public ConsultationRepresentation add(ConsultationRepresentation consultationIn) throws BadEntityException;
+    ConsultationRepresentation add(ConsultationRepresentation consultationIn) throws BadEntityException;
 
     @Get("json")
-    public List<ConsultationRepresentation> getConsultations() throws NotFoundException;
+    List<ConsultationRepresentation> getConsultations() throws NotFoundException;
 }

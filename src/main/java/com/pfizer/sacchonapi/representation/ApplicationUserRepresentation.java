@@ -1,13 +1,11 @@
 package com.pfizer.sacchonapi.representation;
 
-import com.pfizer.sacchonapi.exception.NotFoundException;
 import com.pfizer.sacchonapi.model.ApplicationUser;
 import com.pfizer.sacchonapi.security.Role;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -44,15 +42,6 @@ public class ApplicationUserRepresentation {
             dob = applicationUser.getDob();
             creationDate = applicationUser.getCreationDate();
             id = applicationUser.getId();
-
-//            try {
-//                if (role.getRoleName().equals("patient"))
-//                    id = applicationUser.getPatient().getId();
-//                else
-//                    id = applicationUser.getDoctor().getId();
-//            } catch (Exception e){
-//                System.out.println(e);
-//            }
         }
     }
 

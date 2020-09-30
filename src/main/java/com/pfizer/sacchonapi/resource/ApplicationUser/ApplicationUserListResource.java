@@ -11,8 +11,8 @@ import java.util.List;
 public interface ApplicationUserListResource {
 
     @Post("json")
-    public ApplicationUserRepresentation add(ApplicationUserRepresentation userIn) throws BadEntityException;
+    ApplicationUserRepresentation add(ApplicationUserRepresentation userIn) throws BadEntityException;
 
     @Get("json")
-    public List<ApplicationUserRepresentation> getUsers() throws NotFoundException;
+    List<ApplicationUserRepresentation> getUsers() throws NotFoundException;
 }

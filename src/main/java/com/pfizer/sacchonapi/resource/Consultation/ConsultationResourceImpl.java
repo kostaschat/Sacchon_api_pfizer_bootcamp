@@ -38,6 +38,7 @@ public class ConsultationResourceImpl extends ServerResource implements Consulta
         try {
             em = JpaUtil.getEntityManager();
             consultationRepository = new ConsultationRepository(em);
+            patientRepository = new PatientRepository(em);
             cid = Long.parseLong(getAttribute("cid"));
 
         } catch (Exception e) {

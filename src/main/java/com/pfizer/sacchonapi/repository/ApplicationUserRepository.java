@@ -5,9 +5,9 @@ import com.pfizer.sacchonapi.model.Consultation;
 import com.pfizer.sacchonapi.model.Patient;
 import com.pfizer.sacchonapi.representation.ApplicationUserRepresentation;
 import com.pfizer.sacchonapi.representation.PatientsWithoutConsultationRepresentation;
-import com.pfizer.sacchonapi.security.Role;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
+import org.restlet.Request;
 
 import javax.persistence.EntityManager;
 import java.util.*;
@@ -18,6 +18,13 @@ public class ApplicationUserRepository {
 
     public ApplicationUserRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
+    }
+
+    public Optional<ApplicationUser> getCurrent(){
+        Request request = Request.getCurrent();
+        String username = request.getClientInfo().getUser().getName();
+        Optional<ApplicationUser> user = findByUsername(username);
+        return user;
     }
 
     public Optional<ApplicationUser> findByUsername(String username) {
@@ -86,15 +93,16 @@ public class ApplicationUserRepository {
             }
             for (Consultation consultation : consultations) {
                 if (((consultation.getConsultationDate().after(before30)) && (consultation.getConsultationDate().before(today))) || consultation.getConsultationDate() == today ) {
-
                     break;
                 } else {
                     finalPatients.add(patient);
                 }
             }
         }
+        List<Patient> patientsPending = finalPatients.stream()
+                .filter(p -> p.isConsultationPending()).collect(Collectors.toList());
 
-        List<ApplicationUser> applicationUsers = finalPatients.stream().
+        List<ApplicationUser> applicationUsers = patientsPending.stream().
                 map(applicationUser -> new ApplicationUser(applicationUser.getApplicationUser().getPatient().getApplicationUser()))
                 .collect(Collectors.toList());
 
@@ -139,23 +147,6 @@ public class ApplicationUserRepository {
         query.addEntity(ApplicationUser.class);
         return query.getResultList();
     }
-
-//    public boolean findByDetails(String username, String password) {
-//
-//        Session s = (Session) entityManager.getDelegate();
-//        String sql = "SELECT A.role FROM ApplicationUser A where A.username = :username and A.password = :password";
-//        NativeQuery query = s.createSQLQuery(sql);
-//        query.setParameter("username", username);
-//        query.setParameter("password", password);
-//
-//        try {
-//            query.getSingleResult();
-//            return  true;
-//        } catch (Exception e) {
-//            return false;
-//        }
-//
-//    }
 
     public String findByDetails(String username, String password) {
     try {

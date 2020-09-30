@@ -3,8 +3,6 @@ package com.pfizer.sacchonapi.representation;
 import com.pfizer.sacchonapi.model.MediData;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.eclipse.jetty.util.thread.strategy.ProduceConsume;
-
 import java.util.Date;
 
 @Data
@@ -14,7 +12,7 @@ public class MediDataRepresentation {
     private double glucose;
     private double carb;
     private Date measuredDate;
-
+    private long consultation_id;
     private String uri;
 
     public MediDataRepresentation(MediData mediData)
@@ -25,6 +23,11 @@ public class MediDataRepresentation {
             carb = mediData.getCarb();
             measuredDate = mediData.getMeasuredDate();
             uri = "http://localhost:9000/v1/medidata/" + mediData.getId();
+            try {
+                consultation_id = mediData.getConsultation().getId();
+            }catch (Exception e){
+                consultation_id = 0;
+            }
         }
     }
 

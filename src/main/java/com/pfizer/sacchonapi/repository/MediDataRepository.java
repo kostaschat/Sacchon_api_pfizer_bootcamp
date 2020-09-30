@@ -1,6 +1,5 @@
 package com.pfizer.sacchonapi.repository;
 
-import com.pfizer.sacchonapi.model.ApplicationUser;
 import com.pfizer.sacchonapi.model.MediData;
 import lombok.Data;
 
@@ -25,11 +24,11 @@ public class MediDataRepository {
         return mediData != null ? Optional.of(mediData) : Optional.empty();
     }
 
-//    public List<MediData> findMediData(long id) {
-//        return entityManager.createQuery("FROM MediData WHERE patient_id = :id")
-//                .setParameter("id", id)
-//                .getResultList();
-//    }
+    public List<MediData> findMediData(long id) {
+        return entityManager.createQuery("FROM MediData WHERE patient_id = :id")
+                .setParameter("id", id)
+                .getResultList();
+    }
     public List<MediData> findConsultationMedi(long cId){
         Session s = (Session) entityManager.getDelegate();
         String sql = "SELECT M.* " +
@@ -110,9 +109,8 @@ public class MediDataRepository {
         query.setParameter("startDate", startDate);
         List value = query.list();
         System.out.println(value.get(0));
-        double x = Double.parseDouble(value.get(0).toString());
 
-        return x;
+        return Double.parseDouble(value.get(0).toString());
     }
 
 

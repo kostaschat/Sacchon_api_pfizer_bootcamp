@@ -5,12 +5,10 @@ import com.pfizer.sacchonapi.model.ApplicationUser;
 import com.pfizer.sacchonapi.repository.ApplicationUserRepository;
 import com.pfizer.sacchonapi.repository.util.JpaUtil;
 import com.pfizer.sacchonapi.representation.ApplicationUserRepresentation;
-import com.pfizer.sacchonapi.representation.PatientsWithoutConsultationRepresentation;
 import com.pfizer.sacchonapi.resource.MediData.MediDataResourceImpl;
 import com.pfizer.sacchonapi.security.ResourceUtils;
 import com.pfizer.sacchonapi.security.Role;
 import com.pfizer.sacchonapi.security.Shield;
-import org.restlet.Request;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
@@ -46,15 +44,13 @@ public class PatientUserListResourceImpl extends ServerResource implements Patie
     @Override
     public <T> List<T> getUsers() throws NotFoundException {
 
-        List<ApplicationUser> applicationUsers = new ArrayList<>();
+        List<ApplicationUser> applicationUsers;
         List<ApplicationUserRepresentation> result = new ArrayList<>();
 
         //both of doctors can used this method but for different purposes
         ResourceUtils.checkRoles(this, Shield.chiefDoctor, Shield.doctor);
 
-        Request request = Request.getCurrent();
-        String currentUser = request.getClientInfo().getUser().getName();
-        Optional<ApplicationUser> user = applicationUserRepository.findByUsername(currentUser);
+        Optional<ApplicationUser> user = applicationUserRepository.getCurrent();
 
         Role role;
         long did;
@@ -63,12 +59,12 @@ public class PatientUserListResourceImpl extends ServerResource implements Patie
             role = user.get().getRole();
 
         } else {
-            LOGGER.config("This doctor cannon be found in the database:" + currentUser);
-            throw new NotFoundException("No doctor with name: " + currentUser);
+            LOGGER.config("This doctor cannon be found in the database.");
+            throw new NotFoundException("No doctor with this name.");
         }
 
         System.out.println("here i am " + role);
-        if (role.getRoleName() == "doctor") {
+        if (role.getRoleName().equals("doctor")) {
             did = user.get().getDoctor().getId();
             System.out.println("i am a doctor");
             Date dateToday = new Date();
@@ -79,12 +75,10 @@ public class PatientUserListResourceImpl extends ServerResource implements Patie
             applicationUsers = applicationUserRepository.findUnconsultedPatients(did, dateToday, today30);
 
             applicationUsers.forEach(p -> result.add(new ApplicationUserRepresentation(p)));
-        } else if (role.getRoleName() == "chiefDoctor")//if he is a chief doctor
+        } else if (role.getRoleName().equals("chiefDoctor"))//if he is a chief doctor
         {
-            List<T> patientList = (List<T>) applicationUserRepository.WaitingForConsultationAndTimeEllapsed();
-            return patientList;
+            return (List<T>) applicationUserRepository.WaitingForConsultationAndTimeEllapsed();
         }
-
 
         return (List<T>) result;
     }

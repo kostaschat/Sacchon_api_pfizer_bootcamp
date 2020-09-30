@@ -1,11 +1,7 @@
 package com.pfizer.sacchonapi.representation;
 
-import com.pfizer.sacchonapi.model.ApplicationUser;
-import com.pfizer.sacchonapi.model.Patient;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Data
 @NoArgsConstructor

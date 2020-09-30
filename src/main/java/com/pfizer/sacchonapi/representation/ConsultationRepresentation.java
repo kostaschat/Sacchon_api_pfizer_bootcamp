@@ -1,16 +1,8 @@
 package com.pfizer.sacchonapi.representation;
 
 import com.pfizer.sacchonapi.model.Consultation;
-import com.pfizer.sacchonapi.repository.ApplicationUserRepository;
-import com.pfizer.sacchonapi.repository.ConsultationRepository;
-import com.pfizer.sacchonapi.repository.DoctorRepository;
-import com.pfizer.sacchonapi.repository.PatientRepository;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.eclipse.jetty.client.api.Request;
-import org.restlet.security.User;
-
-import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -20,9 +12,10 @@ public class ConsultationRepresentation {
     private String medicationName;
     private double dosage;
     private Date consultationDate;
+    private String advice;
     private long doctor_id;
     private long patient_id;
-    private String uri;
+    private long id;
 
 
     public ConsultationRepresentation(Consultation consultation) {
@@ -30,18 +23,18 @@ public class ConsultationRepresentation {
             medicationName = consultation.getMedicationName();
             dosage = consultation.getDosage();
             consultationDate = consultation.getConsultationDate();
+            advice = consultation.getAdvice();
             doctor_id = consultation.getDoctor().getId();
             patient_id = consultation.getPatient().getId();
-            uri = "http://localhost:9000/consultation/" + consultation.getId();
+            id = consultation.getId();
         }
     }
 
     public Consultation createConsulation() {
-
         Consultation consultation = new Consultation();
         consultation.setMedicationName(medicationName);
         consultation.setDosage(dosage);
-
+        consultation.setAdvice(advice);
         return consultation;
     }
 }

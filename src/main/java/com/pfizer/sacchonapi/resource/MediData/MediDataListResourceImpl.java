@@ -12,7 +12,6 @@ import com.pfizer.sacchonapi.resource.util.ResourceValidator;
 import com.pfizer.sacchonapi.security.ResourceUtils;
 import com.pfizer.sacchonapi.security.Role;
 import com.pfizer.sacchonapi.security.Shield;
-import org.restlet.Request;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
@@ -77,10 +76,7 @@ public class MediDataListResourceImpl extends ServerResource implements MediData
         LOGGER.finer("Select all medical data.");
 
         ResourceUtils.checkRoles(this, Shield.patient, Shield.doctor, Shield.chiefDoctor);
-
-        Request request = Request.getCurrent();
-        String username = request.getClientInfo().getUser().getName();
-        Optional<ApplicationUser> user = applicationUserRepository.findByUsername(username);
+        Optional<ApplicationUser> user = applicationUserRepository.getCurrent();
 
         try {
             List<MediData> mediData;
@@ -91,8 +87,8 @@ public class MediDataListResourceImpl extends ServerResource implements MediData
                 if (user.isPresent()) {
                     doctorOut = user.get().getDoctor();
                 } else {
-                    LOGGER.config("This doctor cannot be found in the database:" + username);
-                    throw new NotFoundException("No doctor with name : " + username);
+                    LOGGER.config("This doctor cannot be found in the database:");
+                    throw new NotFoundException("No doctor with this name");
                 }
 
                 long d_id = doctorOut.getId();
@@ -104,8 +100,8 @@ public class MediDataListResourceImpl extends ServerResource implements MediData
                 if (user.isPresent()) {
                     role = user.get().getRole();
                 } else {
-                    LOGGER.config("This doctor cannon be found in the database:" + username);
-                    throw new NotFoundException("No doctor with name: " + username);
+                    LOGGER.config("This doctor cannot be found in the database:");
+                    throw new NotFoundException("No doctor with this name");
                 }
                 if (role.getRoleName().equals("chiefDoctor")) {
                     mediData = getMonitoringMediData();
@@ -115,11 +111,11 @@ public class MediDataListResourceImpl extends ServerResource implements MediData
                     if (user.isPresent()) {
                         patientOut = user.get().getPatient();
                     } else {
-                        LOGGER.config("This Patient cannon be found in the database:" + username);
-                        throw new NotFoundException("No patient with name : " + username);
+                        LOGGER.config("This Patient cannot be found in the database:");
+                        throw new NotFoundException("No patient with this name");
                     }
                     long id = patientOut.getId();
-                    mediData = mediDataRepository.findMediDataWithNoConsultation(id);
+                    mediData = mediDataRepository.findMediData(id);
                 }
             }
             mediData.forEach(m -> result.add(new MediDataRepresentation(m)));
@@ -146,11 +142,7 @@ public class MediDataListResourceImpl extends ServerResource implements MediData
         ResourceValidator.validate(mediDataIn);
         LOGGER.finer("Medical Data checked");
 
-        Request request = Request.getCurrent();
-        String username = request.getClientInfo().getUser().getName();
-        Optional<ApplicationUser> user = applicationUserRepository.findByUsername(username);
-
-
+        Optional<ApplicationUser> user = applicationUserRepository.getCurrent();
 
         try {
             if (user.isPresent() && user.get().getPatient().isConsultationPending()) {
@@ -168,8 +160,8 @@ public class MediDataListResourceImpl extends ServerResource implements MediData
                     if (user.isPresent()) {
                         patientOut = user.get().getPatient();
                     } else {
-                        LOGGER.config("This patient cannot be found in the database:" + username);
-                        throw new NotFoundException("No Patient with name : " + username);
+                        LOGGER.config("This patient cannot be found in the database.");
+                        throw new NotFoundException("No Patient with this name.");
                     }
 
                     mediData.setPatient(patientOut);

@@ -10,9 +10,9 @@ import java.util.List;
 
 public interface PatientListResource {
     @Get("json")
-    public List<ApplicationUserRepresentation> getPatients() throws NotFoundException;
+    List<ApplicationUserRepresentation> getPatients() throws NotFoundException;
 
     @Put("json")
-    public void errorModify() throws NotFoundException, BadEntityException;
+    void errorModify() throws NotFoundException, BadEntityException;
 
 }

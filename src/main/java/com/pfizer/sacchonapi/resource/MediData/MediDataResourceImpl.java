@@ -7,14 +7,12 @@ import com.pfizer.sacchonapi.model.MediData;
 import com.pfizer.sacchonapi.model.Patient;
 import com.pfizer.sacchonapi.repository.ApplicationUserRepository;
 import com.pfizer.sacchonapi.repository.MediDataRepository;
-import com.pfizer.sacchonapi.repository.PatientRepository;
 import com.pfizer.sacchonapi.repository.util.JpaUtil;
 import com.pfizer.sacchonapi.representation.GeneralRepresentation;
 import com.pfizer.sacchonapi.representation.MediDataRepresentation;
 import com.pfizer.sacchonapi.resource.util.ResourceValidator;
 import com.pfizer.sacchonapi.security.ResourceUtils;
 import com.pfizer.sacchonapi.security.Shield;
-import org.restlet.Request;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
@@ -31,7 +29,6 @@ public class MediDataResourceImpl extends ServerResource implements MediDataReso
 
     private ApplicationUserRepository userRepository;
     private MediDataRepository mediDataRepository;
-    private PatientRepository patientRepository;
     private EntityManager em;
 
     private long id;
@@ -53,7 +50,6 @@ public class MediDataResourceImpl extends ServerResource implements MediDataReso
 
             userRepository = new ApplicationUserRepository(em);
             mediDataRepository = new MediDataRepository(em);
-            patientRepository = new PatientRepository(em);
 
             try {
                 fromDate = getAttribute("fromdate");
@@ -94,16 +90,14 @@ public class MediDataResourceImpl extends ServerResource implements MediDataReso
             //if toDate or datatype is null, fromDate will also get the value null
             if (fromDate != null) {
                 //we need the logged in patient's id
-                Request request = Request.getCurrent();
-                String currentUser = request.getClientInfo().getUser().getName();
-                Optional<ApplicationUser> user = userRepository.findByUsername(currentUser);
-                Patient patient = null;
+                Optional<ApplicationUser> user = userRepository.getCurrent();
+                Patient patient;
 
                 if (user.isPresent()) {
                     patient = user.get().getPatient();
                 } else {
-                    LOGGER.config("This patient cannon be found in the database:" + currentUser);
-                    throw new NotFoundException("No patient with name : " + currentUser);
+                    LOGGER.config("This patient cannon be found in the database.");
+                    throw new NotFoundException("No patient with name.");
                 }
 
                 System.out.println("Before getting the value");
@@ -153,11 +147,8 @@ public class MediDataResourceImpl extends ServerResource implements MediDataReso
         try {
             MediData mediDataIn = mediDataReprIn.createMediData();
             mediDataIn.setId(id);
-
             Optional<MediData> mediDataOut;
-
             Optional<MediData> oMediData = mediDataRepository.findById(id);
-
             setExisting(oMediData.isPresent());
 
             if (isExisting()) {
@@ -191,7 +182,7 @@ public class MediDataResourceImpl extends ServerResource implements MediDataReso
         ResourceUtils.checkRole(this, Shield.patient);
         LOGGER.finer("User allowed to remove his account.");
 
-        boolean gotRemoved = false;
+        boolean gotRemoved;
 
         try {
             gotRemoved = mediDataRepository.remove(id);

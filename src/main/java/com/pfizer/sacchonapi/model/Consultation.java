@@ -3,7 +3,6 @@ package com.pfizer.sacchonapi.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +16,7 @@ public class Consultation {
     private long id;
     private String medicationName;
     private double dosage;
+    private String advice;
     private Date ConsultationDate;
 
 

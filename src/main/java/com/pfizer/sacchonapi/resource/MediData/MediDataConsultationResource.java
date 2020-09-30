@@ -9,6 +9,6 @@ import java.util.List;
 public interface MediDataConsultationResource {
 
     @Get("json")
-    public List<MediDataRepresentation> getMediData() throws NotFoundException;
+    List<MediDataRepresentation> getMediData() throws NotFoundException;
 
 }

@@ -10,8 +10,8 @@ import org.restlet.resource.Put;
 
 public interface ConsultationResource {
     @Get("json")
-    public ConsultationRepresentation getConsultation() throws NotFoundException;
+    ConsultationRepresentation getConsultation() throws NotFoundException;
 
     @Put("json")
-    public ConsultationRepresentation store(ConsultationRepresentation consultationReprIn) throws NotFoundException, BadEntityException;
+    ConsultationRepresentation store(ConsultationRepresentation consultationReprIn) throws NotFoundException, BadEntityException;
 }

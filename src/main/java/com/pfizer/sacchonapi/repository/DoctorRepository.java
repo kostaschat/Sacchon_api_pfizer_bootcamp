@@ -1,9 +1,6 @@
 package com.pfizer.sacchonapi.repository;
 
-import com.pfizer.sacchonapi.model.ApplicationUser;
 import com.pfizer.sacchonapi.model.Doctor;
-
-
 import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +20,6 @@ public class DoctorRepository {
     public List<Doctor> findAll() {
         return entityManager.createQuery("from Doctor").getResultList();
     }
-
 
     public Optional<Doctor> findByName(String user_username) {
         Doctor doctor = entityManager.find(Doctor.class, user_username);

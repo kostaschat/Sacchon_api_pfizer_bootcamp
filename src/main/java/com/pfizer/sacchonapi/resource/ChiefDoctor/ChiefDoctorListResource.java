@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface ChiefDoctorListResource {
     @Get("json")
-    public List<ApplicationUserRepresentation> getDoctors() throws NotFoundException;
+    List<ApplicationUserRepresentation> getDoctors() throws NotFoundException;
 }

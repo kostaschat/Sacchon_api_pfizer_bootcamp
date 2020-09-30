@@ -8,6 +8,6 @@ import java.util.List;
 public interface PatientUserListResource {
 
     @Get("json")
-    public <T> List<T> getUsers() throws NotFoundException;
+    <T> List<T> getUsers() throws NotFoundException;
 
 }

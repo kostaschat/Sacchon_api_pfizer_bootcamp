@@ -9,7 +9,6 @@ import com.pfizer.sacchonapi.representation.ConsultationRepresentation;
 import com.pfizer.sacchonapi.resource.util.ResourceValidator;
 import com.pfizer.sacchonapi.security.ResourceUtils;
 import com.pfizer.sacchonapi.security.Shield;
-import org.restlet.Request;
 import org.restlet.engine.Engine;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
@@ -29,7 +28,6 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
 
     private ConsultationRepository consultationRepository;
     private PatientRepository patientRepository;
-    private DoctorRepository doctorRepository;
     private ApplicationUserRepository applicationUserRepository;
     private MediDataRepository mediDataRepository;
     private String startDate;
@@ -89,31 +87,26 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
 
         ResourceUtils.checkRoles(this, Shield.patient, Shield.doctor, Shield.chiefDoctor);
 
-        List<Consultation> consultations = null;
+        List<Consultation> consultations;
 
         try {
 
             List<ConsultationRepresentation> result = new ArrayList<>();
+            Optional<ApplicationUser> user = applicationUserRepository.getCurrent();
+
             if (p_id != -1) {
-                Request request = Request.getCurrent();
-                String username = request.getClientInfo().getUser().getName();
-                Optional<ApplicationUser> user = applicationUserRepository.findByUsername(username);
-//                long id = user.get().getDoctor().getId();
 
                 Doctor doctorOut;
                 if (user.isPresent()) {
                     doctorOut = user.get().getDoctor();
                 } else {
-                    LOGGER.config("This doctor cannot be found in the database:" + username);
-                    throw new NotFoundException("No doctor with name : " + username);
+                    LOGGER.config("This doctor cannot be found in the database.");
+                    throw new NotFoundException("No doctor with this name.");
                 }
 
                 long d_id = doctorOut.getId();
                 consultations = consultationRepository.findPatientCons(p_id,d_id);
             } else {
-                Request request = Request.getCurrent();
-                String username = request.getClientInfo().getUser().getName();
-                Optional<ApplicationUser> user = applicationUserRepository.findByUsername(username);
 
                 if (did != -1) {
                   consultations = consultationRepository.findMonitoredConsultations(did, startDate, endDate);
@@ -123,8 +116,8 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
                     if (user.isPresent()) {
                         patientOut = user.get().getPatient();
                     } else {
-                        LOGGER.config("This patient cannot be found in the database:" + username);
-                        throw new NotFoundException("No patient with name : " + username);
+                        LOGGER.config("This patient cannot be found in the database.");
+                        throw new NotFoundException("No patient with this name.");
                     }
 
                     long id = patientOut.getId();
@@ -177,16 +170,14 @@ public class ConsultationListResourceImpl extends ServerResource implements Cons
                     }
                 }
 
-                Request request = Request.getCurrent();
-                String username = request.getClientInfo().getUser().getName();
-                Optional<ApplicationUser> user = applicationUserRepository.findByUsername(username);
+                Optional<ApplicationUser> user = applicationUserRepository.getCurrent();
 
                 Doctor doctorOut;
                 if (user.isPresent()) {
                     doctorOut = user.get().getDoctor();
                 } else {
-                    LOGGER.config("This doctor cannon be found in the database:" + username);
-                    throw new NotFoundException("No doctor with name : " + username);
+                    LOGGER.config("This doctor cannon be found in the database.");
+                    throw new NotFoundException("No doctor with this name");
                 }
 
                 consultation.setDoctor(doctorOut);

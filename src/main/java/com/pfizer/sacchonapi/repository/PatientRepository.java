@@ -1,8 +1,7 @@
 package com.pfizer.sacchonapi.repository;
 
-import com.pfizer.sacchonapi.model.MediData;
-import com.pfizer.sacchonapi.model.Patient;
 
+import com.pfizer.sacchonapi.model.Patient;
 import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;

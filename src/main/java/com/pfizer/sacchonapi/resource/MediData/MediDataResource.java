@@ -11,12 +11,12 @@ import org.restlet.resource.Put;
 public interface MediDataResource {
 
     @Get("json")
-    public MediDataRepresentation getMediData() throws NotFoundException;
+    MediDataRepresentation getMediData() throws NotFoundException;
 
     @Put("json")
-    public MediDataRepresentation store(MediDataRepresentation mediDataReprIn) throws NotFoundException, BadEntityException;
+    MediDataRepresentation store(MediDataRepresentation mediDataReprIn) throws NotFoundException, BadEntityException;
 
     @Delete("json")
-    public GeneralRepresentation remove(MediDataRepresentation mediDataReprIn) throws Exception;
+    GeneralRepresentation remove(MediDataRepresentation mediDataReprIn) throws Exception;
 
 }
