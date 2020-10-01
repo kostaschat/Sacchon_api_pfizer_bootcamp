@@ -1,0 +1,77 @@
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
+    <a class="navbar-brand" [routerLink]="['dashboard']"><img class="logo" src="/assets/images/logo.png"><span class="logo-text">DIAS Healthcare</span></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link"[routerLink]="['dashboard']"><i class="fa fa-home fa-fw" aria-hidden="true"></i> Home</a>
+        </li>
+        <li class="nav-item" *ngIf="sessionStorage.getItem('role') === 'patient'">
+          <a class="nav-link" [routerLink]="['consultations']">Consultation</a>
+        </li>
+        <li class="nav-item" *ngIf="sessionStorage.getItem('role') === 'chiefDoctor'">
+           <a class="nav-link" [routerLink]="['chiefdoctor/inactive-doctors']">Inactive Users</a>
+       </li>
+        <li class="nav-item" *ngIf="sessionStorage.getItem('role') === 'chiefDoctor'">
+          <a class="nav-link" [routerLink]="['chiefdoctor/pending-list']">Pending Patients</a>
+        </li>
+        <li class="nav-item" *ngIf="sessionStorage.getItem('role') === 'chiefDoctor'">
+          <a class="nav-link" [routerLink]="['chiefdoctor/submissions-list']">Monitor users</a>
+        </li>
+        <li class="nav-item dropdown" *ngIf="sessionStorage.getItem('role') === 'patient'">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Data
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" [routerLink]="['medi/list-data']">View</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" [routerLink]="['medi/insert']">Insert</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" [routerLink]="['patient/average-data']">Average Data</a>
+          </div>
+        </li>
+
+        <li class="nav-item dropdown" *ngIf="sessionStorage.getItem('role') === 'doctor'">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Patients
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" [routerLink]="['doctor/mypatients']">My Patients</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" [routerLink]="['patients']">New patients</a>
+          </div>
+
+        </li>
+
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <div *ngIf="sessionStorage.getItem('credentials') == null">
+          <li class="nav-item">
+           <a class="nav-link" [routerLink]="['login']">Login</a>
+          </li>
+        </div>
+        <div *ngIf="sessionStorage.getItem('credentials') == null" class="line"></div>
+        <div *ngIf="sessionStorage.getItem('credentials') == null">
+          <li class="nav-item">
+           <a class="nav-link" [routerLink]="['register']" > Register</a>
+          </li>
+        </div>
+
+        <div *ngIf="sessionStorage.getItem('credentials') != null">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="account" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i *ngIf="sessionStorage.getItem('role') == 'patient'" class="fa fa-user-o fa-lg" aria-hidden="true"></i>
+            <i *ngIf="sessionStorage.getItem('role') == 'doctor'" class="fa fa-user-md fa-lg" aria-hidden="true"></i>
+            <i *ngIf="sessionStorage.getItem('role') == 'chiefDoctor'" class="fa fa-lock fa-lg" aria-hidden="true"></i>
+            Hello {{sessionStorage.getItem('username')}}!</a>
+            <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="account">
+                <a class="nav-link" [routerLink]="['settings']" ><i class="fa fa-cog fa-fw" aria-hidden="true"></i>&nbsp; Settings</a>
+                <a class="nav-link" [routerLink]="['logout']" ><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i>&nbsp;Log out</a>
+            </div>
+          </li>
+      </div>
+      </ul>
+    </div>
+  </nav>

@@ -1,0 +1,57 @@
+
+<div class="container" style="align-items: center; " *ngIf="sessionStorage.getItem('role')=== 'chiefDoctor'">
+  <form [formGroup]="form" (submit)="formSumbit()">
+    <div class="form-group row">
+      <label for="example-date-input" class="col-form-label">From:</label>
+      <div class="col-sm-3 col-sm-push-4">
+        <input class="form-control" type="date" value="2019-08-19" id="fromDate " formControlName="fromDate">
+      </div>
+      <label for="example-date-input" class=" col-form-label">Until:</label>
+      <div class="col-sm-3 col-sm-push-4">
+        <input class="form-control" type="date" value="2020-08-19" id="untilDate" formControlName="untilDate" >
+      </div>
+
+      <div class="col-sm-2 col-sm-push-4">
+        <button type="submit" class="btn btn-primary" >Search</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div *ngIf = "mediData">
+  <app-medidata-charts [carbValues]="carbs" [glucoseValues]="glucose" [dateValues] = "dates" ></app-medidata-charts>
+</div>
+
+
+<div class="container">
+  <h2 class="title text-center" style="padding:30px 0 30px;">Medical Data</h2>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Carb Intake</th>
+        <th scope="col">Blood Glucose Level</th>
+        <th scope="col">Date & Time</th>
+        <th *ngIf="sessionStorage.getItem('role') == 'patient'" scope="col">Update</th>
+        <th *ngIf="sessionStorage.getItem('role') == 'patient'" scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let medi of mediData;let i = index">
+        <tr *ngIf="(sessionStorage.getItem('role') === 'patient' && medi.consultation_id == 0) || (sessionStorage.getItem('role') === 'chiefDoctor' && medi.consultation_id == 0)">
+          <th scope="row">{{i+1}}</th>
+          <td>{{medi.carb}}</td>
+          <td>{{medi.glucose}}</td>
+          <td>{{medi.measuredDate | date:'medium' }}</td>
+          <td *ngIf="sessionStorage.getItem('role')=== 'patient'"><button class="btn" type="submit" (click)="onClickUpdate('edit', medi.uri)"><i class="fa fa-edit fa-lg" aria-hidden="true"></i></button></td>
+          <td *ngIf="sessionStorage.getItem('role')=== 'patient'"><button class="btn" type="submit" (click)="deleteMedidata(medi.uri)"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></button></td>
+        </tr>
+        <tr *ngIf="sessionStorage.getItem('role') == 'doctor' && medi.consultation_id == 0">
+          <th scope="row">{{i+1}}</th>
+          <td>{{medi.carb}}</td>
+          <td>{{medi.glucose}}</td>
+          <td>{{medi.measuredDate | date:'medium' }}</td>          
+        </tr>
+    </tbody>
+  </table>
+</div>
+
