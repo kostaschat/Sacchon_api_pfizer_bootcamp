@@ -16,6 +16,7 @@ export class MediListComponent implements OnInit {
   id: any;
   form: FormGroup;
   mediDataId:any;
+  
 
   carbs: number[] = [];
   glucose:number[] = [];
@@ -31,7 +32,7 @@ export class MediListComponent implements OnInit {
 
     if(sessionStorage.getItem("credentials") == null){
       this.router.navigate(['login'])
-    }else if(this.id){
+    }else if(sessionStorage.getItem("role")== "doctor"){
       console.log("exw id");
       this.mediService.getMediOfPatient(this.id).subscribe(medi => {this.mediData = medi, this.fillData(this.mediData)});
     }else if(sessionStorage.getItem("role")== "patient"){
@@ -44,18 +45,35 @@ export class MediListComponent implements OnInit {
    }
  }
 
-  fillData(mediData: MediData[]){
+ 
+  fillData(medi){
+    if(medi === undefined || medi.length == 0){
+        this.carbs = [];
+        this.glucose = [];
+        this.dates = [];  
+    }else{
 
-    const datePipe = new DatePipe('en-US');
-    mediData.forEach((value) => {
+      const datePipe = new DatePipe('en-US');
+      medi.forEach((value) => {
       this.carbs.push(value.carb),
       this.glucose.push(value.glucose),
       this.dates.push(datePipe.transform(value.measuredDate, 'EEEE, MMMM d'));
-      })
+      }
+      )
+    }  
+  
+    this.carbs = [...this.carbs]
+    this.glucose = [...this.glucose]
+    this.dates = [...this.dates]
+  
   }
 
-  deleteMedidata(medi_id){
-    this.mediService.removeMedi(medi_id).subscribe();
+  deleteMedidata(medi_uri){
+    var id = medi_uri.split(['/']).pop();
+    
+    this.mediService.removeMedi(id).subscribe(
+      ()=> {alert("You are going to delete your Medical Data");location.reload()}
+    );  
   }
 
   formSumbit(){
@@ -63,7 +81,10 @@ export class MediListComponent implements OnInit {
         "fromDate": this.form.get('fromDate').value,
         "untilDate":this.form.get('untilDate').value
         }
-   this.mediService.getMediOfPatientSub(this.id, data.fromDate, data.untilDate).subscribe(mediData => this.mediData = mediData);
+    
+   this.mediService.getMediOfPatientSub(this.id, data.fromDate, data.untilDate).subscribe(
+     medi => {this.mediData = medi, this.fillData(medi)}
+     );
   }
 
   onClickUpdate(url, uri){
@@ -76,4 +97,5 @@ export class MediListComponent implements OnInit {
       }
     });
   }
+  
 }

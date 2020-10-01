@@ -47,7 +47,7 @@ export class MonitorUsersComponent implements OnInit {
     }else{
       this.uri='medi/list-data/'
     }
-    this.router.navigate([this.uri], {queryParams:{id : id}}).then( (e) => {
+    this.router.navigate([this.uri], {queryParams:{id : id}}).then((e) => {
       if (e) {
         console.log("Navigation is successful!");
       } else {

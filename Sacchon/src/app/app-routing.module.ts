@@ -11,6 +11,7 @@ import { ConsultationsUpdateComponent } from './consultations/consultations-upda
 import { ConsultationsModule } from './consultations/consultations.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
+import { AverageDataComponent } from './medi-data/average-data/average-data.component';
 import { MediInsertComponent } from './medi-data/medi-insert/medi-insert.component';
 import { MediListComponent } from './medi-data/medi-list/medi-list.component';
 import { MediUpdateComponent } from './medi-data/medi-update/medi-update.component';
@@ -76,11 +77,10 @@ const routes: Routes = [
   },
   {
     path: 'doctor/consultation/edit', component: ConsultationsUpdateComponent
+  },
+  {
+    path: 'patient/average-data', component: AverageDataComponent
   }
-  
-  
-   
-
 ];
 
 @NgModule({

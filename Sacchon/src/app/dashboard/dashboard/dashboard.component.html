@@ -8,12 +8,38 @@
 </div>
 
 
-<div class="jumbotron">
-  
+<div class="jumbotron"  id="patient-jumb" *ngIf="sessionStorage.getItem('role') === 'patient' || sessionStorage.getItem('credentials') == null">
+  <div class="container">
+  <h2 class="title">
+    Your Personal Doctor <br> By DIAS Healthcare
+  </h2>
+  <button *ngIf="sessionStorage.getItem('credentials') == null" type="button" class="btn btn-primary" [routerLink]="['/register']"><span class="btn-text">LEARN MORE</span></button>
+  <a href="#About" *ngIf="sessionStorage.getItem('role') === 'patient'" type="button" class="btn btn-primary"><span class="btn-text">LEARN MORE</span></a>
+  </div>
+ 
 </div>
 
+<div class="jumbotron" id="doctor-jumb" *ngIf="sessionStorage.getItem('role') === 'doctor'">
+  <div class="container">
+  <h2 class="title">
+    Search for New Patients <br> IN DIAS Healthcare
+  </h2>
+  <button type="button" class="btn btn-primary" [routerLink]="['/doctor/mypatients']"><span class="btn-text">SEARCH</span></button>
+  </div>
+ 
+</div>
 
-<section class="page-section py-3 mb-5" id="About">
+<div class="jumbotron" id="patient-jumb" *ngIf="sessionStorage.getItem('role') === 'chiefDoctor'">
+  <div class="container">
+  <h2 class="title">
+    DIAS Healthcare
+  </h2>
+  
+  </div>
+ 
+</div>
+
+<section class="page-section py-3 mb-5" id="About" >
   <div class="container">
       <div class="row text-center">
           <div class="col-md-12">
@@ -65,13 +91,7 @@
   </div>   				
 </section>
 
-<footer class="footer">
-  <div class="container">
-      <div class="footer-copyright text-left py-5">
-          <span style="color:black;font-weight: bold;">DIAS Healthcare ©2020</span>
-      </div>
-  </div>
-</footer>
+
 
 
 

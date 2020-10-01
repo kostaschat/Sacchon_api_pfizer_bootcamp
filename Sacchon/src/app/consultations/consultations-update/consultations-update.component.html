@@ -1,8 +1,9 @@
-<div class="container">
-    <div class="addconsultations-content">
+<div class="container py-5 mt-5">
+  <div class="card consultation-card">
+    <div class="card-body">
     <form [formGroup]="formUpdate" (submit)="formSubmit()">
         <div class="form-group">
-          <h1>Let’s add a consultation!</h1>
+          <h1>Let’s update your consultation!</h1>
           <h2>Please fill out the information below.</h2>
         </div>
         <div class="form-group">
@@ -20,6 +21,14 @@
               Field is required
             </div>
         </div>
+
+        <div class="form-group">
+          <label for="advice">Advice</label>
+          <input type="text" class="form-control" id="advice" placeholder="Enter the advice" formControlName="advice">
+          <div *ngIf="formUpdate.get('advice').errors?.required && formUpdate.get('advice').dirty" class="text-danger">
+            Field is required
+          </div>
+      </div>
         
         <div class="form-group">
           <button type="submit" class="btn btn-primary" [disabled]="!formUpdate.valid">Submit</button>
@@ -27,3 +36,4 @@
       </form>
     </div>
   </div>
+</div>

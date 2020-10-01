@@ -4,7 +4,15 @@ a.navbar-brand {
   word-break: break-all;
 }
 
+.logo-text{
+  font-size:16px;
+  padding-left: 10px;
+  font-weight: 600;
+}
 
+.logo{
+  width:50px;
+}
 
 nav .navbar-nav li a{
   color: #00B5E2 !important;
@@ -23,4 +31,18 @@ nav .navbar-nav li a{
 }
 
 
+.line {
+  border-left: 1px solid black;
+  height: 20px;
+  opacity:0.2;
+  margin-top:11px;
+  margin-left:5px;
+  margin-right:5px;
+}
 
+@media only screen and (max-width: 768px) {
+  .line {
+    border-left:0px;
+    margin-top:-20px;
+  }
+}

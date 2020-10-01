@@ -51,8 +51,11 @@ formRegisterSumbit(){
 
   this.http.post('http://localhost:9000/v1/register', data).subscribe(
       (response) => console.log(response),
-      (error) => console.log(error),
-      this.router.navigate['dashboard']
-  ) 
+      (error) => console.log(error));
+      sessionStorage.setItem("credentials", data.username + ":" + data.password)
+      sessionStorage.setItem("role", "patient")
+      sessionStorage.setItem("username", data.username)
+      sessionStorage.setItem("modified", "false")
+      this.router.navigate(['dashboard'])
 }
 }

@@ -35,7 +35,7 @@ export class ChiefdoctorService {
 
 getPendingList() : Observable <PatientsPendingList[]> {
   return this.http.get<PatientsPendingList[]>(
-    this.Url + 'patients/consultation-pending/',
+    this.Url + 'patients/consultation-pending',
     {headers:new HttpHeaders(
       {'Authorization': 'Basic ' + btoa(sessionStorage.getItem("credentials"))}
       )

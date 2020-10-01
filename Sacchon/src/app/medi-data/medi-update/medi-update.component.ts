@@ -38,6 +38,7 @@ export class MediUpdateComponent implements OnInit {
       this.fillData() } );
     }
   }
+  
   fillData(){
      this.formUpdate.patchValue(this.mediData)
   }
@@ -49,8 +50,7 @@ export class MediUpdateComponent implements OnInit {
     "carb": this.formUpdate.get('carb').value,
     "glucose":this.formUpdate.get('glucose').value
     }
-    console.log(data)
-    this.mediService.updateMediData(this.id,data).subscribe(data => { alert(JSON.stringify(data)); this.ngOnInit();    });
+    this.mediService.updateMediData(this.id,data).subscribe(data => { alert("You successfully updated your Medical Data"); this.router.navigate(['medi/list-data'])});
   }
 
 }

@@ -80,4 +80,14 @@ export class MediDataService {
       );
   }
 
+  getAverageData(datatype,fromDate,untilDate): Observable<MediData> {
+    return this.http.get<MediData>(
+      this.urlto + 'medidata/' + datatype + '/' +fromDate  +'/' + untilDate,
+      {headers:new HttpHeaders(
+        {'Authorization': 'Basic ' + btoa(sessionStorage.getItem("credentials"))}
+        )
+      }
+      );
+  }
+
 }

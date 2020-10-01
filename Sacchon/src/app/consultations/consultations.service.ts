@@ -12,7 +12,9 @@ export class ConsultationsService {
   readonly baseUrl = 'http://localhost:9000/v1/consultations';
   readonly url = 'http://localhost:9000/v1/add-consultation/';
   readonly mediUrl = 'http://localhost:9000/v1/medidata';
- readonly url_k = 'http://localhost:9000/v1/';
+  readonly url_k = 'http://localhost:9000/v1/';
+  readonly cons_url = 'http://localhost:9000/v1/consultations/';
+  readonly all_medi = 'http://localhost:9000/v1/all-medidata/';
 
   constructor(private http: HttpClient){}
 
@@ -26,6 +28,17 @@ export class ConsultationsService {
       }
       );
   }
+
+  getPatientConsultations(id): Observable<Consultations[]>{
+    return this.http.get<Consultations[]>(
+      this.cons_url+id,
+      {headers:new HttpHeaders(
+        {'Authorization': 'Basic ' + btoa(sessionStorage.getItem("credentials"))}
+        )
+      }
+      );
+  }
+
 
   getDoctrorConsultations(id, fromDate, untilDate): Observable<Consultations[]>{
     return this.http.get<Consultations[]>(
@@ -52,19 +65,28 @@ export class ConsultationsService {
     }
 
  getConsultationToUpdate(id):Observable <Consultations> {
-      console.log("getConsultationToUpdate " +this.url_k+ 'consultation/'  +id )
+      console.log("getConsultationToUpdate" +this.url_k+ 'consultation/'  +id )
       return this.http.get<Consultations>(
-        this.url+ 'consultation/'  +id,
+        this.url_k+ 'consultation/'  +id,
         {headers:new HttpHeaders(
           {'Authorization': 'Basic ' + btoa(sessionStorage.getItem("credentials"))}
           )
         }
         );
-    }
+  }
 
   getConsultationMedi(): Observable<MediData[]>{
     return this.http.get<MediData[]>(
       this.mediUrl, {
+      headers: new HttpHeaders({ 'Authorization': 'Basic ' + btoa(sessionStorage.getItem("credentials")) }
+      )
+    }
+    );
+  }
+
+  getMedi(id): Observable<MediData[]>{
+    return this.http.get<MediData[]>(
+      this.all_medi+id, {
       headers: new HttpHeaders({ 'Authorization': 'Basic ' + btoa(sessionStorage.getItem("credentials")) }
       )
     }

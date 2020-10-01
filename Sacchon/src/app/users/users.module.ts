@@ -15,6 +15,6 @@ import { SettingsComponent } from './settings/settings.component';
     CommonModule,
     UsersRoutingModule,
     ReactiveFormsModule
-  ], exports:[UsersRoutingModule]
+  ], exports:[]
 })
 export class UsersModule { }

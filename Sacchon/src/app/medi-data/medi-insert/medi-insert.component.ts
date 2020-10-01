@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MediDataService } from '../medi-data.service';
 
 @Component({
@@ -11,7 +12,7 @@ export class MediInsertComponent implements OnInit {
   res: any;
   form: FormGroup;
   
-  constructor(private mediDataService: MediDataService) { }
+  constructor(private mediDataService: MediDataService,private router: Router) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -28,7 +29,8 @@ export class MediInsertComponent implements OnInit {
         console.log(this.res)
 
         if (this.res != null){
-          alert("Medical Data entered successfully ")
+          alert("Medical Data entered successfully! ")
+          this.router.navigate(['medi/list-data'])
          }
          else {
           alert("Please wait a doctor to consult your previous Medical Data, before adding a new one");

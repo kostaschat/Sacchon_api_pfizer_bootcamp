@@ -1,12 +1,12 @@
 <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
-    <a class="navbar-brand" [routerLink]="['dashboard']">Sacchon</a>
+    <a class="navbar-brand" [routerLink]="['dashboard']"><img class="logo" src="/assets/images/logo.png"><span class="logo-text">DIAS Healthcare</span></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="navbar-collapse collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link"[routerLink]="['dashboard']"><i class="fa fa-home fa-fw" aria-hidden="true"></i>&nbsp; Home</a>
+          <a class="nav-link"[routerLink]="['dashboard']"><i class="fa fa-home fa-fw" aria-hidden="true"></i> Home</a>
         </li>
         <li class="nav-item" *ngIf="sessionStorage.getItem('role') === 'patient'">
           <a class="nav-link" [routerLink]="['consultations']">Consultation</a>
@@ -28,6 +28,8 @@
             <a class="dropdown-item" [routerLink]="['medi/list-data']">View</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" [routerLink]="['medi/insert']">Insert</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" [routerLink]="['patient/average-data']">Average Data</a>
           </div>
         </li>
 
@@ -45,11 +47,13 @@
 
       </ul>
       <ul class="navbar-nav ml-auto">
-        <div *ngIf="sessionStorage.getItem('credentials') == null" style="display:inline-flex;">
+        <div *ngIf="sessionStorage.getItem('credentials') == null">
           <li class="nav-item">
            <a class="nav-link" [routerLink]="['login']">Login</a>
           </li>
-
+        </div>
+        <div *ngIf="sessionStorage.getItem('credentials') == null" class="line"></div>
+        <div *ngIf="sessionStorage.getItem('credentials') == null">
           <li class="nav-item">
            <a class="nav-link" [routerLink]="['register']" > Register</a>
           </li>

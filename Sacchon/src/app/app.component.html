@@ -1,23 +1,30 @@
-<html lang="en">
-<head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
-<body>
-<!--navigation bar-->
 <header>
  <app-nav></app-nav>
 </header>
 
-<main role="main">
-      <router-outlet> </router-outlet>
-</main>
+<div id="page-container">
+  <div id="content-wrap">
+    <router-outlet> </router-outlet>
+  </div>
+  <footer id="footer">
+  <div class="container pt-3">
+    <div class="d-flex">
+      <div class="p-2">
+        <img class="logo" src="/assets/images/logo.png"><span class="logo-text">DIAS Healthcare ©2020</span>
+      </div>
+      <div class="p-2">
+        <div class="line"></div>
+      </div>
+      <div class="p-2">
+        <i class="fa fa-globe"></i>
+        <span class="logo-text3">Greece</span>
+      </div>
+      <div class="ml-auto p-2">
+        <span class="logo-text2">Powered by</span><img class="logo2" src="/assets/images/Pfizer_logo.png">
+      </div>
+    </div>
+    
+  </div>
+  </footer>
+</div>
 
-</body>
-</html>

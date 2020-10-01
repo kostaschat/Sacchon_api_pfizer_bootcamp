@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {FormsModule,ReactiveFormsModule} from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConsultationsService } from '../consultations.service';
 
 @Component({
@@ -14,7 +14,8 @@ export class ConsultationsInsertComponent implements OnInit {
   form: FormGroup;
   id: any;
   
-  constructor(private consultationsService: ConsultationsService, private route: ActivatedRoute) { }
+  constructor(private consultationsService: ConsultationsService,
+     private route: ActivatedRoute, private router:Router) { }
 
   ngOnInit(): void {
     
@@ -29,7 +30,7 @@ export class ConsultationsInsertComponent implements OnInit {
 
   formSubmit(){
     this.consultationsService.addConsultation(this.form, this.id).subscribe(data => {
-      alert(JSON.stringify(data));
+      alert("You successfully submitted your consultation.");this.router.navigate(['doctor/mypatients'])
     })
   }
 

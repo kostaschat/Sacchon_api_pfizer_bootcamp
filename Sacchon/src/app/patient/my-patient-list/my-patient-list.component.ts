@@ -37,7 +37,16 @@ export class MyPatientListComponent implements OnInit {
   }
 
   gotoMediList(url, id){
-   
+    this.router.navigate([url], {queryParams:{id : id}}).then( (e) => {
+      if (e) {
+        console.log("Navigation is successful!");
+      } else {
+        console.log("Navigation has failed!");
+      }
+    });
+  }
+
+  gotoConsultationList(url, id){
     this.router.navigate([url], {queryParams:{id : id}}).then( (e) => {
       if (e) {
         console.log("Navigation is successful!");
@@ -48,7 +57,6 @@ export class MyPatientListComponent implements OnInit {
   }
 
   addConsultation(url, pid){
-    console.log(pid);
     this.router.navigate([url], {queryParams:{id : pid}}).then( (e) => {
       if (e) {
         console.log("Navigation is successful!");
