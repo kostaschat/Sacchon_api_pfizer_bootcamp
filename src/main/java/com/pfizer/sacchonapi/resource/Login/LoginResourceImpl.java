@@ -69,10 +69,10 @@ public class LoginResourceImpl extends ServerResource implements LoginResource {
                 userOut = user.get();
 
                 userOut.setAddress(applicationUser.getAddress());
-                userOut.setCity(applicationUser.getCity());
+                userOut.setEmail(applicationUser.getEmail());
                 userOut.setFirstName(applicationUser.getFirstName());
-                userOut.setLastName(userOut.getLastName());
-                userOut.setPassword(userOut.getPassword());
+                userOut.setLastName(applicationUser.getLastName());
+                userOut.setPassword(applicationUser.getPassword());
 
             }else {
                 LOGGER.config("This user cannot be found in the database.");

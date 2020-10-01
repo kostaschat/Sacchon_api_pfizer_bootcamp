@@ -30,6 +30,10 @@ public class CustomRouter {
         router.attach("/update", LoginResourceImpl.class);
         router.attach("/update/", LoginResourceImpl.class);
 
+        //user get his details
+        router.attach("/get-user", ApplicationUserResourceImpl.class);
+        router.attach("/get-user/", ApplicationUserResourceImpl.class);
+
         //doctor-patient remove his account
         router.attach("/remove-account", ApplicationUserResourceImpl.class);
         router.attach("/remove-account/", ApplicationUserResourceImpl.class);

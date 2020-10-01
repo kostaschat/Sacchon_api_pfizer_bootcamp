@@ -72,6 +72,7 @@ public class ConsultationRepository {
         Consultation in = entityManager.find(Consultation.class, consultation.getId());
         in.setMedicationName(consultation.getMedicationName());
         in.setDosage(consultation.getDosage());
+        in.setAdvice(consultation.getAdvice());
         in.setConsultationDate(consultation.getConsultationDate());
         try {
             entityManager.getTransaction().begin();

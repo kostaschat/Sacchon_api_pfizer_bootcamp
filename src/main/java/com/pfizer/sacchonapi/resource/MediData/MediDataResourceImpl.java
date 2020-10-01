@@ -105,6 +105,9 @@ public class MediDataResourceImpl extends ServerResource implements MediDataReso
                 System.out.println(toDate);
                 System.out.println(dataType);
                 System.out.println(patient.getId());
+
+
+
                 average_value = mediDataRepository.average(fromDate, toDate, dataType, patient.getId());
                 System.out.println("This is the value" + average_value);
                 result = new MediDataRepresentation();

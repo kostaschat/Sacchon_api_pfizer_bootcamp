@@ -55,8 +55,8 @@ public class ConsultationResourceImpl extends ServerResource implements Consulta
         ResourceUtils.checkRoles(this, Shield.patient, Shield.doctor);
 
         Consultation consultation;
-        try {
 
+        try {
             Optional<Consultation> oconsultation = consultationRepository.findById(cid);
 
 

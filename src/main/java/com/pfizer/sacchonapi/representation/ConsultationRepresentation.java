@@ -35,6 +35,7 @@ public class ConsultationRepresentation {
         consultation.setMedicationName(medicationName);
         consultation.setDosage(dosage);
         consultation.setAdvice(advice);
+        consultation.setConsultationDate(consultationDate);
         return consultation;
     }
 }

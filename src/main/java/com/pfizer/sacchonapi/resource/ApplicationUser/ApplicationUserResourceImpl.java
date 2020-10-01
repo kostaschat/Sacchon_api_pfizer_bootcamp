@@ -57,6 +57,28 @@ public class ApplicationUserResourceImpl extends ServerResource implements Appli
     }
 
     @Override
+    public ApplicationUserRepresentation getUser() throws NotFoundException {
+        LOGGER.info("Retrieve a user");
+        ResourceUtils.checkRoles(this, Shield.patient,Shield.doctor, Shield.chiefDoctor);
+        Optional<ApplicationUser> user = applicationUserRepository.getCurrent();
+        ApplicationUser applicationUser = null;
+        Optional<ApplicationUser> oUser;
+        try {
+
+        if (user.isPresent()){
+            applicationUser = user.get();
+        }else{
+            LOGGER.config("This user cannot be found in the database:");
+            throw new NotFoundException("No user with this name");
+        }
+          oUser = applicationUserRepository.findByUsername(applicationUser.getUsername());
+        }catch (Exception ex) {
+            throw new ResourceException(ex);
+        }
+        return new ApplicationUserRepresentation(oUser.get());
+    }
+
+    @Override
     public ApplicationUserRepresentation consultPatient() throws NotFoundException, BadEntityException {
 
         ResourceUtils.checkRole(this, Shield.doctor);
