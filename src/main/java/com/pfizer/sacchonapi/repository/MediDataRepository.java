@@ -25,7 +25,7 @@ public class MediDataRepository {
     }
 
     public List<MediData> findMediData(long id) {
-        return entityManager.createQuery("FROM MediData WHERE patient_id = :id")
+        return entityManager.createQuery("FROM MediData WHERE patient_id = :id ORDER BY measuredDate DESC ")
                 .setParameter("id", id)
                 .getResultList();
     }
@@ -59,7 +59,7 @@ public class MediDataRepository {
         String sql = "SELECT M.* " +
                 "FROM MediData M " +
                 "INNER JOIN Patient P " +
-                "on M.patient_id = P.id WHERE M.patient_id  = :pId AND P.doctor_id =:dId AND M.consultation_id is null";
+                "on M.patient_id = P.id WHERE M.patient_id  = :pId AND P.doctor_id =:dId AND M.consultation_id is null ORDER BY measuredDate DESC";
         NativeQuery query = s.createSQLQuery(sql);
         query.setParameter("dId", dId);
         query.setParameter("pId", pId);
@@ -67,19 +67,19 @@ public class MediDataRepository {
         return query.getResultList();
     }
 
-//    public List<MediData> findMediData(long pid, long d_id) {
-//
-//        Session s = (Session) entityManager.getDelegate();
-//        String sql = "SELECT M.* " +
-//                "FROM MediData M " +
-//                "INNER JOIN Patient P " +
-//                "on M.patient_id = P.id WHERE M.patient_id  = :pid AND P.doctor_id =:d_id";
-//        NativeQuery query = s.createSQLQuery(sql);
-//        query.setParameter("d_id", d_id);
-//        query.setParameter("pid", pid);
-//        query.addEntity(MediData.class);
-//        return query.getResultList();
-//    }
+    public List<MediData> findMediData(long pid, long d_id) {
+
+        Session s = (Session) entityManager.getDelegate();
+        String sql = "SELECT M.* " +
+                "FROM MediData M " +
+                "INNER JOIN Patient P " +
+                "on M.patient_id = P.id WHERE M.patient_id  = :pid AND P.doctor_id =:d_id ORDER BY measuredDate DESC";
+        NativeQuery query = s.createSQLQuery(sql);
+        query.setParameter("d_id", d_id);
+        query.setParameter("pid", pid);
+        query.addEntity(MediData.class);
+        return query.getResultList();
+    }
 
     public List<MediData> findMonitoredMediData(long pid, String startDate, String endDate)
     {
@@ -87,7 +87,7 @@ public class MediDataRepository {
         String sql = "SELECT M.* " +
                 "from MediData M, Patient P " +
                 "where M.patient_id = P.id and P.id = :pid and " +
-                "measuredDate >= :startDate AND measuredDate <= :endDate";
+                "M.measuredDate >= :startDate AND M.measuredDate <= :endDate";
         NativeQuery query = s.createSQLQuery(sql);
         query.setParameter("pid", pid);
         query.setParameter("endDate", endDate);

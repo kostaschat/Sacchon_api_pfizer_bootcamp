@@ -37,7 +37,7 @@ public class ResourceUtils {
 
     public static void checkRoles(ServerResource serverResource, String role1, String role2,String role3)
             throws ResourceException {
-        if (!serverResource.isInRole(role1) && !serverResource.isInRole(role2)){
+        if (!serverResource.isInRole(role1) && !serverResource.isInRole(role2) && !serverResource.isInRole(role3)){
             throw new ResourceException(
                     Status.CLIENT_ERROR_FORBIDDEN.getCode(),
                     "You're not authorized to send this call.");

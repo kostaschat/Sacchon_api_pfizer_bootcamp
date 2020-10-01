@@ -26,6 +26,9 @@ public class CustomRouter {
     public Router createApiRouter() {
 
         Router router = new Router(application.getContext());
+        //user update his profile
+        router.attach("/update", LoginResourceImpl.class);
+        router.attach("/update/", LoginResourceImpl.class);
 
         //doctor-patient remove his account
         router.attach("/remove-account", ApplicationUserResourceImpl.class);

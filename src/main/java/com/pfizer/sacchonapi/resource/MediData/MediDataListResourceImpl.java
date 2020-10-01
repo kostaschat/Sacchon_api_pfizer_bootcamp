@@ -77,12 +77,12 @@ public class MediDataListResourceImpl extends ServerResource implements MediData
 
         ResourceUtils.checkRoles(this, Shield.patient, Shield.doctor, Shield.chiefDoctor);
         Optional<ApplicationUser> user = applicationUserRepository.getCurrent();
-
+        String role = user.get().getRole().getRoleName();
         try {
             List<MediData> mediData;
             List<MediDataRepresentation> result = new ArrayList<>();
-            if (pid != -1) {
 
+            if (pid != -1 && role.equals("doctor")) {
                 Doctor doctorOut;
                 if (user.isPresent()) {
                     doctorOut = user.get().getDoctor();
@@ -92,32 +92,21 @@ public class MediDataListResourceImpl extends ServerResource implements MediData
                 }
 
                 long d_id = doctorOut.getId();
-
-                mediData = mediDataRepository.findMediDataWithNoConsultation(pid, d_id);
+                mediData = mediDataRepository.findMediData(pid, d_id);
+//                mediData = mediDataRepository.findMediDataWithNoConsultation(pid, d_id);
+            } else if (role.equals("chiefDoctor")){
+                mediData = getMonitoringMediData();
             } else {
-                Role role;
-
+                Patient patientOut;
                 if (user.isPresent()) {
-                    role = user.get().getRole();
+                    patientOut = user.get().getPatient();
                 } else {
-                    LOGGER.config("This doctor cannot be found in the database:");
-                    throw new NotFoundException("No doctor with this name");
+                    LOGGER.config("This Patient cannot be found in the database:");
+                    throw new NotFoundException("No patient with this name");
                 }
-                if (role.getRoleName().equals("chiefDoctor")) {
-                    mediData = getMonitoringMediData();
-                } else {
-
-                    Patient patientOut;
-                    if (user.isPresent()) {
-                        patientOut = user.get().getPatient();
-                    } else {
-                        LOGGER.config("This Patient cannot be found in the database:");
-                        throw new NotFoundException("No patient with this name");
-                    }
-                    long id = patientOut.getId();
-                    mediData = mediDataRepository.findMediData(id);
+                  long id = patientOut.getId();
+                  mediData = mediDataRepository.findMediData(id);
                 }
-            }
             mediData.forEach(m -> result.add(new MediDataRepresentation(m)));
             return result;
         } catch (Exception e) {
