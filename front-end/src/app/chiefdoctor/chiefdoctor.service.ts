@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { PatientsPendingList } from './pending-list/pending-list.component';
 import { UsersList } from './users-list';
 
 
@@ -33,16 +32,16 @@ export class ChiefdoctorService {
     );
 }
 
-getPendingList() : Observable <PatientsPendingList[]> {
-  return this.http.get<PatientsPendingList[]>(
+getPendingList() : Observable <UsersList[]> {
+  return this.http.get<UsersList[]>(
     this.Url + 'patients/consultation-pending',
     {headers:new HttpHeaders(
       {'Authorization': 'Basic ' + btoa(sessionStorage.getItem("credentials"))}
       )
     }
     );
-
 }
+
 getDoctors() : Observable <UsersList[]> {
   return this.http.get<UsersList[]>(
     this.Url + 'inactive-doctors',

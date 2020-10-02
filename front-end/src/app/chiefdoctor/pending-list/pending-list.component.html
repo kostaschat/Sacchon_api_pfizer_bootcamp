@@ -8,9 +8,8 @@
     <tbody>
       <tr mdbTableCol *ngFor="let value of pendingList; let i = index">
         <th scope="row">{{i+1}}</th>
-        <td>{{value.username}}</td>
-        <td>{{value.pendignDays}}</td>      
-    
+        <td>{{value.unconsultedPatient}}</td>
+        <td>{{value.timeElapsed}}</td>      
       </tr>
     </tbody>
   </table>

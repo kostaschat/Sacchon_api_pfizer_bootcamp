@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PatientsWithoutConsultationRepresentation {
 
-    private ApplicationUserRepresentation unconsultedPatient;
+    private String unconsultedPatient;
     private int timeElapsed;
 
-    public PatientsWithoutConsultationRepresentation(ApplicationUserRepresentation unconsultedPatient, int timeElapsed) {
+    public PatientsWithoutConsultationRepresentation( String unconsultedPatient, int timeElapsed) {
         this.unconsultedPatient = unconsultedPatient;
         this.timeElapsed = timeElapsed;
     }

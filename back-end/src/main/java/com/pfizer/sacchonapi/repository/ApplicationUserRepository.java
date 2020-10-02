@@ -178,36 +178,33 @@ public class ApplicationUserRepository {
     public List<PatientsWithoutConsultationRepresentation> WaitingForConsultationAndTimeEllapsed() {
 
         Session s = (Session) entityManager.getDelegate();
-        String sql = "Select P.user_username, (COUNT(DISTINCT CAST(M.measuredDate AS DATE))) AS Days " +
-                "from Patient P, MediData M " +
-                "where P.id = M.patient_id " +
-                "and (M.measuredDate) > (SELECT MAX(C.ConsultationDate) " +
-                "FROM Consultation C where C.patient_id = M.patient_id) " +
-                "and P.consultationPending = 1" +
-                "GROUP BY P.user_username " +
-                "HAVING (COUNT(DISTINCT CAST(M.measuredDate AS DATE))) >= 30";
+        String sql = "Select DISTINCT P.user_username, M.measuredDate " +
+                "FROM Patient P, MediData M " +
+                "WHERE P.consultationPending = 1 " +
+                "AND M.measuredDate= (SELECT MAX(M.measuredDate) " +
+                "FROM MediData M " +
+                "WHERE M.patient_id = P.id)";
+
         NativeQuery query = s.createSQLQuery(sql);
-
         List<Object[]> list = query.getResultList();
-        List<PatientsWithoutConsultationRepresentation> patientList = new ArrayList<>();
+
         String username;
-        int daysEllapsed;
-        ApplicationUser patient;
+
+        Date date = new Date();
+        Date createdDate;
+        int diffInDays;
+
         PatientsWithoutConsultationRepresentation modifiedPatient;
+        List<PatientsWithoutConsultationRepresentation> patientList = new ArrayList<>();
 
-        System.out.println("megethos listas" + list.size());
-
-        for(Object[] obj: list)
-        {
+        for(Object obj[]: list) {
+            createdDate = (Date) obj[1];
             username = (String) obj[0];
-            daysEllapsed = (int) obj[1];
-            System.out.println("Poses" + username + daysEllapsed);
-            patient = findByUsername(username).get().getPatient().getApplicationUser();
-            System.out.println("Patient" + patient.getFirstName());
-            modifiedPatient = new PatientsWithoutConsultationRepresentation(new ApplicationUserRepresentation(patient), daysEllapsed);
+            diffInDays = (int) ((date.getTime() - createdDate.getTime()) / (1000 * 60 * 60 * 24));
+
+            modifiedPatient = new PatientsWithoutConsultationRepresentation(username , diffInDays);
             patientList.add(modifiedPatient);
         }
-
         return patientList;
     }
 }
