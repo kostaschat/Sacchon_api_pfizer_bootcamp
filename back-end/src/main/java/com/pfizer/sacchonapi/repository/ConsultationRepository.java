@@ -1,6 +1,7 @@
 package com.pfizer.sacchonapi.repository;
 
 import com.pfizer.sacchonapi.model.Consultation;
+import com.pfizer.sacchonapi.model.MediData;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 
@@ -33,6 +34,28 @@ public class ConsultationRepository {
                 .setParameter("p_id", p_id)
                 .setParameter("d_id", d_id)
                 .getResultList();
+    }
+
+    public boolean findCons(long p_id) {
+        List<Consultation> consultations = entityManager.createQuery("FROM Consultation WHERE patient_id = :p_id")
+                .setParameter("p_id", p_id)
+                .getResultList();
+
+        Session s = (Session) entityManager.getDelegate();
+        String sql = "Select (COUNT(DISTINCT CAST(M.measuredDate AS DATE))) AS Days " +
+                "from Patient P, MediData M " +
+                "where P.id = M.patient_id and P.id = :p_id";
+
+        NativeQuery query = s.createSQLQuery(sql);
+        query.setParameter("p_id", p_id);
+        List value = query.list();
+        System.out.println(value.get(0));
+        double x = Double.parseDouble(value.get(0).toString());
+
+        if ((consultations.size() == 0) && (x>=30))
+         return true;
+
+        return false;
     }
 
 //    public List<Consultation> findAll(Date startDate, Date endDate) {

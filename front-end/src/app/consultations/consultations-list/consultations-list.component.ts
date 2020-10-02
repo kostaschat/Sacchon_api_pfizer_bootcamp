@@ -57,8 +57,7 @@ export class ConsultationsListComponent implements OnInit {
   }
 
   onClickEdit(id){
-    console.log(id)
-    this.router.navigate(['doctor/consultation/edit'], {queryParams:{id : this.id}}).then( (e) => {
+    this.router.navigate(['doctor/consultation/edit'], {queryParams:{id : id}}).then( (e) => {
       if (e) {
         console.log("Navigation is successful!");
       } else {

@@ -185,7 +185,7 @@ public class ApplicationUserRepository {
                 "FROM Consultation C where C.patient_id = M.patient_id) " +
                 "and P.consultationPending = 1" +
                 "GROUP BY P.user_username " +
-                "HAVING (COUNT(DISTINCT CAST(M.measuredDate AS DATE))) > 30";
+                "HAVING (COUNT(DISTINCT CAST(M.measuredDate AS DATE))) >= 30";
         NativeQuery query = s.createSQLQuery(sql);
 
         List<Object[]> list = query.getResultList();

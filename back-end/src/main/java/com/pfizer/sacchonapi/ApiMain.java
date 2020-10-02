@@ -20,7 +20,11 @@ public class ApiMain extends Application {
     public static final Logger LOGGER = Engine.getLogger(ApiMain.class);
 
     public static void main(String[] args) throws Exception {
+
         LOGGER.info("Contacts application starting...");
+
+        EntityManager entityManager = JpaUtil.getEntityManager();
+        entityManager.close();
 
         Component c = new Component();
         c.getServers().add(Protocol.HTTP, 9000);
