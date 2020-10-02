@@ -10,7 +10,7 @@
             <div class="col-sm-3 col-sm-push-4">
               <input class="form-control" type="date" value="2020-08-19" id="untilDate" formControlName="untilDate" >
             </div>
-            <div class="col-sm-2 col-sm-push-4">
+            <div class="col-sm-2 col-sm-push-4 users">
               <select class="form-control" formControlName="Users">
                 <option >Patient</option>
                 <option *ngFor="let user of UserOptions" [ngValue]="user">
@@ -29,7 +29,7 @@
       <div *ngIf="usersList.length== 0">There is none inactive in those days</div>
       <div class="card-header" id="{{doctor.firstName + 't'}}">
         <h5 class="mb-0">
-          <button class="btn btn-link" data-toggle="collapse"  [attr.data-target]="'#'+doctor.firstName" aria-expanded="true" [attr.aria-controls]="doctor.firstName">
+          <button class="btn btn-link" id="btn-link" data-toggle="collapse"  [attr.data-target]="'#'+doctor.firstName" aria-expanded="true" [attr.aria-controls]="doctor.firstName">
             {{doctor.lastName}} {{doctor.firstName}} 
           </button>
         </h5>

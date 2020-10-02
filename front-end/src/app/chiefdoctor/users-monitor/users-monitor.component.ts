@@ -8,7 +8,7 @@ import { UsersList } from '../users-list';
 @Component({
   selector: 'app-users-monitor',
   templateUrl: './users-monitor.component.html',
-  styleUrls: ['./users-monitor.component.css']
+  styleUrls: ['./users-monitor.component.scss']
 })
 export class MonitorUsersComponent implements OnInit {
   uri:any;

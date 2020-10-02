@@ -1,16 +1,9 @@
 @media only screen and (max-width: 768px) {
     .btn{
         margin-top:15px;
-    }
- 
-    .col-form-label{
-        padding-top: 15px;
-        padding-left: 15px;
+        width:100%;
     }
 
-    .users{
-        padding-top: 30px;
-    }
  }
 
  #btn-link{
@@ -22,17 +15,12 @@
     border:0;
 }
 
-
+.labels{
+    font-weight: bold;
+}
 
 #btn-link:focus {
     outline:none;
     box-shadow: none;
 }
 
-#btn-info{
-    margin-top:10px; 
-    margin-bottom: 10px;
-}
-
-
- 

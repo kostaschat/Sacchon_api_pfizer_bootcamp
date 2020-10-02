@@ -1,22 +1,17 @@
-<div class="container">
-  <div *ngIf="sessionStorage.getItem('modified') == 'true'">
-    <div class="alert alert-info alert-dismissible" id="alert-box">
-      <button type="button" class="close" (click)="onClickUpdate()" data-dismiss="alert">&times;</button>
-      <strong>Warning!</strong> Doctor made a modification to a consultation.
-    </div>
-  </div>
-</div>
-
-
 <div class="jumbotron"  id="patient-jumb" *ngIf="sessionStorage.getItem('role') === 'patient' || sessionStorage.getItem('credentials') == null">
   <div class="container">
-  <h2 class="title">
-    Your Personal Doctor <br> By DIAS Healthcare
-  </h2>
-  <button *ngIf="sessionStorage.getItem('credentials') == null" type="button" class="btn btn-primary" [routerLink]="['/register']"><span class="btn-text">LEARN MORE</span></button>
-  <a href="#About" *ngIf="sessionStorage.getItem('role') === 'patient'" type="button" class="btn btn-primary"><span class="btn-text">LEARN MORE</span></a>
+    <div *ngIf="sessionStorage.getItem('modified') == 'true'">
+      <div class="alert alert-info alert-dismissible" id="alert-box">
+        <button type="button" class="close" (click)="onClickUpdate()" data-dismiss="alert">&times;</button>
+        <strong>Warning!</strong> Doctor made a modification to a consultation.
+      </div>
+    </div>
+    <h2 class="title">
+      Your Personal Doctor <br> By DIAS Healthcare
+    </h2>
+    <button *ngIf="sessionStorage.getItem('credentials') == null" type="button" class="btn btn-primary" [routerLink]="['/register']"><span class="btn-text">LEARN MORE</span></button>
+    <a href="#About" *ngIf="sessionStorage.getItem('role') === 'patient'" type="button" class="btn btn-primary"><span class="btn-text">LEARN MORE</span></a>
   </div>
- 
 </div>
 
 <div class="jumbotron" id="doctor-jumb" *ngIf="sessionStorage.getItem('role') === 'doctor'">
@@ -72,19 +67,19 @@
     </div>
     <div class="row py-5 text-center" id="service">
         <div class="col-6 col-md-3">
-          <img src="/assets/images/icon2.svg" style="width:150px;">
+          <img src="/assets/images/icon2.png" style="width:150px;">
           <h6>Data Monitoring</h6>
         </div>
         <div class="col-6 col-md-3">
-          <img src="/assets/images/icon3.svg" style="width:150px;">
+          <img src="/assets/images/icon3.png" style="width:150px;">
             <h6>Doctor Consulting</h6>
         </div>
         <div class="col-6 col-md-3">
-          <img src="/assets/images/icon1.svg" style="width:150px;">
+          <img src="/assets/images/icon1.png" style="width:150px;">
           <h6 class="text">Medical Data</h6>
         </div>
         <div class="col-6 col-md-3">
-          <img src="/assets/images/icon4.svg" style="width:150px;">
+          <img src="/assets/images/icon4.png" style="width:150px;">
           <h6>Prescriptions Provision</h6>
         </div>
     </div>
