@@ -1,0 +1,48 @@
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+.logo-text{
+  font-size:16px;
+  padding-left: 10px;
+  font-weight: 600;
+}
+
+.logo{
+  width:50px;
+}
+
+nav .navbar-nav li a{
+  color: #00B5E2 !important;
+}
+
+/* Provide sufficient contrast against white background */
+.nav-link:hover{
+  font-weight: 500;
+}
+
+
+.nav-pills .nav-link.active,.nav-link .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+
+.line {
+  border-left: 1px solid black;
+  height: 20px;
+  opacity:0.2;
+  margin-top:11px;
+  margin-left:5px;
+  margin-right:5px;
+}
+
+@media only screen and (max-width: 768px) {
+  .line {
+    border-left:0px;
+    margin-top:-20px;
+  }
+}

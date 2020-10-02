@@ -1,0 +1,106 @@
+<div class="container-fluid">
+    <div class="col-md-12 my-5">
+        <h4>Account Settings</h4>
+        <hr>
+    </div>
+
+    
+    <div class="col-md-12 my-5">
+        <h5>Update Profile</h5>
+    </div>
+    <div class="card" style="border:none;">
+        <div class="card-body" style="margin:auto;">
+            <form [formGroup]="myform" name="form">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                        </div>
+                        <input type="text" class="form-control" id="firstName" placeholder="First Name"
+                            formControlName="firstName">
+                    </div> 
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                        </div>
+                        <input type="text" class="form-control" id="lastName" placeholder="Last Name "
+                            formControlName="lastName">
+
+                        <div *ngIf="myform.get('lastName').errors?.required" class="text-danger">
+                            Field is required
+                        </div>
+                    </div> 
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                        </div>
+                        <input type="password" class="form-control" id="password" placeholder="Password"
+                            formControlName="password">
+
+                        <div *ngIf="myform.get('password').errors?.required" class="text-danger">
+                            Field is required
+                        </div>
+                    </div> 
+                </div>
+
+
+                <div class="col-sm-12">
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                        </div>
+                        <input type="email" class="form-control" id="email" placeholder="Email" name="mail"
+                            ng-model="mail" formControlName="email" [class.is-invalid] = "myform.get('email').invalid && myform.get('email').dirty">
+
+                        <div *ngIf="myform.get('email').errors?.pattern" class="col-sm-12 text-danger">
+                            Email should be in the correct format
+                        </div>
+
+
+                    </div> 
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-map-marker"></i> </span>
+                        </div>
+                        <input type="text" class="form-control" id="adress" placeholder="Address"
+                            formControlName="address">
+
+                        <div *ngIf="myform.get('address').errors?.required" class="text-danger">
+                            Field is required
+                        </div>
+                    </div> 
+                </div>
+
+                <div class="col-md-12 mx-auto">
+                    <div class="form-group">
+                        <button type="submit" [disabled]="!myform.valid" (click)="updateProfile()"
+                            class="btn btn-primary btn-block">Save</button>
+                    </div> <!-- form-group// -->
+                </div>
+
+                <br>
+                <br>
+            </div>
+            </form>
+            <div class="alert alert-primary" *ngIf="myform.invalid && myform.dirty" type="warning">You have no values written.</div>
+        </div>
+    </div>
+    <div class="row mt-5 del">
+        <div class="col-md-12">
+            <hr>
+            <button id="#delete_button" type="button" class="delete"
+                (click)="callRemoveService()">Delete your account
+            </button>
+        </div>
+    </div>
+    
+</div>
+

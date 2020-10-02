@@ -1,0 +1,45 @@
+ <div class="container" style="width: 60%;"> 
+
+  <form [formGroup]="form" (submit)="formSumbit()">
+    <div class="form-group row pt-5">
+      <div class="col-sm-6">
+          <select class="form-control" formControlName="Users">
+            <option >Patient</option>
+            <option *ngFor="let user of UserOptions" [ngValue]="user">
+              {{user}}
+            </option>
+          </select>
+      </div>
+      <div class="col-sm-6">
+        <button type="submit" class="btn btn-primary" >Search</button>   
+    </div>
+    </div>      
+</form>
+
+ <div id="accordion" class="py-5">
+  <div class="card"  *ngFor="let user of usersList;  let i = index">
+    <div *ngIf="usersList.length== 0">There is none inactive in those days</div>
+    <div class="card-header" id="{{user.firstName + 't'}}">
+      <h5 class="mb-0">
+        <button class="btn btn-link" id="btn-link" data-toggle="collapse"  [attr.data-target]="'#'+user.firstName" aria-expanded="true" [attr.aria-controls]="user.firstName">
+          {{user.lastName}} {{user.firstName}} 
+        </button>
+      </h5>
+    </div>
+
+    <div id="{{user.firstName}}" class="collapse" [attr.aria-labelledby]="user.firstName +'t'" data-parent="#accordion">
+      <div class="card-body">
+        <h5>User's Info</h5>
+        <hr>
+        <span class="labels">Username: </span>{{user.username}} <br>
+        <span class="labels">City: </span>{{user.city}} <br>
+        <span class="labels">Date of Birth: </span>{{user.dod}} <br>
+        <span class="labels">Email: </span>{{user.email }} <br>
+        <span class="labels">Phone number: </span> {{user.phoneNumber }}<br>
+        <span class="labels">Account created:</span>{{user.creationDate | date}} <br>
+       <button type="button " class="btn btn-primary mt-3" (click)="onClick(user.id)" >View Patient</button>
+      </div>        
+    </div>
+  </div>
+</div>
+</div>

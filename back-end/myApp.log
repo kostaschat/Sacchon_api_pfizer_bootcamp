@@ -6751,3 +6751,55 @@ antlr.NoViableAltException: unexpected token: ConsultationDate
 2020-10-02 00:45:41,223 INFO [qtp1987169128-22] o.h.d.Dialect [Dialect.java:158] HHH000400: Using dialect: org.hibernate.dialect.SQLServer2012Dialect
 2020-10-02 00:45:42,751 INFO [qtp1987169128-22] o.h.o.c.access [DdlTransactionIsolatorNonJtaImpl.java:47] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@50e5444c] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
 2020-10-02 00:45:43,012 INFO [qtp1987169128-22] o.h.e.t.j.p.i.JtaPlatformInitiator [JtaPlatformInitiator.java:52] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-10-02 02:19:28,075 INFO [main] o.e.j.u.log [Log.java:193] Logging initialized @1248ms to org.eclipse.jetty.util.log.Slf4jLog
+2020-10-02 02:19:28,188 INFO [main] o.e.j.s.Server [Server.java:374] jetty-9.4.11.v20180605; built: 2018-06-05T18:24:03.829Z; git: d5fc0523cfa96bfebfbda19606cad384d772f04c; jvm 11.0.8+10-LTS
+2020-10-02 02:19:28,578 INFO [main] o.e.j.s.AbstractConnector [AbstractConnector.java:289] Started ServerConnector@7e990ed7{HTTP/1.1,[http/1.1]}{0.0.0.0:9000}
+2020-10-02 02:19:28,579 INFO [main] o.e.j.s.Server [Server.java:411] Started @1762ms
+2020-10-02 02:20:15,634 INFO [main] o.e.j.u.log [Log.java:193] Logging initialized @1202ms to org.eclipse.jetty.util.log.Slf4jLog
+2020-10-02 02:20:15,721 INFO [main] o.e.j.s.Server [Server.java:374] jetty-9.4.11.v20180605; built: 2018-06-05T18:24:03.829Z; git: d5fc0523cfa96bfebfbda19606cad384d772f04c; jvm 11.0.8+10-LTS
+2020-10-02 02:20:16,058 INFO [main] o.e.j.s.AbstractConnector [AbstractConnector.java:289] Started ServerConnector@1807e3f6{HTTP/1.1,[http/1.1]}{0.0.0.0:9000}
+2020-10-02 02:20:16,059 INFO [main] o.e.j.s.Server [Server.java:411] Started @1637ms
+2020-10-02 08:47:12,140 INFO [main] o.e.j.u.log [Log.java:193] Logging initialized @1104ms to org.eclipse.jetty.util.log.Slf4jLog
+2020-10-02 08:47:12,258 INFO [main] o.e.j.s.Server [Server.java:374] jetty-9.4.11.v20180605; built: 2018-06-05T18:24:03.829Z; git: d5fc0523cfa96bfebfbda19606cad384d772f04c; jvm 11.0.8+10-LTS
+2020-10-02 08:47:12,613 INFO [main] o.e.j.s.AbstractConnector [AbstractConnector.java:289] Started ServerConnector@7e990ed7{HTTP/1.1,[http/1.1]}{0.0.0.0:9000}
+2020-10-02 08:47:12,613 INFO [main] o.e.j.s.Server [Server.java:411] Started @1586ms
+2020-10-02 08:48:01,864 INFO [qtp1987169128-22] o.h.j.i.u.LogHelper [LogHelper.java:31] HHH000204: Processing PersistenceUnitInfo [name: PERSISTENCE]
+2020-10-02 08:48:01,995 INFO [qtp1987169128-22] o.h.Version [Version.java:46] HHH000412: Hibernate Core {5.4.1.Final}
+2020-10-02 08:48:02,311 INFO [qtp1987169128-22] o.h.a.c.Version [JavaReflectionManager.java:49] HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-10-02 08:48:02,597 WARN [qtp1987169128-22] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:72] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-10-02 08:48:02,753 INFO [qtp1987169128-22] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:115] HHH10001005: using driver [com.microsoft.sqlserver.jdbc.SQLServerDriver] at URL [jdbc:sqlserver://localhost;databaseName=sacchon3]
+2020-10-02 08:48:02,754 INFO [qtp1987169128-22] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:124] HHH10001001: Connection properties: {password=****, user=sa}
+2020-10-02 08:48:02,754 INFO [qtp1987169128-22] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:129] HHH10001003: Autocommit mode: false
+2020-10-02 08:48:02,759 INFO [qtp1987169128-22] o.h.e.j.c.i.DriverManagerConnectionProviderImpl [DriverManagerConnectionProviderImpl.java:239] HHH000115: Hibernate connection pool size: 20 (min=1)
+2020-10-02 08:48:03,205 INFO [qtp1987169128-22] o.h.d.Dialect [Dialect.java:158] HHH000400: Using dialect: org.hibernate.dialect.SQLServer2012Dialect
+2020-10-02 08:48:03,695 INFO [qtp1987169128-16] o.h.j.i.u.LogHelper [LogHelper.java:31] HHH000204: Processing PersistenceUnitInfo [name: PERSISTENCE]
+2020-10-02 08:48:03,763 WARN [qtp1987169128-16] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:72] HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2020-10-02 08:48:03,764 INFO [qtp1987169128-16] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:115] HHH10001005: using driver [com.microsoft.sqlserver.jdbc.SQLServerDriver] at URL [jdbc:sqlserver://localhost;databaseName=sacchon3]
+2020-10-02 08:48:03,765 INFO [qtp1987169128-16] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:124] HHH10001001: Connection properties: {password=****, user=sa}
+2020-10-02 08:48:03,766 INFO [qtp1987169128-16] o.h.o.c.pooling [DriverManagerConnectionProviderImpl.java:129] HHH10001003: Autocommit mode: false
+2020-10-02 08:48:03,766 INFO [qtp1987169128-16] o.h.e.j.c.i.DriverManagerConnectionProviderImpl [DriverManagerConnectionProviderImpl.java:239] HHH000115: Hibernate connection pool size: 20 (min=1)
+2020-10-02 08:48:03,812 INFO [qtp1987169128-16] o.h.d.Dialect [Dialect.java:158] HHH000400: Using dialect: org.hibernate.dialect.SQLServer2012Dialect
+2020-10-02 08:48:04,778 INFO [qtp1987169128-22] o.h.o.c.access [DdlTransactionIsolatorNonJtaImpl.java:47] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@223c33fa] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2020-10-02 08:48:04,778 INFO [qtp1987169128-16] o.h.o.c.access [DdlTransactionIsolatorNonJtaImpl.java:47] HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@3fd46f0c] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2020-10-02 08:48:05,165 INFO [qtp1987169128-16] o.h.e.t.j.p.i.JtaPlatformInitiator [JtaPlatformInitiator.java:52] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-10-02 08:48:05,165 INFO [qtp1987169128-22] o.h.e.t.j.p.i.JtaPlatformInitiator [JtaPlatformInitiator.java:52] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-10-02 09:06:00,525 WARN [qtp1987169128-20] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:137] SQL Error: 241, SQLState: S0001
+2020-10-02 09:06:00,525 WARN [qtp1987169128-30] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:137] SQL Error: 241, SQLState: S0001
+2020-10-02 09:06:00,526 ERROR [qtp1987169128-30] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:142] Conversion failed when converting date and/or time from character string.
+2020-10-02 09:06:00,526 ERROR [qtp1987169128-20] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:142] Conversion failed when converting date and/or time from character string.
+2020-10-02 09:08:38,653 WARN [qtp1987169128-30] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:137] SQL Error: 241, SQLState: S0001
+2020-10-02 09:08:38,654 ERROR [qtp1987169128-30] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:142] Conversion failed when converting date and/or time from character string.
+2020-10-02 09:08:38,658 WARN [qtp1987169128-17] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:137] SQL Error: 241, SQLState: S0001
+2020-10-02 09:08:38,659 ERROR [qtp1987169128-17] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:142] Conversion failed when converting date and/or time from character string.
+2020-10-02 09:12:56,211 WARN [qtp1987169128-17] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:137] SQL Error: 241, SQLState: S0001
+2020-10-02 09:12:56,212 ERROR [qtp1987169128-17] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:142] Conversion failed when converting date and/or time from character string.
+2020-10-02 09:12:56,215 WARN [qtp1987169128-15] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:137] SQL Error: 241, SQLState: S0001
+2020-10-02 09:12:56,216 ERROR [qtp1987169128-15] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:142] Conversion failed when converting date and/or time from character string.
+2020-10-02 09:13:37,188 WARN [qtp1987169128-17] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:137] SQL Error: 241, SQLState: S0001
+2020-10-02 09:13:37,189 ERROR [qtp1987169128-17] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:142] Conversion failed when converting date and/or time from character string.
+2020-10-02 09:13:37,189 WARN [qtp1987169128-31] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:137] SQL Error: 241, SQLState: S0001
+2020-10-02 09:13:37,190 ERROR [qtp1987169128-31] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:142] Conversion failed when converting date and/or time from character string.
+2020-10-02 09:14:55,932 WARN [qtp1987169128-20] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:137] SQL Error: 241, SQLState: S0001
+2020-10-02 09:14:55,933 ERROR [qtp1987169128-20] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:142] Conversion failed when converting date and/or time from character string.
+2020-10-02 09:14:55,936 WARN [qtp1987169128-31] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:137] SQL Error: 241, SQLState: S0001
+2020-10-02 09:14:55,937 ERROR [qtp1987169128-31] o.h.e.j.s.SqlExceptionHelper [SqlExceptionHelper.java:142] Conversion failed when converting date and/or time from character string.

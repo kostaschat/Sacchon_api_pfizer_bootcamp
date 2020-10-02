@@ -1,0 +1,43 @@
+  
+<div class="container">
+    <div class="container" style="margin-top:50px;">
+        <form [formGroup]="form" (submit)="formSumbit()">
+            <div class="form-group row">
+              <label for="example-date-input" class="col-form-label">From:</label>
+              <div class="col-sm-4">
+                <input class="form-control" type="date" value="2019-08-19" id="fromDate " formControlName="fromDate">
+              </div>
+              <label for="example-date-input" class="col-form-label">Until:</label>
+              <div class="col-sm-4">
+                <input class="form-control" type="date" value="2020-08-19" id="untilDate" formControlName="untilDate" >
+              </div>
+             
+              <div class="col-sm-2">
+                <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Search</button>                 
+            </div>
+            </div>      
+        </form>
+    </div> 
+
+    <div class="modal fade"  [hidden] = "isShow" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Average Data</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h5>Carb: {{averageCarb.carb | number : '1.2-2'}} mg/dL</h5>
+            <hr> 
+            <h5>Glucose: {{averageGlucose.glucose | number : '1.2-2'}} mg/dL</h5>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+

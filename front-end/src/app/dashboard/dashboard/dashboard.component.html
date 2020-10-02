@@ -1,0 +1,93 @@
+<div class="jumbotron"  id="patient-jumb" *ngIf="sessionStorage.getItem('role') === 'patient' || sessionStorage.getItem('credentials') == null">
+  <div class="container">
+    <div *ngIf="sessionStorage.getItem('modified') == 'true'">
+      <div class="alert alert-info alert-dismissible" id="alert-box">
+        <button type="button" class="close" (click)="onClickUpdate()" data-dismiss="alert">&times;</button>
+        <strong>Warning!</strong> Doctor made a modification to a consultation.
+      </div>
+    </div>
+    <h2 class="title">
+      Your Personal Doctor <br> By DIAS Healthcare
+    </h2>
+    <button *ngIf="sessionStorage.getItem('credentials') == null" type="button" class="btn btn-primary" [routerLink]="['/register']"><span class="btn-text">LEARN MORE</span></button>
+    <a href="#About" *ngIf="sessionStorage.getItem('role') === 'patient'" type="button" class="btn btn-primary"><span class="btn-text">LEARN MORE</span></a>
+  </div>
+</div>
+
+<div class="jumbotron" id="doctor-jumb" *ngIf="sessionStorage.getItem('role') === 'doctor'">
+  <div class="container">
+  <h2 class="title">
+    Search for New Patients <br> IN DIAS Healthcare
+  </h2>
+  <button type="button" class="btn btn-primary" [routerLink]="['/doctor/mypatients']"><span class="btn-text">SEARCH</span></button>
+  </div>
+ 
+</div>
+
+<div class="jumbotron" id="patient-jumb" *ngIf="sessionStorage.getItem('role') === 'chiefDoctor'">
+  <div class="container">
+  <h2 class="title">
+    DIAS Healthcare
+  </h2>
+  
+  </div>
+ 
+</div>
+
+<section class="page-section py-3 mb-5" id="About" >
+  <div class="container">
+      <div class="row text-center">
+          <div class="col-md-12">
+              <h2 class="contact-title" style="color:#00B5E2;">What We Do</h2>              
+          </div>
+      </div>
+      <div class="row">
+        <div class="col-12 text-center pt-3">
+          <h2 style="font-weight: bold;">
+          A healthier world with more precise and efficient care
+          </h2>
+        </div>
+        <div class="col-12 text-center pt-3">
+          Healthcare has never been more accessible, intelligent or dynamic. It’s also never been under more pressure, from rising costs to aging populations.
+        </div>
+        <div class="col-12 text-center pt-3">
+          That’s where we come in – you and us, the clinicians and professionals on the frontlines of delivering healthcare for your patients and communities and those building the intelligent devices, data analytics, applications and services to enable you to do so more efficiently and with better outcomes. 
+        </div>
+      </div>
+  </div>
+</section>
+
+
+<section id="Services" class="page-section py-3">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-12">
+          <h2 class="contact-title" style="color:white;padding-top:30px;">Featured Medical Services</h2>              
+      </div>
+    </div>
+    <div class="row py-5 text-center" id="service">
+        <div class="col-6 col-md-3">
+          <img src="/assets/images/icon2.png" style="width:150px;">
+          <h6>Data Monitoring</h6>
+        </div>
+        <div class="col-6 col-md-3">
+          <img src="/assets/images/icon3.png" style="width:150px;">
+            <h6>Doctor Consulting</h6>
+        </div>
+        <div class="col-6 col-md-3">
+          <img src="/assets/images/icon1.png" style="width:150px;">
+          <h6 class="text">Medical Data</h6>
+        </div>
+        <div class="col-6 col-md-3">
+          <img src="/assets/images/icon4.png" style="width:150px;">
+          <h6>Prescriptions Provision</h6>
+        </div>
+    </div>
+  </div>   				
+</section>
+
+
+
+
+
+
