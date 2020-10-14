@@ -9,4 +9,6 @@ export interface UsersList {
     creationDate: string;
     email : string;
     dod : string;
+    timeElapsed: string;
+    unconsultedPatient: string;
   }

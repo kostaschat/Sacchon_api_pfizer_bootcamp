@@ -14,7 +14,7 @@
         <h5 class="mb-0">
           <button class="btn btn-link" id="btn-link" data-toggle="collapse"  [attr.data-target]="'#'+patient.firstName" aria-expanded="true" [attr.aria-controls]="patient.firstName">
             {{patient.lastName}} {{patient.firstName}} 
-        
+           
           </button>
 
           <button *ngIf="checkedTheUnconsulted"  type="button" class="btn btn-info float-right" (click)="addConsultation('/doctor/mypatients/insert-consultation',patient.id)">Add Consultation</button>
@@ -25,15 +25,15 @@
         <div class="card-body">
           <h5>Patient's Info</h5>
           <span>
+           
           <b> Date of Birth:</b> {{patient.dob | date}} <br>
           <b>Email: </b>{{patient.email}} <br>
           <b>Phone Number: </b>{{patient.phoneNumber}} <br>
           <b>Creation Date: </b>{{patient.creationDate | date}} <br>
         </span>
-
           <button type="button" id="btn-info" class="btn btn-info float-left" (click)="gotoMediList('/medi/list-data/',patient.id)">Medidata</button> 
           <button type="button" id="btn-info" style="margin-left: 10px;" (click)="gotoConsultationList('/consultations/',patient.id)" class="btn btn-secondary float-left">Consultations</button>
-        
+       
         </div>
       </div>
     </div>

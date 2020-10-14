@@ -59,6 +59,7 @@ export class MyPatientListComponent implements OnInit {
   addConsultation(url, pid){
     this.router.navigate([url], {queryParams:{id : pid}}).then( (e) => {
       if (e) {
+        console.log(pid);
         console.log("Navigation is successful!");
       } else {
         console.log("Navigation has failed!");

@@ -15,11 +15,7 @@ export class ConsultationsListComponent implements OnInit {
   public sessionStorage = sessionStorage;
   form: FormGroup;
   labelsTable = [' ','Medication Name', 'Dosage', 'Consultation Date',' '];
-  // id: any;
- // consultations: Consultations[];
-  // consultations: Consultations[]= [{
-  //   medicationName : 'kosda', dosage : 123,consultationDate: '2020-1-3',doctor_id: 2,patient_id : 2, uri:'http://localhost:9000/v1/consultation/1'
-  // }];
+
 
   consultations: Consultations[];
   medidata: MediData[];
@@ -57,8 +53,7 @@ export class ConsultationsListComponent implements OnInit {
   }
 
   onClickEdit(id){
-    console.log(id)
-    this.router.navigate(['doctor/consultation/edit'], {queryParams:{id : this.id}}).then( (e) => {
+    this.router.navigate(['doctor/consultation/edit'], {queryParams:{id : id}}).then( (e) => {
       if (e) {
         console.log("Navigation is successful!");
       } else {

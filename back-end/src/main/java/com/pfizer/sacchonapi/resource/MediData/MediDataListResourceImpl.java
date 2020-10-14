@@ -4,6 +4,7 @@ import com.pfizer.sacchonapi.exception.BadEntityException;
 import com.pfizer.sacchonapi.exception.NotFoundException;
 import com.pfizer.sacchonapi.model.*;
 import com.pfizer.sacchonapi.repository.ApplicationUserRepository;
+import com.pfizer.sacchonapi.repository.ConsultationRepository;
 import com.pfizer.sacchonapi.repository.MediDataRepository;
 import com.pfizer.sacchonapi.repository.PatientRepository;
 import com.pfizer.sacchonapi.repository.util.JpaUtil;
@@ -29,6 +30,7 @@ public class MediDataListResourceImpl extends ServerResource implements MediData
     private MediDataRepository mediDataRepository;
     private ApplicationUserRepository applicationUserRepository;
     private PatientRepository patientRepository;
+    private ConsultationRepository consultationRepository;
 
 
     private String fromDate;
@@ -49,6 +51,8 @@ public class MediDataListResourceImpl extends ServerResource implements MediData
             applicationUserRepository = new ApplicationUserRepository(em);
             mediDataRepository = new MediDataRepository(em);
             patientRepository = new PatientRepository(em);
+            consultationRepository = new ConsultationRepository(em);
+
 
             try {
                 fromDate = getAttribute("fromdate");
@@ -155,8 +159,10 @@ public class MediDataListResourceImpl extends ServerResource implements MediData
 
                     mediData.setPatient(patientOut);
                     mediDataRepository.save(mediData);
+                    boolean hasCons = consultationRepository.findCons(patientOut.getId());
+
                     boolean checkIfPassed = mediDataRepository.checkIfReady(patientOut.getId());
-                    if (checkIfPassed) {
+                    if (checkIfPassed || hasCons) {
                         patientOut.setConsultationPending(true);
                         patientOut.setHasConsultation(false);
                         patientRepository.save(patientOut);
