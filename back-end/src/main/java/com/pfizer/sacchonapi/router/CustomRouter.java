@@ -15,7 +15,7 @@ import com.pfizer.sacchonapi.resource.Patient.PatientUserListResourceImpl;
 import org.restlet.Application;
 import org.restlet.routing.Router;
 
-public class CustomRouter {
+public class  CustomRouter {
     private Application application;
 
     public CustomRouter(Application application) {
